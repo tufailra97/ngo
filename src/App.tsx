@@ -1,7 +1,5 @@
-import React from 'react';
-import './App.scss';
+import React, { useEffect, useState } from 'react';
 import RootRouter from 'routes';
-import Navbar from 'components/navbar/Navbar';
 
 const App: React.FC = () => {
   return (

@@ -8,13 +8,13 @@ import {
 import Home from './home/Home';
 import Movies from './movies/Movies';
 import Series from './series/Series';
-import Navbar from 'components/navbar/Navbar';
+import Sidebar from 'components/sidebar/Sidebar';
 
 const RootRouter: React.FC = () => {
   return (
     <Router>
       <Fragment>
-        <Navbar />
+        <Sidebar />
         <Switch>
           <Route exact path={'/'} component={() => <Redirect to='/home' />} />
           <Route path={'/home'} component={Home} />
