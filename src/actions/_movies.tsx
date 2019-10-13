@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
-import { async } from 'q';
 
 export const discoverMovie = async (page: number = 1, dispath: Dispatch) => {
   dispath({
