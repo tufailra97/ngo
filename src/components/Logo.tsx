@@ -2,12 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledLogo = styled.div`
-  margin: 20px 0;
+  margin: 2rem 0;
   width: 100%;
-  font-size: 20px;
+  font-size: 2rem;
   text-align: center;
-  font-family: 'Montserrat', sans-serif;
   font-weight: 700;
+  color: ${(props: any) => props.theme.textColour};
 `;
 
 const Logo: React.FC = () => {

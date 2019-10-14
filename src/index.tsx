@@ -1,17 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import App from './App';
-import store from 'store';
 import { ThemeProvider } from 'styled-components';
 import { Reset } from 'elements';
-
-const theme = {
-  bg: 'red'
-};
+import store from 'store';
+import App from './App';
+import { light } from './styles';
 
 ReactDOM.render(
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={light}>
     <Provider store={store}>
       <Reset />
       <App />

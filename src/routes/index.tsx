@@ -8,7 +8,7 @@ import {
 import Home from './home/Home';
 import Movies from './movies/Movies';
 import Series from './series/Series';
-import Sidebar from 'components/sidebar/Sidebar';
+import { Sidebar } from 'components';
 
 const RootRouter: React.FC = () => {
   return (
