@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
-import styled, { ThemeProps as StyleThemeProps } from 'styled-components';
+import styled, {
+  ThemeProps as StyleThemeProps,
+  ThemeContext
+} from 'styled-components';
 import ThemeProps from 'interfaces/ThemeProps';
 import { Home, Movie, Series } from 'icons';
 import Logo from './Logo';
@@ -10,7 +13,8 @@ const StyledSidebar = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 30rem;
+  width: 20vw;
+  height: 100vh;
   background-color: ${(props: StyleThemeProps<ThemeProps>) =>
     props.theme.secondaryBackgroundColour};
 `;
@@ -61,6 +65,8 @@ const LinkWrapper = styled(NavLink).attrs({
 `;
 
 const Sidebar: React.FC = () => {
+  const theme: ThemeProps = useContext(ThemeContext);
+
   return (
     <StyledSidebar>
       <Logo />
@@ -68,19 +74,19 @@ const Sidebar: React.FC = () => {
         <ul>
           <li>
             <LinkWrapper activeClassName={active} to='/home'>
-              <Home width={22} height={22} color={'red'} />
+              <Home width={22} height={22} color={theme.textColour} />
               <span>Home</span>
             </LinkWrapper>
           </li>
           <li>
             <LinkWrapper activeClassName={active} to='/movies'>
-              <Movie width={22} height={22} color={'red'} />
+              <Movie width={22} height={22} color={theme.textColour} />
               <span>Movie</span>
             </LinkWrapper>
           </li>
           <li>
             <LinkWrapper activeClassName={active} to='/series'>
-              <Series width={22} height={22} color={'red'} />
+              <Series width={22} height={22} color={theme.textColour} />
               <span>Serie</span>
             </LinkWrapper>
           </li>
