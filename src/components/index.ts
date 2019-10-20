@@ -1,4 +1,4 @@
 import Logo from './Logo';
 import Sidebar from './Sidebar';
-
-export { Logo, Sidebar };
+import Card from './Card';
+export { Logo, Sidebar, Card };

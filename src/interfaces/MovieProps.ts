@@ -1,3 +1,7 @@
+export interface IMovieInistialState extends IMovieResponse {
+  fetchRequested?: boolean,
+  fetchFailed?: boolean
+}
 export interface IMovie {
   adult?: boolean
   backdrop_path?: string
@@ -16,8 +20,8 @@ export interface IMovie {
 }
 
 export interface IMovieResponse {
-  page: number
-  results: Array<IMovie>
-  total_pages: number
-  total_results: number
+  results?: Array<IMovie>,
+  total_pages?: number
+  total_results?: number
+  page?: number
 }

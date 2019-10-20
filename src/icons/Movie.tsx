@@ -1,5 +1,5 @@
 import React from 'react';
-import IconProps from 'interfaces/IconProps';
+import { IconProps } from 'interfaces';
 
 export default ({ width, height, color }: IconProps): React.ReactElement => {
   return (

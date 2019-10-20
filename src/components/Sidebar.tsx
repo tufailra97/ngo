@@ -4,7 +4,7 @@ import styled, {
   ThemeProps as StyleThemeProps,
   ThemeContext
 } from 'styled-components';
-import ThemeProps from 'interfaces/ThemeProps';
+import { ThemeProps } from 'interfaces';
 import { Home, Movie, Series } from 'icons';
 import Logo from './Logo';
 

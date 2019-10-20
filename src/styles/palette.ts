@@ -1,4 +1,4 @@
-import ThemeProps from 'interfaces/ThemeProps';
+import { ThemeProps } from 'interfaces';
 
 const light: ThemeProps = {
   textColour: 'rgba(20, 19, 13, 1)',
