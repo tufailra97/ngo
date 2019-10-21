@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getNowPlaying } from 'actions/_movies';
 import { IMovieInistialState, IMovie } from 'interfaces';
+import { Card } from 'components';
 
 const Movies: React.FC = () => {
   const dispathAction = useDispatch();
@@ -16,11 +17,27 @@ const Movies: React.FC = () => {
 
   let movies = movieState.results;
 
+  const handleCallback = () => {};
   return (
-    <div>
+    <div
+      style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-evenly'
+      }}
+    >
       {movies !== undefined && Array.isArray(movies)
         ? movies.map(movie => {
-            return <div key={movie.id}>{movie.title}</div>;
+            return (
+              <Card
+                title={movie.title}
+                imageURL={movie.poster_path!}
+                key={movie.id}
+                callback={handleCallback}
+                voteAverage={movie.vote_average}
+                showBadge
+              />
+            );
           })
         : null}
     </div>
