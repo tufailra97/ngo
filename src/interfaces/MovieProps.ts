@@ -1,4 +1,4 @@
-export interface IMovieInistialState extends IMovieResponse {
+export interface IMovieInistialState extends IMovieResponse, IMovieDetailsResponse {
   fetchRequested?: boolean,
   fetchFailed?: boolean
 }
@@ -17,6 +17,21 @@ export interface IMovie {
   video?: boolean
   vote_average?: number
   vote_count?: number
+}
+
+export interface IMovieDetails extends IMovie {
+  budget: number
+  homepage: string
+  imdb_id: string
+  production_companies: any     // TODO: assign proper type
+  revenue: string | number
+  runtime: string | number
+  status: string
+  tagline: string
+}
+
+export interface IMovieDetailsResponse {
+  movie?: IMovieDetails,
 }
 
 export interface IMovieResponse {

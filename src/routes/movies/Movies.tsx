@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getNowPlaying } from 'actions/_movies';
-import { IMovieInistialState, IMovie } from 'interfaces';
+import { IMovieInistialState } from 'interfaces';
+import { BrowserRouterProps, RouteComponentProps } from 'react-router-dom';
 import { Card } from 'components';
 
-const Movies: React.FC = () => {
+const Movies: React.FC<BrowserRouterProps & RouteComponentProps> = ({
+  history
+}) => {
   const dispathAction = useDispatch();
   const [page, setPage] = useState(1);
   const movieState: IMovieInistialState = useSelector(
@@ -15,9 +18,14 @@ const Movies: React.FC = () => {
     dispathAction(getNowPlaying(1));
   }, [page]);
 
-  let movies = movieState.results;
+  const movies = movieState.results;
 
-  const handleCallback = () => {};
+  const handleCallback = (id: number) => {
+    history.push({
+      pathname: `/movies/details/${id}`
+    });
+  };
+
   return (
     <div
       style={{
@@ -36,6 +44,7 @@ const Movies: React.FC = () => {
                 callback={handleCallback}
                 voteAverage={movie.vote_average}
                 showBadge
+                id={movie.id}
               />
             );
           })

@@ -15,8 +15,13 @@ const StyledSidebar = styled.div`
   align-items: flex-start;
   width: 20vw;
   height: 100vh;
-  background-color: ${(props: StyleThemeProps<ThemeProps>) =>
-    props.theme.secondaryBackgroundColour};
+
+  & > div {
+    height: 100vh;
+    width: 20vw;
+    background-color: ${(props: StyleThemeProps<ThemeProps>) =>
+      props.theme.secondaryBackgroundColour};
+  }
 `;
 
 const Nav = styled.nav`
@@ -69,29 +74,31 @@ const Sidebar: React.FC = () => {
 
   return (
     <StyledSidebar>
-      <Logo />
-      <Nav>
-        <ul>
-          <li>
-            <LinkWrapper activeClassName={active} to='/home'>
-              <Home width={22} height={22} color={theme.textColour} />
-              <span>Home</span>
-            </LinkWrapper>
-          </li>
-          <li>
-            <LinkWrapper activeClassName={active} to='/movies'>
-              <Movie width={22} height={22} color={theme.textColour} />
-              <span>Movie</span>
-            </LinkWrapper>
-          </li>
-          <li>
-            <LinkWrapper activeClassName={active} to='/series'>
-              <Series width={22} height={22} color={theme.textColour} />
-              <span>Serie</span>
-            </LinkWrapper>
-          </li>
-        </ul>
-      </Nav>
+      <div>
+        <Logo />
+        <Nav>
+          <ul>
+            <li>
+              <LinkWrapper activeClassName={active} to='/home'>
+                <Home width={22} height={22} color={theme.textColour} />
+                <span>Home</span>
+              </LinkWrapper>
+            </li>
+            <li>
+              <LinkWrapper activeClassName={active} to='/movies'>
+                <Movie width={22} height={22} color={theme.textColour} />
+                <span>Movie</span>
+              </LinkWrapper>
+            </li>
+            <li>
+              <LinkWrapper activeClassName={active} to='/series'>
+                <Series width={22} height={22} color={theme.textColour} />
+                <span>Serie</span>
+              </LinkWrapper>
+            </li>
+          </ul>
+        </Nav>
+      </div>
     </StyledSidebar>
   );
 };

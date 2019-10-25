@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import Home from './home/Home';
 import Movies from './movies/Movies';
+import MovieItem from './movies/MovieItem';
 import Series from './series/Series';
 import { Sidebar } from 'components';
 import Search from 'components/Search';
@@ -31,7 +32,8 @@ const RootRouter: React.FC = () => {
           <Switch>
             <Route exact path={'/'} component={() => <Redirect to='/home' />} />
             <Route path={'/home'} component={Home} />
-            <Route path={'/movies'} component={Movies} />
+            <Route path={'/movies'} exact component={Movies} />
+            <Route path={'/movies/details/:id'} component={MovieItem} />
             <Route path={'/series'} component={Series} />
           </Switch>
         </RouteWrapper>

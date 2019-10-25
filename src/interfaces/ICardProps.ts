@@ -4,5 +4,6 @@ export default interface ICardProps {
   imageURL: string,
   callback: Function,
   showBadge?: boolean,
-  voteAverage?: number
+  voteAverage?: number,
+  id?: number
 }

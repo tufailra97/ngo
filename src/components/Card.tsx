@@ -7,6 +7,13 @@ const CardStyle = styled.div`
   width: 20%;
   margin: 1rem 0.5rem;
   flex-shrink: 0;
+  transition: transform 0.5s ease;
+
+  &:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+  }
+
     img {
     width: 100%;
     height: auto;
@@ -24,13 +31,18 @@ const Badge = styled.div`
 
 const Card: React.FC<ICardProps> = ({
   title,
-  description,
   imageURL,
   voteAverage,
-  showBadge
+  showBadge,
+  callback,
+  id
 }) => {
+  const handleMovieInfo = (): void => {
+    callback(id);
+  };
+
   return (
-    <CardStyle>
+    <CardStyle onClick={handleMovieInfo}>
       <img src={`https://image.tmdb.org/t/p/w780/${imageURL}`} />
       <h3>{title}</h3>
       {showBadge ? <Badge>{voteAverage}</Badge> : null}
