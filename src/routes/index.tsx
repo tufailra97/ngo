@@ -9,9 +9,9 @@ import Home from './home/Home';
 import Movies from './movies/Movies';
 import MovieItem from './movies/MovieItem';
 import Series from './series/Series';
-import { Sidebar } from 'components';
 import Search from 'components/Search';
 import styled from 'styled-components';
+import { Sidebar } from 'components';
 
 const MainContainer = styled.div`
   display: flex;

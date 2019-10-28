@@ -1,4 +1,4 @@
-import { FETCH_FAILED, FETCH_SUCCESS, REQUEST_FETCH, FETCH_MOVIE_DETAILS } from 'types';
+import { FETCH_FAILED, MOVIE_GET_NOW_PLAYING, REQUEST_FETCH, MOVIE_GET_MOVIE_DETAILS, MOVIE_GET_RECCOMENDATION } from 'types';
 import { IMovieInistialState } from 'interfaces';
 
 const initialState: IMovieInistialState = {
@@ -19,7 +19,7 @@ const reducer = (state = initialState, actions: any): any => {
         fetchFailed: true,
         fetchRequested: false
       }
-    case FETCH_SUCCESS:
+    case MOVIE_GET_NOW_PLAYING:
       return {
         ...state,
         fetchRequested: false,
@@ -27,7 +27,15 @@ const reducer = (state = initialState, actions: any): any => {
         totalPage: actions.totalPage,
         totalResults: actions.totalResults
       }
-    case FETCH_MOVIE_DETAILS:
+    case MOVIE_GET_RECCOMENDATION:
+      return {
+        ...state,
+        fetchRequested: false,
+        results: actions.movies,
+        totalPage: actions.totalPage,
+        totalResults: actions.totalResults
+      }
+    case MOVIE_GET_MOVIE_DETAILS:
       return {
         ...state,
         movie: actions.movie,

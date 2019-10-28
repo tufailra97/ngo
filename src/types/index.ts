@@ -1,4 +1,5 @@
 export const REQUEST_FETCH: string = 'REQUEST_FETCH';
-export const FETCH_SUCCESS: string = 'FETCH_SUCCESS';
 export const FETCH_FAILED: string = 'FETCH_FAILED';
-export const FETCH_MOVIE_DETAILS: string = 'FETCH_MOVIE_DETAILS';
+export const MOVIE_GET_NOW_PLAYING: string = 'MOVIE_GET_NOW_PLAYING';
+export const MOVIE_GET_MOVIE_DETAILS: string = 'MOVIE_GET_MOVIE_DETAILS';
+export const MOVIE_GET_RECCOMENDATION: string = 'MOVIE_GET_RECCOMENDATION';

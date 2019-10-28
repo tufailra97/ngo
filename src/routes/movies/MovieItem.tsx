@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMovieDetails } from 'actions/_movies';
+import { getMovieDetails, getRecommendations } from 'actions/_movies';
 import { IMovieInistialState } from 'interfaces';
 import styled from 'styled-components';
+import Loader from 'components/Loader';
 
 const MovieItemStyle = styled.div`
   padding: 1rem;
@@ -23,19 +24,22 @@ const MovieItem: React.FC = () => {
   const movieState: IMovieInistialState = useSelector(
     (state: any) => state.movies
   );
+  console.log(movieState);
+
   const movie = movieState.movie;
   const loading = movieState.fetchRequested;
   const error = movieState.fetchFailed;
 
-  console.log('movie', movie);
   useEffect(() => {
     dispatchAction(getMovieDetails(parseInt(id!)));
   }, [dispatchAction]);
 
-  console.log('moveis', movieState);
+  // useEffect(() => {
+  //   dispatchAction(getRecommendations(parseInt(id!)));
+  // }, [dispatchAction]);
 
   if (loading) {
-    return <div>LOADING</div>;
+    return <Loader />;
   }
 
   return (
@@ -45,7 +49,9 @@ const MovieItem: React.FC = () => {
           <img src={`https://image.tmdb.org/t/p/w780/${movie.poster_path}`} />
           <h2>{movie.original_title}</h2>
         </div>
-      ) : null}
+      ) : (
+        <Loader />
+      )}
     </MovieItemStyle>
   );
 };
