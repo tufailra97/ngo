@@ -48,7 +48,7 @@ export const getMovieDetails = (id: number) => async (dispatch: Dispatch) => {
 
   if (status === 200) {
     return dispatch({
-      type: MOVIE_GET_RECCOMENDATION,
+      type: MOVIE_GET_MOVIE_DETAILS,
       movie: data
     });
   }
@@ -73,7 +73,7 @@ export const getRecommendations = (id: number) => async (
 
   if (status === 200) {
     return dispatch({
-      type: MOVIE_GET_MOVIE_DETAILS,
+      type: MOVIE_GET_RECCOMENDATION,
       movies: data.results,
       totalPage: data.total_pages,
       totalResults: data.total_results
