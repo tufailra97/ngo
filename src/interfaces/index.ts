@@ -1,4 +1,4 @@
-import { IMovieResponse, IMovieInistialState, IMovie, IMovieDetailsResponse } from './MovieProps'
+import { IMovieResponse, IMovieInistialState, IMovie, IMovieDetailsResponse, ICredits } from './MovieProps'
 import ICardProps from './ICardProps';
 import ThemeProps from './ThemeProps';
 import IconProps from './IconProps';
@@ -10,3 +10,4 @@ export type IMovieResponse = IMovieResponse;
 export type ICardProps = ICardProps;
 export type IconProps = IconProps;
 export type ThemeProps = ThemeProps;
+export type ICredits = ICredits;

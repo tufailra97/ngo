@@ -1,4 +1,4 @@
-import { FETCH_FAILED, MOVIE_GET_NOW_PLAYING, REQUEST_FETCH, MOVIE_GET_MOVIE_DETAILS, MOVIE_GET_RECCOMENDATION } from 'types';
+import { FETCH_FAILED, MOVIE_GET_NOW_PLAYING, REQUEST_FETCH, MOVIE_GET_MOVIE_DETAILS, MOVIE_GET_RECCOMENDATION, MOVIE_GET_CREDITS } from 'types';
 import { IMovieInistialState } from 'interfaces';
 
 const initialState: IMovieInistialState = {
@@ -40,6 +40,11 @@ const reducer = (state = initialState, actions: any): any => {
         ...state,
         movie: actions.movie,
         fetchRequested: false
+      }
+    case MOVIE_GET_CREDITS:
+      return {
+        ...state,
+        cast: actions.cast
       }
     default:
       return state;

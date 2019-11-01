@@ -1,10 +1,6 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect
-} from 'react-router-dom';
+import { Router, Switch, Route, Redirect } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 import Home from './home/Home';
 import Movies from './movies/Movies';
 import MovieItem from './movies/MovieItem';
@@ -22,19 +18,35 @@ const RouteWrapper = styled.div`
   height: 100vh;
 `;
 
+const history = createBrowserHistory();
+
 const RootRouter: React.FC = () => {
   return (
-    <Router>
+    <Router history={history}>
       <MainContainer>
         <Sidebar />
         <RouteWrapper>
           <Search />
           <Switch>
-            <Route exact path={'/'} component={() => <Redirect to='/home' />} />
-            <Route path={'/home'} component={Home} />
-            <Route path={'/movies'} exact component={Movies} />
-            <Route path={'/movies/details/:id'} component={MovieItem} />
-            <Route path={'/series'} component={Series} />
+            <Route
+              exact
+              path={process.env.PUBLIC_URL + '/'}
+              component={() => <Redirect to='/home' />}
+            />
+            <Route path={process.env.PUBLIC_URL + '/home'} component={Home} />
+            <Route
+              path={process.env.PUBLIC_URL + '/movies'}
+              exact
+              component={Movies}
+            />
+            <Route
+              path={process.env.PUBLIC_URL + '/movies/details/:id'}
+              component={MovieItem}
+            />
+            <Route
+              path={process.env.PUBLIC_URL + '/series'}
+              component={Series}
+            />
           </Switch>
         </RouteWrapper>
       </MainContainer>

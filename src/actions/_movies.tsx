@@ -5,9 +5,10 @@ import {
   FETCH_FAILED,
   MOVIE_GET_NOW_PLAYING,
   MOVIE_GET_MOVIE_DETAILS,
-  MOVIE_GET_RECCOMENDATION
+  MOVIE_GET_RECCOMENDATION,
+  MOVIE_GET_CREDITS
 } from 'types';
-import { IMovieResponse, IMovieDetailsResponse } from 'interfaces';
+import { IMovieResponse, IMovieDetailsResponse, ICredits } from 'interfaces';
 
 /**
  * Get a list of movies in theatres.
@@ -77,6 +78,31 @@ export const getRecommendations = (id: number) => async (
       movies: data.results,
       totalPage: data.total_pages,
       totalResults: data.total_results
+    });
+  }
+  return dispatch({
+    type: FETCH_FAILED
+  });
+};
+
+/**
+ * Get the cast and crew for a movie.
+ * @param id
+ */
+export const getCredits = (id: number) => async (dispatch: Dispatch) => {
+  dispatch({ type: REQUEST_FETCH });
+  const url = `${process.env.REACT_APP_TMDB_END_POINT}/movie/${id}/credits?api_key=${process.env.REACT_APP_TMDB_API}`;
+
+  const request = await axios.get(url);
+  const data: ICredits = request.data;
+  const status = request.status;
+
+  console.log(data);
+
+  if (status === 200) {
+    return dispatch({
+      type: MOVIE_GET_CREDITS,
+      cast: data.cast
     });
   }
   return dispatch({
