@@ -6,6 +6,7 @@ import Movies from './movies/Movies';
 import MovieItem from './movies/MovieItem';
 import Series from './series/Series';
 import Search from 'components/Search';
+import People from './people/People';
 import styled from 'styled-components';
 import { Sidebar } from 'components';
 
@@ -35,13 +36,17 @@ const RootRouter: React.FC = () => {
             />
             <Route path={process.env.PUBLIC_URL + '/home'} component={Home} />
             <Route
-              path={process.env.PUBLIC_URL + '/movies'}
               exact
+              path={process.env.PUBLIC_URL + '/movies'}
               component={Movies}
             />
             <Route
               path={process.env.PUBLIC_URL + '/movies/details/:id'}
               component={MovieItem}
+            />
+            <Route
+              path={process.env.PUBLIC_URL + '/people/:id'}
+              component={People}
             />
             <Route
               path={process.env.PUBLIC_URL + '/series'}

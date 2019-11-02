@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, withRouter } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getMovieDetails,
@@ -10,7 +10,6 @@ import { IMovieInistialState } from 'interfaces';
 import { Loader, Card } from 'components';
 import { RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
-import axios from 'axios';
 
 const MovieItemStyle = styled.div`
   padding: 1rem;
@@ -36,6 +35,7 @@ const MovieItemStyle = styled.div`
       h1 {
         font-size: 2.5rem;
         font-weight: 500;
+        text-transform: uppercase;
       }
 
       .production-companies {
@@ -52,6 +52,7 @@ const MovieItemStyle = styled.div`
           width: 5rem;
           height: 5rem;
           border-radius: 50%;
+          flex-shrink: 0;
         }
       }
     }
@@ -66,6 +67,7 @@ const MovieItem: React.FC<RouteComponentProps> = ({ history }) => {
   const movieState: IMovieInistialState = useSelector(
     (state: any) => state.movies
   );
+  const [castMember, setCastMember] = useState<number | null>(null);
 
   const { movie } = movieState;
   const loading = movieState.fetchRequested;
@@ -74,6 +76,7 @@ const MovieItem: React.FC<RouteComponentProps> = ({ history }) => {
   const cast = movieState.cast;
 
   useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     dispatchAction(getMovieDetails(parseInt(id!)));
     dispatchAction(getRecommendations(parseInt(id!)));
     dispatchAction(getCredits(parseInt(id!)));
@@ -84,6 +87,14 @@ const MovieItem: React.FC<RouteComponentProps> = ({ history }) => {
       pathname: `/movies/details/${id}`
     });
   };
+
+  useEffect(() => {
+    if (castMember !== null) {
+      history.push({
+        pathname: `/people/${castMember}`
+      });
+    }
+  }, [castMember]);
 
   const handleReccomondation = ():
     | Array<React.ReactElement>
@@ -120,7 +131,14 @@ const MovieItem: React.FC<RouteComponentProps> = ({ history }) => {
       }
       casts = crews.map(cast => {
         return (
-          <img src={`https://image.tmdb.org/t/p/w780/${cast.profile_path}`} />
+          <div
+            key={cast.id}
+            onClick={() => {
+              setCastMember(cast.id);
+            }}
+          >
+            <img src={`https://image.tmdb.org/t/p/w780/${cast.profile_path}`} />
+          </div>
         );
       });
       return casts;

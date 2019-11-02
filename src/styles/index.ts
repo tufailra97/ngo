@@ -1,3 +1,3 @@
-import { light } from './palette';
+import { light, dark } from './palette';
 
-export { light }
+export { light, dark }

@@ -1,4 +1,5 @@
 import { IMovieResponse, IMovieInistialState, IMovie, IMovieDetailsResponse, ICredits } from './MovieProps'
+import { IPersonDetails } from './IPeopleProps'
 import ICardProps from './ICardProps';
 import ThemeProps from './ThemeProps';
 import IconProps from './IconProps';
@@ -11,3 +12,4 @@ export type ICardProps = ICardProps;
 export type IconProps = IconProps;
 export type ThemeProps = ThemeProps;
 export type ICredits = ICredits;
+export type IPersonDetails = IPersonDetails;

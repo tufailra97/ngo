@@ -8,6 +8,7 @@ import {
   MOVIE_GET_RECCOMENDATION,
   MOVIE_GET_CREDITS
 } from 'types';
+
 import { IMovieResponse, IMovieDetailsResponse, ICredits } from 'interfaces';
 
 /**

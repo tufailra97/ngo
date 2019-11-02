@@ -5,7 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import { Reset } from 'elements';
 import store from 'store';
 import App from './App';
-import { light } from './styles';
+import { light, dark } from './styles';
 
 ReactDOM.render(
   <ThemeProvider theme={light}>
