@@ -6,6 +6,7 @@ import Title from './Title';
 import styled from 'styled-components';
 import Genres from './Genres';
 import BasicInfo from './BasicInfo';
+import Cast from './Cast';
 
 const DetailsWrapper = styled.div`
   display: flex;
@@ -44,15 +45,13 @@ const DetailsWrapper = styled.div`
       display: flex;
       align-items: center;
 
-      .company-item {
+      img {
         margin-right: 2rem;
-        img {
-          max-width: 6rem;
-          height: auto;
-          transition: transform 1s ease;
-          &:hover {
-            transform: scale(2);
-          }
+        max-width: 6rem;
+        height: auto;
+        transition: transform 1s ease;
+        &:hover {
+          transform: scale(2);
         }
       }
     }
@@ -61,18 +60,6 @@ const DetailsWrapper = styled.div`
       p {
         text-align: justify;
         line-height: 2.3rem;
-      }
-    }
-    /* cast images */
-    .cast-img {
-      width: 4rem;
-      height: 4rem;
-      display: flex;
-
-      img {
-        border-radius: 50%;
-        width: 4rem;
-        height: 4rem;
       }
     }
   }
@@ -85,34 +72,6 @@ interface IDetails {
 }
 
 const Details: React.FC<IDetails> = ({ movie, cast, callback }) => {
-  const handleCast = ():
-    | Array<React.ReactElement>
-    | React.ReactElement
-    | null => {
-    let casts = [];
-    let crews = cast;
-    if (Array.isArray(crews)) {
-      if (crews.length > 20) {
-        crews = crews.slice(0, 10);
-      }
-      casts = crews.map(cast => {
-        return (
-          <div
-            className='cast-img'
-            key={cast.id}
-            onClick={() => {
-              callback(cast.id);
-            }}
-          >
-            <img src={`https://image.tmdb.org/t/p/w780/${cast.profile_path}`} />
-          </div>
-        );
-      });
-      return casts;
-    }
-    return null;
-  };
-
   return (
     <DetailsWrapper>
       <div className='image-container'>
@@ -151,31 +110,25 @@ const Details: React.FC<IDetails> = ({ movie, cast, callback }) => {
             </div>
           </div>
           {/* cast */}
-          <div className='casts casts-container info-container'>
-            <Subline style={{ fontSize: '1.3rem', textTransform: 'uppercase' }}>
-              Cast
-            </Subline>
-            <div className='cast-img'>{handleCast()}</div>
-          </div>
+          <Cast cast={cast} callback={callback} />
           {/* production company */}
           <div className='production-companies info-container'>
             <Subline style={{ fontSize: '1.3rem', textTransform: 'uppercase' }}>
               Production Companies
             </Subline>
-            <Paragraph className='paragraph desc-item company-wrapper'>
+            <div className='desc-item company-wrapper'>
               {movie.production_companies.map(company => {
                 if (company.logo_path) {
                   return (
-                    <span className='company-item' key={company.id}>
-                      <img
-                        src={`https://image.tmdb.org/t/p/w780/${company.logo_path}`}
-                        alt={company.name}
-                      />
-                    </span>
+                    <img
+                      key={company.id}
+                      src={`https://image.tmdb.org/t/p/w780/${company.logo_path}`}
+                      alt={company.name}
+                    />
                   );
                 }
               })}
-            </Paragraph>
+            </div>
           </div>
         </div>
       </div>
