@@ -5,7 +5,7 @@ export interface IMovieInistialState extends IMovieResponse, IMovieDetailsRespon
 export interface IMovie {
   adult?: boolean
   backdrop_path?: string
-  genre_ids?: Array<{ id: number, name: string }>
+  genres?: Array<{ id: number, name: string }>
   id: number
   original_language: string
   original_title: string
