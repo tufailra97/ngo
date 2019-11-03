@@ -1,6 +1,10 @@
-import React from 'react';
-import styled, { ThemeProps as StyleThemeProps } from 'styled-components';
+import React, { useContext } from 'react';
+import styled, {
+  ThemeProps as StyleThemeProps,
+  ThemeContext
+} from 'styled-components';
 import { ThemeProps } from 'interfaces';
+import { ArrowFull } from 'icons';
 
 interface IGenres {
   genres: Array<{ id: number; name: string }>;
@@ -90,16 +94,27 @@ const GenresWrapper = styled.div`
   justify-content: flex-start;
   align-content: center;
 
-  span {
-    text-transform: uppercase;
-    color: ${(props: StyleThemeProps<ThemeProps>) =>
-      props.theme.secondaryTextColour};
-    margin-right: 0.5rem;
-    font-weight: 600;
+  .genre-item {
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+    &:hover {
+      cursor: pointer;
+    }
+    span {
+      font-size: 1.15rem;
+      text-transform: uppercase;
+      color: ${(props: StyleThemeProps<ThemeProps>) =>
+        props.theme.secondaryTextColour};
+      margin-right: 0.5rem;
+      font-weight: 600;
+    }
   }
 `;
 
 const Genres: React.FC<IGenres> = ({ genres }) => {
+  const theme = useContext<ThemeProps>(ThemeContext);
+
   const getGenresToDisplay = (): Array<{ id: number; name: string }> => {
     const genresToDisplay: Array<{ id: number; name: string }> = [];
     genres.forEach(genre => {
@@ -120,7 +135,16 @@ const Genres: React.FC<IGenres> = ({ genres }) => {
     const genres = getGenresToDisplay().map(genre => {
       return (
         <span className='genre-item' key={genre.id}>
-          {genre.name}
+          <span style={{ marginTop: '0.2rem' }}>
+            {
+              <ArrowFull
+                width={15}
+                height={15}
+                color={theme.secondaryTextColour}
+              />
+            }
+          </span>
+          <span>{genre.name}</span>
         </span>
       );
     });
