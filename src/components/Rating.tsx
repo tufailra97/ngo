@@ -1,5 +1,5 @@
 import React from 'react';
-import { FullStar, EmptyStar, HalfStar, Home, Series, Movie } from 'icons';
+import { FullStar, EmptyStar, HalfStar } from 'icons';
 
 // REF: http://joshanthony.info/2018/06/11/star-rating-react/#rendering_stars_fa
 
