@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ThemeContext } from 'styled-components';
+import ThemeProps from 'interfaces/ThemeProps';
 import { FullStar, EmptyStar, HalfStar } from 'icons';
 
 // REF: http://joshanthony.info/2018/06/11/star-rating-react/#rendering_stars_fa
 
 const Rating: React.FC<{ vote: number }> = ({ vote }) => {
+  const theme = useContext<ThemeProps>(ThemeContext);
+
   const totalStars = () => {
     return Math.ceil(10 / 2);
   };
@@ -36,7 +40,7 @@ const Rating: React.FC<{ vote: number }> = ({ vote }) => {
       for (let index = 0; index < nFullStars; index++) {
         stars.push(
           <span key={Math.random()}>
-            <FullStar color='red' width={size} height={size} />
+            <FullStar color={theme.textColour} width={size} height={size} />
           </span>
         );
       }
@@ -46,7 +50,7 @@ const Rating: React.FC<{ vote: number }> = ({ vote }) => {
       for (let index = 0; index < nHalfStars; index++) {
         stars.push(
           <span key={Math.random()}>
-            <HalfStar color='red' width={size} height={size} />
+            <HalfStar color={theme.textColour} width={size} height={size} />
           </span>
         );
       }
@@ -56,7 +60,7 @@ const Rating: React.FC<{ vote: number }> = ({ vote }) => {
       for (let index = 0; index < nEmptyStars; index++) {
         stars.push(
           <span key={Math.random()}>
-            <EmptyStar color='red' width={size} height={size} />
+            <EmptyStar color={theme.textColour} width={size} height={size} />
           </span>
         );
       }

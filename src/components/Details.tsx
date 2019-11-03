@@ -1,10 +1,11 @@
 import React from 'react';
 import { IMovieDetails } from 'interfaces';
 import { ICast } from 'interfaces/MovieProps';
-import { Headline, Subline, Paragraph } from 'elements/Typography';
+import { Subline, Paragraph } from 'elements/Typography';
+import Title from './details/Title';
 import styled from 'styled-components';
 import Genres from './details/Genres';
-import Rating from './Rating';
+import BasicInfo from './details/BasicInfo';
 
 const DetailsWrapper = styled.div`
   display: flex;
@@ -15,28 +16,17 @@ const DetailsWrapper = styled.div`
     flex-shrink: 0;
     width: 20vw;
     height: auto;
-    margin-right: 1rem;
+    margin-right: 3rem;
     img {
       width: 100%;
       height: auto;
+      box-shadow: 0px 0px 29px 4px rgba(0, 0, 0, 0.29);
     }
   }
 
   .details-container {
-    margin-left: 1rem;
-    width: 40vw;
-
-    .headline {
-      margin-bottom: 2rem;
-      h1,
-      h2 {
-        max-width: 40rem;
-      }
-
-      h1 {
-        margin-bottom: 1rem;
-      }
-    }
+    width: 55%;
+    margin-left: 3rem;
 
     .paragraph {
       font-size: 1.3rem;
@@ -44,13 +34,33 @@ const DetailsWrapper = styled.div`
     }
 
     .info-container {
-      margin-bottom: 1rem;
+      margin-bottom: 2rem;
       h2 {
-        margin-bottom: 0.5rem;
+        margin-bottom: 1rem;
       }
+    }
 
-      .basic-info {
-        display: flex;
+    .company-wrapper {
+      display: flex;
+      align-items: center;
+
+      .company-item {
+        margin-right: 2rem;
+        img {
+          max-width: 6rem;
+          height: auto;
+          transition: transform 1s ease;
+          &:hover {
+            transform: scale(2);
+          }
+        }
+      }
+    }
+
+    .description {
+      p {
+        text-align: justify;
+        line-height: 2.3rem;
       }
     }
     /* cast images */
@@ -110,69 +120,21 @@ const Details: React.FC<IDetails> = ({ movie, cast, callback }) => {
       </div>
       <div className='details-container'>
         {/* title */}
-        <div className='headline'>
-          <Headline
-            style={{
-              fontWeight: 400,
-              maxWidth: '40rem',
-              fontSize: '3.5rem',
-              textTransform: 'uppercase'
-            }}
-          >
-            {movie.original_title}
-          </Headline>
-          {movie.tagline && (
+        <Title title={movie.title} tagline={movie.tagline} />
+        <div className='info'>
+          <BasicInfo
+            vote={movie.vote_average!}
+            runtime={movie.runtime.toString()}
+            releaseDate={movie.release_date!}
+          />
+          <div className='genres info-container'>
             <Subline
               style={{
-                fontWeight: 600,
-                maxWidth: '40rem',
-                fontSize: '1.5rem',
-                letterSpacing: 1,
-                textTransform: 'uppercase'
+                fontSize: '1.3rem',
+                textTransform: 'uppercase',
+                marginBottom: '1rem'
               }}
             >
-              {movie.tagline}
-            </Subline>
-          )}
-        </div>
-        <div className='info'>
-          <div className='basic-info'>
-            {/* rating */}
-            <div className='rating info-container'>
-              <Subline
-                style={{ fontSize: '1.3rem', textTransform: 'uppercase' }}
-              >
-                Vote
-              </Subline>
-              <Paragraph className='paragraph desc-item'>
-                {movie.vote_average}
-                {<Rating vote={movie.vote_average!} />}
-              </Paragraph>
-            </div>
-            {/* release date */}
-            <div className='release-date info-container'>
-              <Subline
-                style={{ fontSize: '1.3rem', textTransform: 'uppercase' }}
-              >
-                Release Date
-              </Subline>
-              <Paragraph className='paragraph desc-item'>
-                {movie.release_date}
-              </Paragraph>
-            </div>
-            <div className='run-time info-container'>
-              <Subline
-                style={{ fontSize: '1.3rem', textTransform: 'uppercase' }}
-              >
-                Runtime
-              </Subline>
-              <Paragraph className='paragraph desc-item'>
-                {movie.runtime}min
-              </Paragraph>
-            </div>
-          </div>
-          <div className='genres info-container'>
-            <Subline style={{ fontSize: '1.3rem', textTransform: 'uppercase' }}>
               Genres
             </Subline>
             <Genres genres={movie.genres!} />
@@ -188,23 +150,32 @@ const Details: React.FC<IDetails> = ({ movie, cast, callback }) => {
               </Paragraph>
             </div>
           </div>
+          {/* cast */}
+          <div className='casts casts-container info-container'>
+            <Subline style={{ fontSize: '1.3rem', textTransform: 'uppercase' }}>
+              Cast
+            </Subline>
+            <div className='cast-img'>{handleCast()}</div>
+          </div>
           {/* production company */}
           <div className='production-companies info-container'>
             <Subline style={{ fontSize: '1.3rem', textTransform: 'uppercase' }}>
               Production Companies
             </Subline>
-            <Paragraph className='paragraph desc-item'>
+            <Paragraph className='paragraph desc-item company-wrapper'>
               {movie.production_companies.map(company => {
-                return <span key={company.id}>{company.name}</span>;
+                if (company.logo_path) {
+                  return (
+                    <span className='company-item' key={company.id}>
+                      <img
+                        src={`https://image.tmdb.org/t/p/w780/${company.logo_path}`}
+                        alt={company.name}
+                      />
+                    </span>
+                  );
+                }
               })}
             </Paragraph>
-          </div>
-          {/* cast */}
-          <div className='casts info-container'>
-            <Subline style={{ fontSize: '1.3rem', textTransform: 'uppercase' }}>
-              Cast
-            </Subline>
-            <div className='cast-img'>{handleCast()}</div>
           </div>
         </div>
       </div>
