@@ -98,8 +98,6 @@ export const getCredits = (id: number) => async (dispatch: Dispatch) => {
   const data: ICredits = request.data;
   const status = request.status;
 
-  console.log(data);
-
   if (status === 200) {
     return dispatch({
       type: MOVIE_GET_CREDITS,
