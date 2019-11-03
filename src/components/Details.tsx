@@ -4,6 +4,7 @@ import { ICast } from 'interfaces/MovieProps';
 import { Headline, Subline, Paragraph } from 'elements/Typography';
 import styled from 'styled-components';
 import Genres from './details/Genres';
+import Rating from './Rating';
 
 const DetailsWrapper = styled.div`
   display: flex;
@@ -26,7 +27,7 @@ const DetailsWrapper = styled.div`
     width: 40vw;
 
     .headline {
-      margin-bottom: 1rem;
+      margin-bottom: 2rem;
       h1,
       h2 {
         max-width: 40rem;
@@ -36,9 +37,21 @@ const DetailsWrapper = styled.div`
         margin-bottom: 1rem;
       }
     }
+
     .paragraph {
       font-size: 1.3rem;
       line-height: 1.4;
+    }
+
+    .info-container {
+      margin-bottom: 1rem;
+      h2 {
+        margin-bottom: 0.5rem;
+      }
+
+      .basic-info {
+        display: flex;
+      }
     }
     /* cast images */
     .cast-img {
@@ -99,7 +112,6 @@ const Details: React.FC<IDetails> = ({ movie, cast, callback }) => {
         {/* title */}
         <div className='headline'>
           <Headline
-            className='desc-item'
             style={{
               fontWeight: 400,
               maxWidth: '40rem',
@@ -111,7 +123,6 @@ const Details: React.FC<IDetails> = ({ movie, cast, callback }) => {
           </Headline>
           {movie.tagline && (
             <Subline
-              className='desc-item'
               style={{
                 fontWeight: 600,
                 maxWidth: '40rem',
@@ -125,33 +136,49 @@ const Details: React.FC<IDetails> = ({ movie, cast, callback }) => {
           )}
         </div>
         <div className='info'>
-          {/* rating */}
-          <div className='rating'>
-            <h3>Vote:</h3>
-            <span>{movie.vote_average}</span>
+          <div className='basic-info'>
+            {/* rating */}
+            <div className='rating info-container'>
+              <Subline
+                style={{ fontSize: '1.3rem', textTransform: 'uppercase' }}
+              >
+                Vote
+              </Subline>
+              <Paragraph className='paragraph desc-item'>
+                {movie.vote_average}
+                {<Rating vote={movie.vote_average!} />}
+              </Paragraph>
+            </div>
+            {/* release date */}
+            <div className='release-date info-container'>
+              <Subline
+                style={{ fontSize: '1.3rem', textTransform: 'uppercase' }}
+              >
+                Release Date
+              </Subline>
+              <Paragraph className='paragraph desc-item'>
+                {movie.release_date}
+              </Paragraph>
+            </div>
+            <div className='run-time info-container'>
+              <Subline
+                style={{ fontSize: '1.3rem', textTransform: 'uppercase' }}
+              >
+                Runtime
+              </Subline>
+              <Paragraph className='paragraph desc-item'>
+                {movie.runtime}min
+              </Paragraph>
+            </div>
           </div>
-          {/* release date */}
-          <div>
+          <div className='genres info-container'>
             <Subline style={{ fontSize: '1.3rem', textTransform: 'uppercase' }}>
-              Release Date
+              Genres
             </Subline>
-            <Paragraph className='paragraph desc-item'>
-              {movie.release_date}
-            </Paragraph>
-          </div>
-          <div className='run-time'>
-            <Subline style={{ fontSize: '1.3rem', textTransform: 'uppercase' }}>
-              Runtime
-            </Subline>
-            <Paragraph className='paragraph desc-item'>
-              {movie.runtime}min
-            </Paragraph>
-          </div>
-          <div className='genres'>
-            <Genres genres={movie.genre_ids!} />
+            <Genres genres={movie.genres!} />
           </div>
           {/* description */}
-          <div className='description'>
+          <div className='description info-container'>
             <Subline style={{ fontSize: '1.3rem', textTransform: 'uppercase' }}>
               Description
             </Subline>
@@ -162,7 +189,7 @@ const Details: React.FC<IDetails> = ({ movie, cast, callback }) => {
             </div>
           </div>
           {/* production company */}
-          <div className='production-companies'>
+          <div className='production-companies info-container'>
             <Subline style={{ fontSize: '1.3rem', textTransform: 'uppercase' }}>
               Production Companies
             </Subline>
@@ -173,7 +200,7 @@ const Details: React.FC<IDetails> = ({ movie, cast, callback }) => {
             </Paragraph>
           </div>
           {/* cast */}
-          <div className='casts'>
+          <div className='casts info-container'>
             <Subline style={{ fontSize: '1.3rem', textTransform: 'uppercase' }}>
               Cast
             </Subline>

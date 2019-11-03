@@ -1,10 +1,12 @@
 import React from 'react';
+import styled, { ThemeProps as StyleThemeProps } from 'styled-components';
+import { ThemeProps } from 'interfaces';
 
 interface IGenres {
   genres: Array<{ id: number; name: string }>;
 }
 
-const genres = [
+const genresList = [
   {
     id: 28,
     name: 'Action'
@@ -83,10 +85,50 @@ const genres = [
   }
 ];
 
-const Genres: React.FC<IGenres> = ({ genres }) => {
-  console.log('genres ----> ', genres);
+const GenresWrapper = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-content: center;
 
-  return <div>Genres</div>;
+  span {
+    text-transform: uppercase;
+    color: ${(props: StyleThemeProps<ThemeProps>) =>
+      props.theme.secondaryTextColour};
+    margin-right: 0.5rem;
+    font-weight: 600;
+  }
+`;
+
+const Genres: React.FC<IGenres> = ({ genres }) => {
+  const getGenresToDisplay = (): Array<{ id: number; name: string }> => {
+    const genresToDisplay: Array<{ id: number; name: string }> = [];
+    genres.forEach(genre => {
+      genresList.forEach(genreFromList => {
+        if (genre.id === genreFromList.id) {
+          genresToDisplay.push(genre);
+        }
+      });
+    });
+
+    return genresToDisplay;
+  };
+
+  const handleDisplayGenres = ():
+    | Array<React.ReactElement>
+    | React.ReactElement
+    | null => {
+    const genres = getGenresToDisplay().map(genre => {
+      return (
+        <span className='genre-item' key={genre.id}>
+          {genre.name}
+        </span>
+      );
+    });
+
+    return genres;
+  };
+
+  return <GenresWrapper>{handleDisplayGenres()}</GenresWrapper>;
 };
 
 export default Genres;
