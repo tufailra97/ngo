@@ -10,7 +10,7 @@ import { IMovieInistialState } from 'interfaces';
 import { Loader, Card } from 'components';
 import { RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
-import Details from 'components/Details';
+import Details from 'components/details';
 
 const MovieItemStyle = styled.div`
   padding: 1rem;

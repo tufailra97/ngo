@@ -2,10 +2,10 @@ import React from 'react';
 import { IMovieDetails } from 'interfaces';
 import { ICast } from 'interfaces/MovieProps';
 import { Subline, Paragraph } from 'elements/Typography';
-import Title from './details/Title';
+import Title from './Title';
 import styled from 'styled-components';
-import Genres from './details/Genres';
-import BasicInfo from './details/BasicInfo';
+import Genres from './Genres';
+import BasicInfo from './BasicInfo';
 
 const DetailsWrapper = styled.div`
   display: flex;
