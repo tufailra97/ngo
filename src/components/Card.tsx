@@ -1,11 +1,12 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { ThemeProps as StyleThemeProps } from 'styled-components';
+import { ThemeProps } from 'interfaces';
 import { ICardProps } from 'interfaces';
 
 const CardStyle = styled.div`
   position: relative;
   width: 20%;
-  margin: 1rem 0.5rem;
+  margin: 2rem 0.5rem;
   flex-shrink: 0;
   transition: transform 0.5s ease;
 
@@ -21,11 +22,20 @@ const CardStyle = styled.div`
 `;
 const Badge = styled.div`
   position: absolute;
-  top: 0;
-  margin: 0 auto;
-  background-color: red;
   display: table;
-  padding: 15px;
+  width: 3rem;
+  height: 3rem;
+  color: black;
+  top: -10px;
+  right: -10px;
+  color: ${(props: StyleThemeProps<ThemeProps>) =>
+    props.theme.secondaryTextColour};
+  line-height: 3rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  background-color: ${(props: StyleThemeProps<ThemeProps>) =>
+    props.theme.focus};
   border-radius: 25px;
 `;
 
@@ -44,7 +54,6 @@ const Card: React.FC<ICardProps> = ({
   return (
     <CardStyle onClick={handleMovieInfo}>
       <img src={`https://image.tmdb.org/t/p/w780/${imageURL}`} />
-      <h3>{title}</h3>
       {showBadge ? <Badge>{voteAverage}</Badge> : null}
     </CardStyle>
   );

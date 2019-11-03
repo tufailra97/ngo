@@ -5,7 +5,7 @@ export const light: ThemeProps = {
   secondaryTextColour: 'rgba(54, 56, 59, 1)',
   primaryBackgroundColour: 'rgba(210, 213, 215, 1)',
   secondaryBackgroundColour: 'rgba(238, 239, 240, 1)',
-  focus: 'rgba(244, 72, 41, 1)'
+  focus: 'rgba(255, 195, 0, 1)'
 }
 
 export const dark: ThemeProps = {
