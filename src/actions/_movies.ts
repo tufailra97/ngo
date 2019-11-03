@@ -27,8 +27,8 @@ export const getNowPlaying = (page: number) => async (dispatch: Dispatch) => {
     return dispatch({
       type: MOVIE_GET_NOW_PLAYING,
       movies: data.results,
-      totalPage: data.total_pages,
-      totalResults: data.total_results
+      total_pages: data.total_pages,
+      total_results: data.total_results
     });
   }
   return dispatch({
@@ -77,8 +77,8 @@ export const getRecommendations = (id: number) => async (
     return dispatch({
       type: MOVIE_GET_RECCOMENDATION,
       movies: data.results,
-      totalPage: data.total_pages,
-      totalResults: data.total_results
+      total_pages: data.total_pages,
+      total_results: data.total_results
     });
   }
   return dispatch({

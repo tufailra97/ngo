@@ -24,16 +24,16 @@ const reducer = (state = initialState, actions: any): any => {
         ...state,
         fetchRequested: false,
         results: actions.movies,
-        totalPage: actions.totalPage,
-        totalResults: actions.totalResults
+        total_pages: actions.total_pages,
+        total_results: actions.total_results
       }
     case MOVIE_GET_RECCOMENDATION:
       return {
         ...state,
         fetchRequested: false,
         results: actions.movies,
-        totalPage: actions.totalPage,
-        totalResults: actions.totalResults
+        total_pages: actions.total_pages,
+        total_results: actions.total_results
       }
     case MOVIE_GET_MOVIE_DETAILS:
       return {

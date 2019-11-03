@@ -8,6 +8,8 @@ import Genres from './Genres';
 import BasicInfo from './BasicInfo';
 import Cast from './Cast';
 
+// TODO: simplify and improve the component
+
 const DetailsWrapper = styled.div`
   display: flex;
   align-items: flex-start;
