@@ -10,55 +10,10 @@ import { IMovieInistialState } from 'interfaces';
 import { Loader, Card } from 'components';
 import { RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
+import Details from 'components/Details';
 
 const MovieItemStyle = styled.div`
   padding: 1rem;
-  /* details maing container */
-  .details-wrapper {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-
-    /* image */
-    .image-container {
-      width: 25%;
-
-      img {
-        width: 100%;
-      }
-    }
-
-    .details-container {
-      margin-left: 3rem;
-      width: 50%;
-
-      h1 {
-        font-size: 2.5rem;
-        font-weight: 500;
-        text-transform: uppercase;
-      }
-
-      .production-companies {
-        img {
-          width: 2.5rem;
-          height: auto;
-        }
-      }
-
-      .cast-img {
-        display: flex;
-
-        img {
-          width: 5rem;
-          height: 5rem;
-          border-radius: 50%;
-          flex-shrink: 0;
-        }
-      }
-    }
-
-    /* details wrapper */
-  }
 `;
 
 const MovieItem: React.FC<RouteComponentProps> = ({ history }) => {
@@ -119,33 +74,6 @@ const MovieItem: React.FC<RouteComponentProps> = ({ history }) => {
     }
   };
 
-  const handleCast = ():
-    | Array<React.ReactElement>
-    | React.ReactElement
-    | null => {
-    let casts = [];
-    let crews = cast;
-    if (Array.isArray(crews)) {
-      if (crews.length > 20) {
-        crews = crews.slice(0, 10);
-      }
-      casts = crews.map(cast => {
-        return (
-          <div
-            key={cast.id}
-            onClick={() => {
-              setCastMember(cast.id);
-            }}
-          >
-            <img src={`https://image.tmdb.org/t/p/w780/${cast.profile_path}`} />
-          </div>
-        );
-      });
-      return casts;
-    }
-    return null;
-  };
-
   if (loading) {
     return <Loader />;
   }
@@ -153,50 +81,14 @@ const MovieItem: React.FC<RouteComponentProps> = ({ history }) => {
   return (
     <MovieItemStyle>
       {/* movie details */}
-      {movie !== undefined ? (
-        <div className='details-wrapper'>
-          <div className='image-container'>
-            <img src={`https://image.tmdb.org/t/p/w780/${movie.poster_path}`} />
-          </div>
-          <div className='details-container'>
-            {/* title */}
-            <h1>{movie.original_title}</h1>
-            <div className='info'>
-              {/* rating */}
-              <div className='rating'>
-                <h3>Vote:</h3>
-                <span>{movie.vote_average}</span>
-              </div>
-              {/* release date */}
-              <div>
-                <h3>Release Date</h3>
-                <p>{movie.release_date}</p>
-              </div>
-              <div>
-                <h3>Runtime</h3>
-                <p>{movie.runtime}min</p>
-              </div>
-              {/* description */}
-              <div>
-                <h3>Description</h3>
-                <div className='description'>
-                  <p>{movie.overview}</p>
-                </div>
-              </div>
-              {/* production company */}
-              <div className='production-companies'>
-                <h3>Production Companies</h3>
-                <div>
-                  {movie.production_companies.map(company => {
-                    return <span key={company.id}>{company.name}</span>;
-                  })}
-                </div>
-              </div>
-              {/* cast */}
-              <div className='cast-img'>{handleCast()}</div>
-            </div>
-          </div>
-        </div>
+      {movie !== undefined && cast !== undefined ? (
+        <Details
+          movie={movie}
+          cast={cast}
+          callback={(id: number) => {
+            setCastMember(id);
+          }}
+        />
       ) : null}
 
       {/* show reccomondation */}
