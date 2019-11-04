@@ -33,8 +33,8 @@ const Pagination: React.FC<IPagination> = ({
   };
 
   let pages = [];
-  const total_pagess = Math.round(total_results / itemPerPage);
-  for (var index = 0; index < total_pagess; index++) {
+  const totalPages = Math.round(total_results / itemPerPage);
+  for (var index = 1; index <= totalPages; index++) {
     pages.push(
       <div
         value-index={index}
@@ -43,7 +43,7 @@ const Pagination: React.FC<IPagination> = ({
         key={index}
         className={`${currentPage === index ? 'current' : ''} item`}
       >
-        {index + 1}
+        {index}
       </div>
     );
   }
