@@ -17,6 +17,7 @@ const Movies: React.FC<BrowserRouterProps & RouteComponentProps> = ({
   const movies = movieState.results;
 
   useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     dispathAction(getNowPlaying(page));
   }, [page]);
 
@@ -25,21 +26,9 @@ const Movies: React.FC<BrowserRouterProps & RouteComponentProps> = ({
       pathname: `/movies/details/${id}`
     });
   };
-  console.log('page ----> ', page);
 
   return (
     <div>
-      {movies !== undefined && Array.isArray(movies) ? (
-        <Pagination
-          callback={(index: number) => {
-            setPage(index);
-          }}
-          total_results={movieState.total_results!}
-          itemPerPage={20}
-          currentPage={page}
-        />
-      ) : null}
-
       <div
         style={{
           display: 'flex',
@@ -63,6 +52,17 @@ const Movies: React.FC<BrowserRouterProps & RouteComponentProps> = ({
             })
           : null}
       </div>
+      {movies !== undefined && Array.isArray(movies) ? (
+        <Pagination
+          callback={(index: number) => {
+            setPage(index);
+          }}
+          total_results={movieState.total_results!}
+          itemPerPage={20}
+          currentPage={page}
+          limit={50}
+        />
+      ) : null}
     </div>
   );
 };

@@ -7,7 +7,7 @@ import reducer from './reducer';
 // initial state
 const initialState: any = {};
 // set middlewares
-const middlewares = [thunk, logger];
+const middlewares = [thunk];
 // create store
 const store = createStore(
   reducer,
