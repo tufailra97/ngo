@@ -16,6 +16,18 @@ const SearchWrapper = styled.div`
     align-items: center;
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.1), 0 1px 3px 0 rgba(0, 0, 0, 0.08);
 
+    .close-btn {
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      cursor: pointer;
+    }
+
+    .show-close-btn {
+      visibility: visible;
+      opacity: 1;
+    }
+
     .search-icon {
       cursor: pointer;
     }
@@ -66,9 +78,16 @@ const Search: React.FC = () => {
           className='input'
           type='text'
           placeholder='Search...'
+          value={search}
           onChange={handleInputChange}
         />
-        <div className={``}>
+        <div
+          className={`${search.trim().length > 1 &&
+            'show-close-btn'} close-btn`}
+          onClick={() => {
+            setSearch('');
+          }}
+        >
           <Close width={25} height={25} color='grey' />
         </div>
       </form>
