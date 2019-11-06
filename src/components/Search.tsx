@@ -1,6 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect, useContext } from 'react';
 import { Search as SearchIcon, Close } from 'icons';
+import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
 
 const SearchWrapper = styled.div`
   display: flex;
@@ -31,14 +32,43 @@ const SearchWrapper = styled.div`
 `;
 
 const Search: React.FC = () => {
+  const history = useHistory();
+  const [search, setSearch] = useState<string>('');
+  const [isFormFocused, setFormStatus] = useState<boolean>(false);
+
+  const handleSubmit = (e: React.FormEvent): void => {
+    e.preventDefault();
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const { value } = e.target;
+    setSearch(value);
+  };
+
+  useEffect(() => {
+    if (isFormFocused) {
+      history.push('/search');
+    }
+  }, [isFormFocused]);
+
   return (
-    <SearchWrapper>
-      <form>
+    <SearchWrapper
+      onClick={() => setFormStatus(true)}
+      onBlur={() => {
+        setFormStatus(false);
+      }}
+    >
+      <form onSubmit={handleSubmit}>
         <div className='search-icon'>
           <SearchIcon width={25} height={25} color='grey' />
         </div>
-        <input className='input' type='text' placeholder='Search...' />
-        <div>
+        <input
+          className='input'
+          type='text'
+          placeholder='Search...'
+          onChange={handleInputChange}
+        />
+        <div className={``}>
           <Close width={25} height={25} color='grey' />
         </div>
       </form>
