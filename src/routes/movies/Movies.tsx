@@ -1,10 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { BrowserRouterProps, RouteComponentProps } from 'react-router-dom';
+import { Headline, Subline } from 'elements/Typography';
 import { getNowPlaying } from 'actions/_movies';
 import { IMovieInistialState } from 'interfaces';
-import { BrowserRouterProps, RouteComponentProps } from 'react-router-dom';
 import { Card } from 'components';
+import styled from 'styled-components';
 import Pagination from 'components/Pagination';
+
+const MovieWrapper = styled.div`
+  header {
+    margin-top: 2rem;
+    padding: 0 3.5%;
+    h1 {
+      font-size: 3.5rem;
+      margin-bottom: 0.2rem;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+  }
+`;
 
 const Movies: React.FC<BrowserRouterProps & RouteComponentProps> = ({
   history
@@ -28,7 +49,11 @@ const Movies: React.FC<BrowserRouterProps & RouteComponentProps> = ({
   };
 
   return (
-    <div>
+    <MovieWrapper>
+      <header>
+        <Headline>Movie</Headline>
+        <Subline>Now Playing</Subline>
+      </header>
       <div
         style={{
           display: 'flex',
@@ -63,7 +88,7 @@ const Movies: React.FC<BrowserRouterProps & RouteComponentProps> = ({
           limit={50}
         />
       ) : null}
-    </div>
+    </MovieWrapper>
   );
 };
 

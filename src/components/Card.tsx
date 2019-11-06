@@ -9,6 +9,7 @@ const CardStyle = styled.div`
   margin: 2rem 0.5rem;
   flex-shrink: 0;
   transition: transform 0.5s ease;
+  box-shadow: 0px 0px 29px 4px rgba(0, 0, 0, 0.29);
 
   &:hover {
     transform: scale(1.05);
