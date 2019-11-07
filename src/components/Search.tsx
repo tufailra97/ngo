@@ -1,5 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Search as SearchIcon, Close } from 'icons';
+import { useDispatch } from 'react-redux';
+import { search as _search } from 'actions/_search';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -45,6 +47,7 @@ const SearchWrapper = styled.div`
 
 const Search: React.FC = () => {
   const history = useHistory();
+  const dispatchAction = useDispatch();
   const [search, setSearch] = useState<string>('');
   const [isFormFocused, setFormStatus] = useState<boolean>(false);
 
@@ -62,6 +65,12 @@ const Search: React.FC = () => {
       history.push('/search');
     }
   }, [isFormFocused]);
+
+  useEffect(() => {
+    if (search !== '') {
+      dispatchAction(_search(search));
+    }
+  }, [search]);
 
   return (
     <SearchWrapper
