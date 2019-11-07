@@ -17,6 +17,7 @@ const StyledSidebar = styled.div`
   height: 100vh;
 
   & > div {
+    position: fixed;
     height: 100vh;
     width: 20vw;
     background-color: ${(props: StyleThemeProps<ThemeProps>) =>
