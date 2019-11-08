@@ -36,12 +36,21 @@ const PaginationWrapper = styled.div`
       width: 3rem;
       height: 3rem;
       cursor: pointer;
+      border-radius: 50%;
+      transition: background-color 0.5s ease-in;
+
+      &:hover {
+        background-color: ${(props: StyleThemeProps<ThemeProps>) =>
+          props.theme.darkBackground};
+        border-radius: 50%;
+        color: ${(props: StyleThemeProps<ThemeProps>) =>
+          props.theme.lightTextColour};
+      }
     }
 
     .current-pagination-item {
       background-color: ${(props: StyleThemeProps<ThemeProps>) =>
         props.theme.darkBackground};
-      border-radius: 50%;
       color: ${(props: StyleThemeProps<ThemeProps>) =>
         props.theme.lightTextColour};
     }
@@ -50,6 +59,11 @@ const PaginationWrapper = styled.div`
     cursor: pointer;
     display: flex;
     align-items: center;
+    transition: transform 0.5s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
 
     .control-text {
       font-size: 1.4rem;
