@@ -1,4 +1,11 @@
 import React, { useState, useContext } from 'react';
+import { useSelector } from 'react-redux';
+import {
+  ISearchInitialState,
+  ISearchMovie,
+  ISearchSerie,
+  ISearchPerson
+} from 'interfaces';
 import styled from 'styled-components';
 
 const SearchWrapper = styled.div`
@@ -7,6 +14,18 @@ const SearchWrapper = styled.div`
 `;
 
 const Search: React.FC = () => {
+  const search: ISearchInitialState = useSelector((state: any) => state.search);
+  let movies: ISearchMovie | Array<ISearchMovie> = [],
+    series: ISearchSerie | Array<ISearchSerie> = [],
+    persons: ISearchPerson | Array<ISearchPerson> = [];
+  if (search) {
+    movies = search.results.movies!;
+    series = search.results.series!;
+    persons = search.results.persons!;
+  }
+
+  console.log('movies', movies);
+
   return <SearchWrapper>Search</SearchWrapper>;
 };
 
