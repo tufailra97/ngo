@@ -14,6 +14,26 @@ import { useHistory } from 'react-router-dom';
 const SearchWrapper = styled.div`
   margin-top: 2rem;
   padding: 0 3.5%;
+
+  h2 {
+    font-size: 2rem;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+  .results-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .search-item {
+    width: 15rem;
+    margin: 2rem 1.25rem;
+  }
+
+  .section {
+    margin-top: 4rem;
+  }
 `;
 
 const Search: React.FC = () => {
@@ -52,6 +72,7 @@ const Search: React.FC = () => {
     personsContainer = persons.map(person => {
       return (
         <Card
+          className='person-item search-item'
           id={person.id}
           key={person.id}
           title={person.name!}
@@ -66,6 +87,7 @@ const Search: React.FC = () => {
     seriesContainer = series.map(serie => {
       return (
         <Card
+          className='serie-item search-item'
           id={serie.id}
           key={serie.id}
           title={serie.name!}
@@ -80,6 +102,7 @@ const Search: React.FC = () => {
     moviesContainer = movies.map(movie => {
       return (
         <Card
+          className='movie-item search-item'
           id={movie.id}
           key={movie.id}
           title={movie.title!}
@@ -94,23 +117,23 @@ const Search: React.FC = () => {
     <SearchWrapper>
       {/* movies */}
       {moviesContainer.length > 0 && (
-        <div>
+        <div className='section'>
           <Subline>Movies</Subline>
-          {moviesContainer}
+          <div className='results-container'>{moviesContainer}</div>
         </div>
       )}
       {/* series */}
       {seriesContainer.length > 0 && (
-        <div>
+        <div className='section'>
           <Subline>Series</Subline>
-          {seriesContainer}
+          <div className='results-container'>{seriesContainer}</div>
         </div>
       )}
       {/* persons */}
       {personsContainer.length > 0 && (
-        <div>
-          <Subline>Persons</Subline>
-          {personsContainer}
+        <div className='section'>
+          <Subline>People</Subline>
+          <div className='results-container'>{personsContainer}</div>
         </div>
       )}
     </SearchWrapper>

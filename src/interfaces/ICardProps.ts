@@ -1,4 +1,8 @@
+import { CSSProperties } from "react";
+
+
 export default interface ICardProps {
+  className?: string
   title: string
   description?: string,
   imageURL: string,
@@ -6,4 +10,5 @@ export default interface ICardProps {
   showBadge?: boolean,
   voteAverage?: number,
   id?: number
+  style?: CSSProperties
 }

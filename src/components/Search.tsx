@@ -8,6 +8,7 @@ import styled from 'styled-components';
 const SearchWrapper = styled.div`
   display: flex;
   align-items: center;
+  margin-bottom: 4rem;
 
   form {
     height: 6rem;
