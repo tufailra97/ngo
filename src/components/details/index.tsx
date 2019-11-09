@@ -85,7 +85,7 @@ const Details: React.FC<IDetails> = ({ movie, cast, callback }) => {
         <div className='info'>
           <BasicInfo
             vote={movie.vote_average!}
-            runtime={movie.runtime.toString()}
+            runtime={movie.runtime ? movie.runtime.toString() : 'N/A'}
             releaseDate={movie.release_date!}
           />
           <div className='genres info-container'>

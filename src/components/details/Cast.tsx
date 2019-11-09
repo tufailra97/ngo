@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Subline } from 'elements/Typography';
 import { ICast } from 'interfaces/MovieProps';
+import { Carousel } from 'components';
+import { Avatar } from 'icons';
 
 const CastWrapper = styled.div`
   margin-bottom: 2rem;
@@ -12,10 +14,10 @@ const CastWrapper = styled.div`
     display: flex;
 
     img {
-      width: 4.5rem;
-      height: 4.5rem;
+      width: 5rem;
+      height: 5rem;
       border-radius: 50%;
-      margin-right: 2rem;
+      margin: 0 1rem;
     }
   }
 `;
@@ -33,7 +35,7 @@ const Cast: React.FC<{ cast: Array<ICast>; callback: Function }> = ({
     // limit cast to 20
     if (Array.isArray(crews)) {
       if (crews.length > 20) {
-        crews = crews.slice(0, 10);
+        crews = crews.slice(0, 20);
       }
       casts = crews.map(cast => {
         return (
@@ -44,7 +46,15 @@ const Cast: React.FC<{ cast: Array<ICast>; callback: Function }> = ({
               callback(cast.id);
             }}
           >
-            <img src={`https://image.tmdb.org/t/p/w780/${cast.profile_path}`} />
+            {cast.profile_path !== null ? (
+              <img
+                src={`https://image.tmdb.org/t/p/w780/${cast.profile_path}`}
+              />
+            ) : (
+              <div style={{ margin: '0 1rem' }}>
+                <Avatar width={50} height={50} color={'grey'} />
+              </div>
+            )}
           </div>
         );
       });
@@ -57,7 +67,9 @@ const Cast: React.FC<{ cast: Array<ICast>; callback: Function }> = ({
       <Subline style={{ fontSize: '1.3rem', textTransform: 'uppercase' }}>
         Cast
       </Subline>
-      <div className='cast-img-container'>{handleCast()}</div>
+      <div className='cast-img-container'>
+        <Carousel translate={70}>{handleCast()}</Carousel>
+      </div>
     </CastWrapper>
   );
 };
