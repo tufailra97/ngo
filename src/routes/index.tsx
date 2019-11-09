@@ -17,7 +17,6 @@ const MainContainer = styled.div`
 
 const RouteWrapper = styled.div`
   width: 80vw;
-  height: 100vh;
 `;
 
 const history = createBrowserHistory();

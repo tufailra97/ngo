@@ -9,7 +9,6 @@ const CardStyle = styled.div`
   margin: 2rem 0.5rem;
   flex-shrink: 0;
   transition: transform 0.5s ease;
-  box-shadow: 0px 0px 29px 4px rgba(0, 0, 0, 0.29);
 
   &:hover {
     transform: scale(1.05);
@@ -19,25 +18,26 @@ const CardStyle = styled.div`
     img {
     width: 100%;
     height: auto;
+    box-shadow: 0px 0px 29px 4px rgba(0, 0, 0, 0.29);
   }
 `;
 const Badge = styled.div`
   position: absolute;
   display: table;
-  width: 3rem;
+  width: 5rem;
   height: 3rem;
   color: black;
-  top: -10px;
-  right: -10px;
+  top: 2rem;
+  right: -1rem;
   color: ${(props: StyleThemeProps<ThemeProps>) =>
     props.theme.secondaryTextColour};
   line-height: 3rem;
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 600;
   text-align: center;
   background-color: ${(props: StyleThemeProps<ThemeProps>) =>
     props.theme.focus};
-  border-radius: 25px;
+  border-radius: 2px;
 `;
 
 const Card: React.FC<ICardProps> = ({
