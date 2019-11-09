@@ -10,7 +10,7 @@ import Pagination from 'components/Pagination';
 
 const MovieWrapper = styled.div`
   header {
-    margin-top: 2rem;
+    margin: 3rem 0;
     padding: 0 3.5%;
     h1 {
       font-size: 3.5rem;
