@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import Genres from './Genres';
 import BasicInfo from './BasicInfo';
 import Cast from './Cast';
+import ReadMore from 'components/ReadMore';
 
 // TODO: simplify and improve the component
 
@@ -109,9 +110,12 @@ const Details: React.FC<IDetails> = ({ movie, cast, callback }) => {
               Description
             </Subline>
             <div className='description'>
-              <Paragraph className='paragraph desc-item'>
-                {movie.overview}
-              </Paragraph>
+              <ReadMore
+                texts={movie.overview!}
+                maxLine={3}
+                lineHeight={23}
+                classNames={'paragraph desc-item'}
+              />
             </div>
           </div>
           {/* cast */}
