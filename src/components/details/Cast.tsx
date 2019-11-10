@@ -49,6 +49,7 @@ const Cast: React.FC<{ cast: Array<ICast>; callback: Function }> = ({
             {cast.profile_path !== null ? (
               <img
                 src={`https://image.tmdb.org/t/p/w780/${cast.profile_path}`}
+                alt={cast.name}
               />
             ) : (
               <div style={{ margin: '0 1rem' }}>

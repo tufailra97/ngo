@@ -41,6 +41,7 @@ const Badge = styled.div`
 `;
 
 const Card: React.FC<ICardProps> = ({
+  title,
   imageURL,
   voteAverage,
   showBadge,
@@ -55,7 +56,7 @@ const Card: React.FC<ICardProps> = ({
 
   return (
     <CardStyle onClick={handleMovieInfo} style={style} className={className}>
-      <img src={`https://image.tmdb.org/t/p/w780/${imageURL}`} />
+      <img src={`https://image.tmdb.org/t/p/w780/${imageURL}`} alt={title} />
       {showBadge ? <Badge>{voteAverage}</Badge> : null}
     </CardStyle>
   );

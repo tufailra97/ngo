@@ -77,7 +77,10 @@ const Details: React.FC<IDetails> = ({ movie, cast, callback }) => {
   return (
     <DetailsWrapper>
       <div className='image-container'>
-        <img src={`https://image.tmdb.org/t/p/w780/${movie.poster_path}`} />
+        <img
+          src={`https://image.tmdb.org/t/p/w780/${movie.poster_path}`}
+          alt={movie.title}
+        />
       </div>
       <div className='details-container'>
         {/* title */}
