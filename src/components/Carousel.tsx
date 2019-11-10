@@ -68,7 +68,7 @@ const Carousel: React.FC<ICarousel> = ({ children, translate }) => {
       {showControls && (
         <div
           className='carousel-control carousel-prev-arrow'
-          onClick={handlePrev}
+          onClick={handleNext}
         >
           <Prev width={20} height={20} color={'black'} />
         </div>
@@ -85,7 +85,7 @@ const Carousel: React.FC<ICarousel> = ({ children, translate }) => {
       {showControls && (
         <div
           className='carousel-control carousel-next-arrow'
-          onClick={handleNext}
+          onClick={handlePrev}
         >
           <Next width={20} height={20} color={'black'} />
         </div>
