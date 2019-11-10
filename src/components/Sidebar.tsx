@@ -5,7 +5,7 @@ import styled, {
   ThemeContext
 } from 'styled-components';
 import { ThemeProps } from 'interfaces';
-import { Home, Movie, Series } from 'icons';
+import { Home, Movie, Series, Search } from 'icons';
 import Logo from './Logo';
 
 const StyledSidebar = styled.div`
@@ -95,6 +95,12 @@ const Sidebar: React.FC = () => {
               <LinkWrapper activeClassName={active} to='/series'>
                 <Series width={22} height={22} color={theme.textColour} />
                 <span>Serie</span>
+              </LinkWrapper>
+            </li>
+            <li>
+              <LinkWrapper activeClassName={active} to='/search'>
+                <Search width={22} height={22} color={theme.textColour} />
+                <span>Search</span>
               </LinkWrapper>
             </li>
           </ul>
