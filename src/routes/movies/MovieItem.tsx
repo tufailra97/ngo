@@ -18,12 +18,13 @@ const MovieItemWrapper = styled.div`
   margin: 3rem 0;
   .reccomondation-container {
     padding: 0 2.5%;
-    margin: 5rem 0;
-    margin-bottom: 2rem;
+    margin: 4rem 0;
+    margin-bottom: 1rem;
     h2 {
       font-size: 2rem;
       font-weight: 500;
       text-transform: uppercase;
+      margin-bottom: 1rem;
     }
     .reccomondation {
       width: 90.5%;
