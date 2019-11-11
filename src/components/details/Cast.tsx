@@ -1,9 +1,10 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useContext } from 'react';
+import styled, { ThemeContext } from 'styled-components';
 import { Subline } from 'elements/Typography';
 import { ICast } from 'interfaces/MovieProps';
 import { Carousel } from 'components';
 import { Avatar } from 'icons';
+import { ThemeProps } from 'interfaces';
 
 const CastWrapper = styled.div`
   margin-bottom: 2rem;
@@ -26,6 +27,7 @@ const Cast: React.FC<{ cast: Array<ICast>; callback: Function }> = ({
   cast,
   callback
 }) => {
+  const theme: ThemeProps = useContext(ThemeContext);
   const handleCast = ():
     | Array<React.ReactElement>
     | React.ReactElement
@@ -53,7 +55,11 @@ const Cast: React.FC<{ cast: Array<ICast>; callback: Function }> = ({
               />
             ) : (
               <div style={{ margin: '0 1rem' }}>
-                <Avatar width={50} height={50} color={'grey'} />
+                <Avatar
+                  width={50}
+                  height={50}
+                  color={theme.secondaryTextColour}
+                />
               </div>
             )}
           </div>

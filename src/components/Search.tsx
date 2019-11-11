@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Search as SearchIcon, Close } from 'icons';
 import { useDispatch } from 'react-redux';
 import { search as _search } from 'actions/_search';
 import { useHistory } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { ThemeContext } from 'styled-components';
+import { ThemeProps } from 'interfaces';
 
 const SearchWrapper = styled.div`
   display: flex;
@@ -48,6 +49,7 @@ const SearchWrapper = styled.div`
 
 const Search: React.FC = () => {
   const history = useHistory();
+  const theme: ThemeProps = useContext(ThemeContext);
   const dispatchAction = useDispatch();
   const [search, setSearch] = useState<string>('');
   const [isFormFocused, setFormStatus] = useState<boolean>(false);
@@ -82,7 +84,11 @@ const Search: React.FC = () => {
     >
       <form onSubmit={handleSubmit}>
         <div className='search-icon'>
-          <SearchIcon width={25} height={25} color='grey' />
+          <SearchIcon
+            width={25}
+            height={25}
+            color={theme.secondaryTextColour}
+          />
         </div>
         <input
           className='input'
@@ -98,7 +104,7 @@ const Search: React.FC = () => {
             setSearch('');
           }}
         >
-          <Close width={25} height={25} color='grey' />
+          <Close width={25} height={25} color={theme.secondaryTextColour} />
         </div>
       </form>
     </SearchWrapper>

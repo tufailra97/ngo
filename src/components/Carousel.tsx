@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect, useRef, useContext } from 'react';
+import styled, { ThemeContext } from 'styled-components';
 import { Next, Prev } from 'icons';
+import { ThemeProps } from 'interfaces';
 
 interface ICarousel {
   translate: number;
@@ -36,6 +37,7 @@ const CarouselContainer = styled.div`
 `;
 
 const Carousel: React.FC<ICarousel> = ({ children, translate }) => {
+  const theme: ThemeProps = useContext(ThemeContext);
   const [index, setIndex] = useState(0);
   const [showControls, setControlStatus] = useState(true);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -70,7 +72,7 @@ const Carousel: React.FC<ICarousel> = ({ children, translate }) => {
           className='carousel-control carousel-prev-arrow'
           onClick={handleNext}
         >
-          <Prev width={20} height={20} color={'black'} />
+          <Prev width={20} height={20} color={theme.textColour} />
         </div>
       )}
 
@@ -87,7 +89,7 @@ const Carousel: React.FC<ICarousel> = ({ children, translate }) => {
           className='carousel-control carousel-next-arrow'
           onClick={handlePrev}
         >
-          <Next width={20} height={20} color={'black'} />
+          <Next width={20} height={20} color={theme.textColour} />
         </div>
       )}
     </CarouselContainer>

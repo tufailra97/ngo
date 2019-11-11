@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import styled from 'styled-components';
+import styled, { ThemeProps as StyleThemeProps } from 'styled-components';
 import { Paragraph } from 'elements/Typography';
+import { ThemeProps } from 'interfaces';
 
 const ReadMoreWrapper = styled.div`
   .read-more {
@@ -23,7 +24,8 @@ const ReadMoreWrapper = styled.div`
         margin-top: 0.2rem;
         display: block;
         height: 0.1rem;
-        background-color: black;
+        background-color: ${(props: StyleThemeProps<ThemeProps>) =>
+          props.theme.textColour};
         transition: width 0.5s ease;
       }
       &:hover {

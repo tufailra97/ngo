@@ -26,7 +26,6 @@ const Badge = styled.div`
   display: table;
   width: 5rem;
   height: 3rem;
-  color: black;
   top: 2rem;
   right: -1rem;
   color: ${(props: StyleThemeProps<ThemeProps>) =>
