@@ -1,5 +1,6 @@
 import { IMovieResponse, IMovieInistialState, IMovie, IMovieDetailsResponse, ICredits, IMovieDetails } from './MovieProps'
 import { ISearch, ISearchMovie, ISearchPerson, ISearchSerie, ISearchInitialState } from './SearchProps'
+import { ISeriesInistialState, ISeriesReponse } from './SeriesProps';
 import { IPersonDetails } from './IPeopleProps'
 import ICardProps from './ICardProps';
 import ThemeProps from './ThemeProps';
@@ -20,4 +21,6 @@ export type ISearch = ISearch;
 export type ISearchMovie = ISearchMovie;
 export type ISearchPerson = ISearchPerson;
 export type ISearchSerie = ISearchSerie;
+export type ISeriesInistialState = ISeriesInistialState;
+export type ISeriesReponse = ISeriesReponse;
 

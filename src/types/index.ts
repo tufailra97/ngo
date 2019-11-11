@@ -8,5 +8,9 @@ export const PEOPLE_GET_DETAILS: string = 'PEOPLE_GET_DETAILS';
 export const SEARCH_REQEUSTED: string = 'SEARCH_REQEUSTED';
 export const SEARCH_RESULTS: string = 'SEARCH_RESULTS';
 export const SEARCH_FAILED: string = 'SEARCH_FAILED';
+export const SERIE_GET_TOP_RATED: string = 'SERIE_GET_TOP_RATED';
+export const SERIE_GET_SERIE_DETAILS: string = 'SERIE_GET_SERIE_DETAILS';
+export const SERIE_GET_RECCOMENDATION: string = 'SERIE_GET_RECCOMENDATION';
+export const SERIE_GET_CREDITS: string = 'SERIE_GET_CREDITS';
 
 
