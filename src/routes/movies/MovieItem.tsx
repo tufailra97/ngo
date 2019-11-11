@@ -11,9 +11,26 @@ import { Loader, Card } from 'components';
 import { RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
 import Details from 'components/details';
+import { Subline } from 'elements/Typography';
 
-const MovieItemStyle = styled.div`
+const MovieItemWrapper = styled.div`
   padding: 1rem;
+  margin: 3rem 0;
+  .reccomondation-container {
+    padding: 0 2.5%;
+    margin: 5rem 0;
+    margin-bottom: 2rem;
+    h2 {
+      font-size: 2rem;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+    .reccomondation {
+      width: 90.5%;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
 `;
 
 const MovieItem: React.FC<RouteComponentProps> = ({ history }) => {
@@ -56,7 +73,7 @@ const MovieItem: React.FC<RouteComponentProps> = ({ history }) => {
     | React.ReactElement => {
     let reccomondationContent;
     if (reccomondation !== undefined) {
-      reccomondationContent = reccomondation.map(movie => {
+      reccomondationContent = reccomondation.slice(0, 5).map(movie => {
         return (
           <Card
             key={movie.id}
@@ -79,7 +96,7 @@ const MovieItem: React.FC<RouteComponentProps> = ({ history }) => {
   }
   // TODO: exctract into small components
   return (
-    <MovieItemStyle>
+    <MovieItemWrapper>
       {/* movie details */}
       {movie !== undefined && cast !== undefined ? (
         <Details
@@ -92,8 +109,11 @@ const MovieItem: React.FC<RouteComponentProps> = ({ history }) => {
       ) : null}
 
       {/* show reccomondation */}
-      {handleReccomondation()}
-    </MovieItemStyle>
+      <div className='reccomondation-container'>
+        <Subline>Reccomondation</Subline>
+        <div className='reccomondation'>{handleReccomondation()}</div>
+      </div>
+    </MovieItemWrapper>
   );
 };
 
