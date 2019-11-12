@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { getSerieDetails } from 'actions/_series';
-import { ISeriesInistialState } from 'interfaces';
-import { Loader, Card } from 'components';
-import { RouteComponentProps } from 'react-router-dom';
-import styled from 'styled-components';
-import Details from 'components/details';
-import { Subline } from 'elements/Typography';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getSerieDetails, getCredits, getRecommendations } from "actions/_series";
+import { ISeriesInistialState } from "interfaces";
+import { Loader, Card } from "components";
+import { RouteComponentProps } from "react-router-dom";
+import styled from "styled-components";
+import Details from "components/details";
+import { Subline } from "elements/Typography";
 
-const SeriesItemWrapper = styled.div`
+const MovieItemWrapper = styled.div`
   padding: 1rem;
   margin: 3rem 0;
   .reccomondation-container {
@@ -30,25 +30,25 @@ const SeriesItemWrapper = styled.div`
   }
 `;
 
-const SeriesItem: React.FC<RouteComponentProps> = ({ history }) => {
+const MovieItem: React.FC<RouteComponentProps> = ({ history }) => {
   const { id } = useParams();
   const dispatchAction = useDispatch();
-  const movieState: ISeriesInistialState = useSelector(
-    (state: any) => state.movies
+  const seriesState: ISeriesInistialState = useSelector(
+    (state: any) => state.series
   );
   const [castMember, setCastMember] = useState<number | null>(null);
 
-  // const { movie } = movieState;
-  // const loading = movieState.fetchRequested;
-  // const error = movieState.fetchFailed;
-  // const reccomondation = movieState.results;
-  // const cast = movieState.cast;
+  const serie = seriesState.serie;
+  const loading = seriesState.fetchRequested;
+  const error = seriesState.fetchFailed;
+  const reccomondation = seriesState.recommendations;
+  const cast = seriesState.cast;
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     dispatchAction(getSerieDetails(parseInt(id!)));
-    // dispatchAction(getRecommendations(parseInt(id!)));
-    // dispatchAction(getCredits(parseInt(id!)));
+    dispatchAction(getRecommendations(parseInt(id!)));
+    dispatchAction(getCredits(parseInt(id!)));
   }, [id]);
 
   const handleClickReccomondation = (id: number) => {
@@ -65,40 +65,50 @@ const SeriesItem: React.FC<RouteComponentProps> = ({ history }) => {
     }
   }, [castMember]);
 
-  // const handleReccomondation = ():
-  //   | Array<React.ReactElement>
-  //   | React.ReactElement => {
-  //   let reccomondationContent;
-  //   if (reccomondation !== undefined) {
-  //     reccomondationContent = reccomondation.slice(0, 5).map(movie => {
-  //       return (
-  //         <Card
-  //           key={movie.id}
-  //           id={movie.id}
-  //           title={movie.title}
-  //           imageURL={movie.poster_path!}
-  //           callback={handleClickReccomondation}
-  //         />
-  //       );
-  //     });
+  const handleReccomondation = ():
+    | Array<React.ReactElement>
+    | React.ReactElement => {
+    let reccomondationContent;
+    if (reccomondation !== undefined) {
+      reccomondationContent = reccomondation.slice(0, 5).map(movie => {
+        return (
+          <Card
+            key={movie.id}
+            id={movie.id}
+            title={movie.title}
+            imageURL={movie.poster_path!}
+            callback={handleClickReccomondation}
+          />
+        );
+      });
 
-  //     return reccomondationContent;
-  //   } else {
-  //     return <Loader />;
-  //   }
-  // };
+      return reccomondationContent;
+    } else {
+      return <Loader />;
+    }
+  };
 
-  // if (loading) {
-  //   return <Loader />;
-  // }
+  if (loading) {
+    return <Loader />;
+  }
   // TODO: exctract into small components
   return (
-    <SeriesItemWrapper>
+    <MovieItemWrapper>
       {/* movie details */}
-      {/* {movie !== undefined && cast !== undefined ? (
+      {serie !== undefined && cast !== undefined ? (
         <Details
-          movie={movie}
+          type="tv"
+          title={serie.title}
+          releaseDate={serie.release_date!}
+          poster={serie.poster_path!}
+          productionCompanies={serie.production_companies}
+          runtime={serie.episode_run_time[0]}
+          vote={serie.vote_average!}
+          overview={serie.overview!}
+          genres={serie.genres!}
           cast={cast}
+          totalSeason={serie.number_of_seasons}
+          totalEpisodes={serie.number_of_episodes}
           callback={(id: number) => {
             setCastMember(id);
           }}
@@ -106,13 +116,12 @@ const SeriesItem: React.FC<RouteComponentProps> = ({ history }) => {
       ) : null}
 
       {/* show reccomondation */}
-      {/* <div className='reccomondation-container'>
+      <div className="reccomondation-container">
         <Subline>Reccomondation</Subline>
-        <div className='reccomondation'>{handleReccomondation()}</div>
-      </div>{' '} */}
-      */}
-    </SeriesItemWrapper>
+        <div className="reccomondation">{handleReccomondation()}</div>
+      </div>
+    </MovieItemWrapper>
   );
 };
 
-export default SeriesItem;
+export default MovieItem;

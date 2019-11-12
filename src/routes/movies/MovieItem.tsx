@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getMovieDetails,
   getRecommendations,
   getCredits
-} from 'actions/_movies';
-import { IMovieInistialState } from 'interfaces';
-import { Loader, Card } from 'components';
-import { RouteComponentProps } from 'react-router-dom';
-import styled from 'styled-components';
-import Details from 'components/details';
-import { Subline } from 'elements/Typography';
+} from "actions/_movies";
+import { IMovieInistialState } from "interfaces";
+import { Loader, Card } from "components";
+import { RouteComponentProps } from "react-router-dom";
+import styled from "styled-components";
+import Details from "components/details";
+import { Subline } from "elements/Typography";
 
 const MovieItemWrapper = styled.div`
   padding: 1rem;
@@ -49,7 +49,7 @@ const MovieItem: React.FC<RouteComponentProps> = ({ history }) => {
   const cast = movieState.cast;
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     dispatchAction(getMovieDetails(parseInt(id!)));
     dispatchAction(getRecommendations(parseInt(id!)));
     dispatchAction(getCredits(parseInt(id!)));
@@ -101,7 +101,16 @@ const MovieItem: React.FC<RouteComponentProps> = ({ history }) => {
       {/* movie details */}
       {movie !== undefined && cast !== undefined ? (
         <Details
-          movie={movie}
+          type="movie"
+          title={movie.title}
+          tagline={movie.tagline}
+          releaseDate={movie.release_date!}
+          poster={movie.poster_path!}
+          productionCompanies={movie.production_companies}
+          runtime={movie.runtime}
+          vote={movie.vote_average!}
+          overview={movie.overview!}
+          genres={movie.genres!}
           cast={cast}
           callback={(id: number) => {
             setCastMember(id);
@@ -110,9 +119,9 @@ const MovieItem: React.FC<RouteComponentProps> = ({ history }) => {
       ) : null}
 
       {/* show reccomondation */}
-      <div className='reccomondation-container'>
+      <div className="reccomondation-container">
         <Subline>Reccomondation</Subline>
-        <div className='reccomondation'>{handleReccomondation()}</div>
+        <div className="reccomondation">{handleReccomondation()}</div>
       </div>
     </MovieItemWrapper>
   );
