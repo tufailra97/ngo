@@ -1,4 +1,4 @@
-import { REQUEST_FETCH, FETCH_FAILED, SERIE_GET_TOP_RATED } from 'types';
+import { REQUEST_FETCH, FETCH_FAILED, SERIE_GET_TOP_RATED, SERIE_GET_SERIE_DETAILS } from 'types';
 
 const initialState = {
 
@@ -18,8 +18,6 @@ const reducer = (state = initialState, actions: any) => {
         requestFailed: true
       }
     case SERIE_GET_TOP_RATED:
-      console.log('results ', actions);
-
       return {
         ...state,
         requestFailed: false,
@@ -27,6 +25,12 @@ const reducer = (state = initialState, actions: any) => {
         results: actions.series,
         total_pages: actions.total_pages,
         total_results: actions.total_results
+      }
+    case SERIE_GET_SERIE_DETAILS:
+      return {
+        ...state,
+        serie: actions.movie,
+        fetchRequested: false
       }
     default:
       return state;

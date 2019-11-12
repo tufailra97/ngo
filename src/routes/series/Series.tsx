@@ -38,18 +38,19 @@ const Series: React.FC<BrowserRouterProps & RouteComponentProps> = ({
 
   const series = seriesState.results;
 
-  console.log(series);
-
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     dispatchAction(getTopRaped(page));
   }, [page]);
 
   const handleCallback = (id: number) => {
+    console.log('id ---->', id);
+
     history.push({
       pathname: `/series/details/${id}`
     });
   };
+
   return (
     <SeriesWrapper>
       <header>

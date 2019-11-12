@@ -5,6 +5,7 @@ import Home from './home/Home';
 import Movies from './movies/Movies';
 import MovieItem from './movies/MovieItem';
 import Series from './series/Series';
+import SeriesItem from './series/SeriesItem';
 import { Search as SearchComponent } from 'components';
 import Search from './search/Search';
 import People from './people/People';
@@ -49,8 +50,13 @@ const RootRouter: React.FC = () => {
               component={People}
             />
             <Route
+              exact
               path={process.env.PUBLIC_URL + '/series'}
               component={Series}
+            />
+            <Route
+              path={process.env.PUBLIC_URL + '/series/details/:id'}
+              component={SeriesItem}
             />
             <Route
               path={process.env.PUBLIC_URL + '/search'}

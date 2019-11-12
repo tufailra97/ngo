@@ -1,4 +1,4 @@
-import { SEARCH_REQEUSTED, SEARCH_FAILED, SEARCH_RESULTS } from 'types'
+import { SEARCH_REQUESTED, SEARCH_FAILED, SEARCH_RESULTS } from 'types'
 import { ISearchInitialState, ISearch, ISearchPerson, ISearchMovie, ISearchSerie } from 'interfaces';
 
 const initialState: ISearchInitialState = {
@@ -11,7 +11,6 @@ const initialState: ISearchInitialState = {
   }
 }
 // TODO :: assign proper type
-// Turn off --strictNullChecks and --strictPropertyInitialization
 const handleSearchResults = (res: ISearch): any => {
   let persons: Array<ISearchPerson> = [];
   let movies: Array<ISearchMovie> = [];
@@ -35,7 +34,7 @@ const handleSearchResults = (res: ISearch): any => {
 
 const reducer = (state = initialState, actions: any) => {
   switch (actions.type) {
-    case SEARCH_REQEUSTED:
+    case SEARCH_REQUESTED:
       return {
         ...state,
         searchRequested: true

@@ -1,6 +1,7 @@
 export interface ISeriesInistialState extends ISeriesReponse {
   fetchRequested?: boolean,
-  fetchFailed?: boolean
+  fetchFailed?: boolean,
+  serie?: ISeries
 }
 
 interface ISeries {
