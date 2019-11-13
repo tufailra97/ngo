@@ -48,7 +48,7 @@ const Search: React.FC = () => {
 
   const handlePersonDetails = (id: number) => {
     history.replace({
-      pathname: `/people/${id}`
+      pathname: `/search/people/${id}`
     });
   };
   const handleMovieDetails = (id: number) => {

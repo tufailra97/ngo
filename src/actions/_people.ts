@@ -22,6 +22,7 @@ export const getDetails = (id: number) => async (dispatch: Dispatch) => {
   if (status === 200) {
     return dispatch({
       type: PEOPLE_GET_DETAILS,
+      payload: data
     });
   }
   return dispatch({

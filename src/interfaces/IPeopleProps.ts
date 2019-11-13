@@ -1,3 +1,8 @@
+export interface IPeopleInitialState {
+  fetchRequested: boolean,
+  fetchFailed: boolean,
+  people?: IPersonDetails
+}
 export interface IPersonDetails {
   birthday: string,
   known_for_department: string,
