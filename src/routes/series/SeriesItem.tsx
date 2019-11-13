@@ -60,7 +60,7 @@ const MovieItem: React.FC<RouteComponentProps> = ({ history }) => {
   useEffect(() => {
     if (castMember !== null) {
       history.push({
-        pathname: `/people/${castMember}`
+        pathname: `/search/people/${castMember}`
       });
     }
   }, [castMember]);
@@ -75,7 +75,7 @@ const MovieItem: React.FC<RouteComponentProps> = ({ history }) => {
           <Card
             key={movie.id}
             id={movie.id}
-            title={movie.title}
+            title={movie.name}
             imageURL={movie.poster_path!}
             callback={handleClickReccomondation}
           />
@@ -98,7 +98,7 @@ const MovieItem: React.FC<RouteComponentProps> = ({ history }) => {
       {serie !== undefined && cast !== undefined ? (
         <Details
           type="tv"
-          title={serie.title}
+          title={serie.name}
           releaseDate={serie.release_date!}
           poster={serie.poster_path!}
           productionCompanies={serie.production_companies}

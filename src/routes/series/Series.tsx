@@ -66,18 +66,18 @@ const Series: React.FC<BrowserRouterProps & RouteComponentProps> = ({
       >
         {series !== undefined && Array.isArray(series)
           ? series.map(serie => {
-              return (
-                <Card
-                  title={serie.title}
-                  imageURL={serie.poster_path!}
-                  key={serie.id}
-                  callback={handleCallback}
-                  voteAverage={serie.vote_average}
-                  showBadge
-                  id={serie.id}
-                />
-              );
-            })
+            return (
+              <Card
+                title={serie.name}
+                imageURL={serie.poster_path!}
+                key={serie.id}
+                callback={handleCallback}
+                voteAverage={serie.vote_average}
+                showBadge
+                id={serie.id}
+              />
+            );
+          })
           : null}
       </div>
       {series !== undefined && Array.isArray(series) ? (

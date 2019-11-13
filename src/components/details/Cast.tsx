@@ -7,6 +7,11 @@ import { Avatar } from "icons";
 import { ThemeProps } from "interfaces";
 
 const CastWrapper = styled.div`
+
+  .cast-img{
+    cursor: pointer;
+  }
+  
   margin-bottom: 2rem;
   h2 {
     margin-bottom: 1rem;
@@ -54,14 +59,14 @@ const Cast: React.FC<{ cast: Array<ICast>; callback: Function }> = ({
                 alt={cast.name}
               />
             ) : (
-              <div style={{ margin: "0 1rem" }}>
-                <Avatar
-                  width={50}
-                  height={50}
-                  color={theme.secondaryTextColour}
-                />
-              </div>
-            )}
+                <div style={{ margin: "0 1rem" }}>
+                  <Avatar
+                    width={50}
+                    height={50}
+                    color={theme.secondaryTextColour}
+                  />
+                </div>
+              )}
           </div>
         );
       });

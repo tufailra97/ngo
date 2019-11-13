@@ -64,7 +64,7 @@ const MovieItem: React.FC<RouteComponentProps> = ({ history }) => {
   useEffect(() => {
     if (castMember !== null) {
       history.push({
-        pathname: `/people/${castMember}`
+        pathname: `/search/people/${castMember}`
       });
     }
   }, [castMember]);

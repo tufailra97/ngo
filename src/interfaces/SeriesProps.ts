@@ -11,7 +11,7 @@ export interface ISeriesInistialState extends ISeriesReponse, ICredits {
 
 interface ISeries {
   id: number
-  title: string
+  name: string
   overview: string
   popularity: number
   poster_path: string

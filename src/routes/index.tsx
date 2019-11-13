@@ -46,10 +46,6 @@ const RootRouter: React.FC = () => {
               component={MovieItem}
             />
             <Route
-              path={process.env.PUBLIC_URL + '/people/:id'}
-              component={People}
-            />
-            <Route
               exact
               path={process.env.PUBLIC_URL + '/series'}
               component={Series}
@@ -59,8 +55,13 @@ const RootRouter: React.FC = () => {
               component={SeriesItem}
             />
             <Route
+              exact
               path={process.env.PUBLIC_URL + '/search'}
               component={Search}
+            />
+            <Route
+              path={process.env.PUBLIC_URL + '/search/people/:id'}
+              component={People}
             />
           </Switch>
         </RouteWrapper>
