@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  match,
-  useHistory,
-  RouteComponentProps,
-  useParams
-} from 'react-router-dom';
+import { useHistory, RouteComponentProps, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { getDetails } from 'actions/_people';
 import { useSelector, useDispatch } from 'react-redux';
@@ -49,36 +44,30 @@ const PeopleWrapper = styled.div`
     width: 65rem;
     margin-left: 3rem;
 
-    .paragraph {
-      font-size: 1.3rem;
-      line-height: 1.4;
+    .name {
+      h1 {
+        text-transform: uppercase;
+        font-size: 3.5rem;
+        font-weight: 400;
+        max-width: 40rem;
+      }
+      margin-bottom: 3rem;
     }
 
-    .info-container {
-      margin-bottom: 2rem;
+    .info {
+      margin-bottom: 1.5rem;
       h2 {
-        margin-bottom: 1rem;
+        font-size: 1.4rem;
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
       }
-    }
-
-    .company-wrapper {
-      display: flex;
-      align-items: center;
-
-      img {
-        margin-right: 2rem;
-        max-width: 6rem;
-        height: auto;
-        transition: transform 1s ease;
-        &:hover {
-          transform: scale(2);
-        }
-      }
-    }
-
-    .description {
       p {
-        text-align: justify;
+        font-size: 1.3rem;
+      }
+    }
+
+    .biography {
+      .paragraph {
         line-height: 2.3rem;
       }
     }
@@ -117,38 +106,38 @@ const People: React.FC<RouteComponentProps> = ({ history }) => {
   return (
     <PeopleWrapper>
       {people !== undefined ? (
-        <div className="main-container">
-          <div className="image-container">
+        <div className='main-container'>
+          <div className='image-container'>
             <img
               src={`https://image.tmdb.org/t/p/w780/${people.profile_path}`}
               alt={people.name}
             />
           </div>
-          <div className="details-container">
-            <Headline>{people.name}</Headline>
+          <div className='details-container'>
+            <div className='name'>
+              <Headline>{people.name}</Headline>
+            </div>
             {people.birthday ? (
-              <div>
+              <div className='birthday info'>
                 <Subline>Born</Subline>
                 <Paragraph>{handleDate(people.birthday)}</Paragraph>
               </div>
             ) : null}
             {people.deathday ? (
-              <div>
+              <div className='death info'>
                 <Subline>Death</Subline>
                 <p>{handleDate(people.deathday)}</p>
               </div>
             ) : null}
-            <div>
+            <div className='biography info'>
               <Subline>Biography</Subline>
               {people.biography !== null ? (
-                <div>
-                  <ReadMore
-                    texts={people.biography}
-                    maxLine={4}
-                    lineHeight={10}
-                    classNames="description paragraph"
-                  />
-                </div>
+                <ReadMore
+                  texts={people.biography}
+                  maxLine={5}
+                  lineHeight={23}
+                  classNames='paragraph'
+                />
               ) : null}
             </div>
           </div>
