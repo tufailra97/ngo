@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory, RouteComponentProps, useParams } from 'react-router-dom';
+import React, { useEffect, useState, ReactElement } from 'react';
+import { RouteComponentProps, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { getDetails } from 'actions/_people';
+import { getDetails, getMovieCredits, getSerieCredits } from 'actions/_people';
 import { useSelector, useDispatch } from 'react-redux';
 import { IPeopleInitialState } from 'interfaces/IPeopleProps';
 import { Headline, Subline, Paragraph } from 'elements/Typography';
 import ReadMore from 'components/ReadMore';
+import { getSerieDetails } from 'actions/_series';
+import { Card } from 'components';
+import Recommendation from 'components/Recommendations';
 
 const months = [
   'January',
@@ -72,6 +75,21 @@ const PeopleWrapper = styled.div`
       }
     }
   }
+  .recommendation-container {
+    padding: 0 2.5%;
+    margin: 4rem 0;
+    margin-bottom: 1rem;
+    h2 {
+      font-size: 2rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .recommendation {
+      width: 90.5%;
+      display: flex;
+    }
+  }
 `;
 
 const People: React.FC<RouteComponentProps> = ({ history }) => {
@@ -82,9 +100,16 @@ const People: React.FC<RouteComponentProps> = ({ history }) => {
   );
 
   const people = peopleState.people;
+  const movieCredit = peopleState.movieCredits;
+  const serieCredits = peopleState.serieCredits;
+
+  let movies: Array<ReactElement> = [];
+  let series: Array<ReactElement> = [];
 
   useEffect(() => {
     dispatchAction(getDetails(parseInt(id!)));
+    dispatchAction(getMovieCredits(parseInt(id!)));
+    dispatchAction(getSerieCredits(parseInt(id!)));
   }, [id]);
 
   const handleDate = (date: string): string => {
@@ -102,6 +127,48 @@ const People: React.FC<RouteComponentProps> = ({ history }) => {
 
     return `${day} ${month} ${year}`;
   };
+
+  const handleClickMovie = (id: number) => {
+    history.replace({
+      pathname: `/movies/details/${id}`
+    });
+  };
+
+  const handleClickSerie = (id: number) => {
+    history.replace({
+      pathname: `/series/details/${id}`
+    });
+  };
+
+  if (movieCredit && movieCredit.length > 0) {
+    movies = movieCredit.map(movie => {
+      return (
+        <Card
+          style={{ margin: '2rem 1rem' }}
+          key={movie.id}
+          id={movie.id}
+          title={movie.character}
+          imageURL={movie.poster_path!}
+          callback={handleClickMovie}
+        />
+      );
+    });
+  }
+
+  if (serieCredits && serieCredits.length > 0) {
+    series = serieCredits.map(serie => {
+      return (
+        <Card
+          style={{ margin: '2rem 1rem' }}
+          key={serie.id}
+          id={serie.id}
+          title={serie.character}
+          imageURL={serie.poster_path!}
+          callback={handleClickSerie}
+        />
+      );
+    });
+  }
 
   return (
     <PeopleWrapper>
@@ -141,6 +208,24 @@ const People: React.FC<RouteComponentProps> = ({ history }) => {
               ) : null}
             </div>
           </div>
+        </div>
+      ) : null}
+
+      {movies.length > 0 || series.length > 0 ? (
+        <div>
+          {movies.length > 0 ? (
+            <div className='recommendation-container'>
+              <Subline>Related Movies</Subline>
+              <div className='recommendation'>{movies}</div>
+            </div>
+          ) : (
+            <>
+              <div className='recommendation-container'>
+                <Subline>Related Series</Subline>
+                <div className='recommendation'>{series}</div>
+              </div>
+            </>
+          )}
         </div>
       ) : null}
     </PeopleWrapper>

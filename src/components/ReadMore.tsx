@@ -8,6 +8,7 @@ const ReadMoreWrapper = styled.div`
     overflow: hidden;
     transition: height 0.5s ease;
     margin-bottom: 1rem;
+    text-align: justify;
   }
 
   .read-more-controls-btn {

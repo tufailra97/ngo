@@ -6,5 +6,16 @@ import Rating from './Rating';
 import Search from './Search';
 import Carousel from './Carousel';
 import Pagination from './Pagination';
+import Recommendations from './Recommendations';
 
-export { Logo, Sidebar, Card, Loader, Search, Carousel, Pagination, Rating };
+export {
+  Logo,
+  Sidebar,
+  Card,
+  Loader,
+  Search,
+  Carousel,
+  Pagination,
+  Rating,
+  Recommendations
+};

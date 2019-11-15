@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   getMovieDetails,
   getRecommendations,
   getCredits
-} from "actions/_movies";
-import { IMovieInistialState } from "interfaces";
-import { Loader, Card } from "components";
-import { RouteComponentProps } from "react-router-dom";
-import styled from "styled-components";
-import Details from "components/details";
-import { Subline } from "elements/Typography";
+} from 'actions/_movies';
+import { IMovieInistialState } from 'interfaces';
+import { Loader, Card } from 'components';
+import { RouteComponentProps } from 'react-router-dom';
+import styled from 'styled-components';
+import Details from 'components/details';
+import { Subline } from 'elements/Typography';
 
 const MovieItemWrapper = styled.div`
   padding: 1rem;
   margin: 3rem 0;
-  .reccomondation-container {
+  .recommendation-container {
     padding: 0 2.5%;
     margin: 4rem 0;
     margin-bottom: 1rem;
@@ -26,10 +26,9 @@ const MovieItemWrapper = styled.div`
       text-transform: uppercase;
       margin-bottom: 1rem;
     }
-    .reccomondation {
+    .recommendation {
       width: 90.5%;
       display: flex;
-      justify-content: space-between;
     }
   }
 `;
@@ -45,11 +44,11 @@ const MovieItem: React.FC<RouteComponentProps> = ({ history }) => {
   const { movie } = movieState;
   const loading = movieState.fetchRequested;
   const error = movieState.fetchFailed;
-  const reccomondation = movieState.results;
+  const recommendation = movieState.results;
   const cast = movieState.cast;
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     dispatchAction(getMovieDetails(parseInt(id!)));
     dispatchAction(getRecommendations(parseInt(id!)));
     dispatchAction(getCredits(parseInt(id!)));
@@ -73,10 +72,11 @@ const MovieItem: React.FC<RouteComponentProps> = ({ history }) => {
     | Array<React.ReactElement>
     | React.ReactElement => {
     let reccomondationContent;
-    if (reccomondation !== undefined) {
-      reccomondationContent = reccomondation.slice(0, 5).map(movie => {
+    if (recommendation !== undefined) {
+      reccomondationContent = recommendation.slice(0, 5).map(movie => {
         return (
           <Card
+            style={{ margin: '2rem 1rem' }}
             key={movie.id}
             id={movie.id}
             title={movie.title}
@@ -101,7 +101,7 @@ const MovieItem: React.FC<RouteComponentProps> = ({ history }) => {
       {/* movie details */}
       {movie !== undefined && cast !== undefined ? (
         <Details
-          type="movie"
+          type='movie'
           title={movie.title}
           tagline={movie.tagline}
           releaseDate={movie.release_date!}
@@ -118,10 +118,10 @@ const MovieItem: React.FC<RouteComponentProps> = ({ history }) => {
         />
       ) : null}
 
-      {/* show reccomondation */}
-      <div className="reccomondation-container">
-        <Subline>Reccomondation</Subline>
-        <div className="reccomondation">{handleReccomondation()}</div>
+      {/* show recommendation */}
+      <div className='recommendation-container'>
+        <Subline>recommendation</Subline>
+        <div className='recommendation'>{handleReccomondation()}</div>
       </div>
     </MovieItemWrapper>
   );
