@@ -6,11 +6,18 @@ import { useHistory } from 'react-router-dom';
 import styled, { ThemeContext } from 'styled-components';
 import { ThemeProps } from 'interfaces';
 
+const routes = ['/movies', '/series', '/search', '/home'];
+
 const SearchWrapper = styled.div`
-  display: flex;
-  align-items: center;
   margin-bottom: 4rem;
 
+  .show-search {
+    display: block;
+  }
+
+  .hide-search {
+    display: none;
+  }
   form {
     height: 6rem;
     width: 100%;
@@ -49,19 +56,33 @@ const SearchWrapper = styled.div`
 
 const Search: React.FC = () => {
   const history = useHistory();
-  const theme: ThemeProps = useContext(ThemeContext);
   const dispatchAction = useDispatch();
+  const theme: ThemeProps = useContext(ThemeContext);
   const [search, setSearch] = useState<string>('');
   const [isFormFocused, setFormStatus] = useState<boolean>(false);
+  const [status, setStatus] = useState<boolean>(true);
 
-  const handleSubmit = (e: React.FormEvent): void => {
-    e.preventDefault();
-  };
+  const handleSubmit = (e: React.FormEvent): void => e.preventDefault();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target;
     setSearch(value);
   };
+
+  useEffect(() => {
+    let routeFound = false;
+    for (let index = 0; index < routes.length; index++) {
+      if (routes[index] === history.location.pathname) {
+        routeFound = true;
+      }
+    }
+
+    if (routeFound) {
+      setStatus(true);
+    } else {
+      setStatus(false);
+    }
+  }, [history.location.pathname]);
 
   useEffect(() => {
     if (isFormFocused) {
@@ -77,6 +98,7 @@ const Search: React.FC = () => {
 
   return (
     <SearchWrapper
+      style={{ display: `${status ? 'block' : 'none'}` }}
       onClick={() => setFormStatus(true)}
       onBlur={() => {
         setFormStatus(false);
