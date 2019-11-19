@@ -3,16 +3,16 @@ import styled, { ThemeContext } from 'styled-components';
 import { Next, Prev } from 'icons';
 import { ThemeProps } from 'interfaces';
 
-interface ICarousel {
+interface IMinimalCarousel {
   translate: number;
 }
 
-const CarouselContainer = styled.div`
+const MinimalCarouselContainer = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  .carousel-control {
+  .MinimalCarousel-control {
     width: 2rem;
     cursor: pointer;
   }
@@ -26,17 +26,20 @@ const CarouselContainer = styled.div`
     transform: scale(1.5);
   }
 
-  .carousel-outer-wrapper {
+  .MinimalCarousel-outer-wrapper {
     width: 56rem;
     overflow: hidden;
-    .carousel-wrapper {
+    .MinimalCarousel-wrapper {
       display: flex;
       transition: transform 0.5s ease;
     }
   }
 `;
 
-const Carousel: React.FC<ICarousel> = ({ children, translate }) => {
+const MinimalCarousel: React.FC<IMinimalCarousel> = ({
+  children,
+  translate
+}) => {
   const theme: ThemeProps = useContext(ThemeContext);
   const [index, setIndex] = useState(0);
   const [showControls, setControlStatus] = useState(true);
@@ -66,19 +69,19 @@ const Carousel: React.FC<ICarousel> = ({ children, translate }) => {
     }
   });
   return (
-    <CarouselContainer>
+    <MinimalCarouselContainer>
       {showControls && (
         <div
-          className='carousel-control carousel-prev-arrow'
+          className='MinimalCarousel-control MinimalCarousel-prev-arrow'
           onClick={handleNext}
         >
           <Prev width={20} height={20} color={theme.textColour} />
         </div>
       )}
 
-      <div className='carousel-outer-wrapper' ref={wrapperRef}>
+      <div className='MinimalCarousel-outer-wrapper' ref={wrapperRef}>
         <div
-          className='carousel-wrapper'
+          className='MinimalCarousel-wrapper'
           style={{ transform: `translateX(${index * translate}px)` }}
         >
           {children}
@@ -86,14 +89,14 @@ const Carousel: React.FC<ICarousel> = ({ children, translate }) => {
       </div>
       {showControls && (
         <div
-          className='carousel-control carousel-next-arrow'
+          className='MinimalCarousel-control MinimalCarousel-next-arrow'
           onClick={handlePrev}
         >
           <Next width={20} height={20} color={theme.textColour} />
         </div>
       )}
-    </CarouselContainer>
+    </MinimalCarouselContainer>
   );
 };
 
-export default Carousel;
+export default MinimalCarousel;

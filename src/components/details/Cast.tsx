@@ -1,17 +1,16 @@
-import React, { useContext } from "react";
-import styled, { ThemeContext } from "styled-components";
-import { Subline } from "elements/Typography";
-import { ICast } from "interfaces";
-import { Carousel } from "components";
-import { Avatar } from "icons";
-import { ThemeProps } from "interfaces";
+import React, { useContext } from 'react';
+import styled, { ThemeContext } from 'styled-components';
+import { Subline } from 'elements/Typography';
+import { ICast } from 'interfaces';
+import { MinimalCarousel } from 'components';
+import { Avatar } from 'icons';
+import { ThemeProps } from 'interfaces';
 
 const CastWrapper = styled.div`
-
-  .cast-img{
+  .cast-img {
     cursor: pointer;
   }
-  
+
   margin-bottom: 2rem;
   h2 {
     margin-bottom: 1rem;
@@ -47,7 +46,7 @@ const Cast: React.FC<{ cast: Array<ICast>; callback: Function }> = ({
       casts = crews.map(cast => {
         return (
           <div
-            className="cast-img"
+            className='cast-img'
             key={cast.id}
             onClick={() => {
               callback(cast.id);
@@ -59,14 +58,14 @@ const Cast: React.FC<{ cast: Array<ICast>; callback: Function }> = ({
                 alt={cast.name}
               />
             ) : (
-                <div style={{ margin: "0 1rem" }}>
-                  <Avatar
-                    width={50}
-                    height={50}
-                    color={theme.secondaryTextColour}
-                  />
-                </div>
-              )}
+              <div style={{ margin: '0 1rem' }}>
+                <Avatar
+                  width={50}
+                  height={50}
+                  color={theme.secondaryTextColour}
+                />
+              </div>
+            )}
           </div>
         );
       });
@@ -76,11 +75,11 @@ const Cast: React.FC<{ cast: Array<ICast>; callback: Function }> = ({
   };
   return (
     <CastWrapper>
-      <Subline style={{ fontSize: "1.3rem", textTransform: "uppercase" }}>
+      <Subline style={{ fontSize: '1.3rem', textTransform: 'uppercase' }}>
         Cast
       </Subline>
-      <div className="cast-img-container">
-        <Carousel translate={70}>{handleCast()}</Carousel>
+      <div className='cast-img-container'>
+        <MinimalCarousel translate={70}>{handleCast()}</MinimalCarousel>
       </div>
     </CastWrapper>
   );

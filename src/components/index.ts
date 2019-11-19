@@ -4,7 +4,7 @@ import Loader from './Loader';
 import Rating from './Rating';
 import Search from './Search';
 import Sidebar from './Sidebar';
-import Carousel from './Carousel';
+import MinimalCarousel from './MinimalCarousel';
 import Pagination from './Pagination';
 import Recommendations from './Recommendations';
 
@@ -15,7 +15,7 @@ export {
   Search,
   Rating,
   Sidebar,
-  Carousel,
+  MinimalCarousel,
   Pagination,
   Recommendations
 };
