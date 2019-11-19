@@ -98,7 +98,7 @@ const Search: React.FC = () => {
 
   return (
     <SearchWrapper
-      style={{ display: `${status ? 'block' : 'none'}` }}
+      style={{ display: `${status ? 'flex' : 'none'}` }}
       onClick={() => setFormStatus(true)}
       onBlur={() => {
         setFormStatus(false);

@@ -15,7 +15,7 @@ const DetailsWrapper = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: center;
-
+  margin-top: 3rem;
   .image-container {
     flex-shrink: 0;
     width: 20vw;
