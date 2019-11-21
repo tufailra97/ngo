@@ -1,7 +1,6 @@
 import React from 'react';
-import { IMovieDetails } from 'interfaces';
 import { ICast } from 'interfaces';
-import { Subline, Paragraph } from 'elements/Typography';
+import { Subline } from 'elements/Typography';
 import Title from './Title';
 import styled from 'styled-components';
 import Genres from './Genres';

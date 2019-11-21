@@ -14,7 +14,7 @@ const ControlsWrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 5rem;
-  height: 22.5rem;
+  height: 18rem;
   margin-right: 0.5rem;
   cursor: pointer;
   background-color: orange;
@@ -31,7 +31,7 @@ const Controls: React.FC<IControls> = ({ type, onClick, currentIndex = 0 }) => {
       <ControlsWrapper
         style={{ marginBottom: '0.3rem' }}
         onClick={() => {
-          onClick(currentIndex++);
+          onClick(++currentIndex);
         }}
       >
         <Next width={20} height={20} color={theme.textColour} />
@@ -41,7 +41,7 @@ const Controls: React.FC<IControls> = ({ type, onClick, currentIndex = 0 }) => {
   return (
     <ControlsWrapper
       onClick={() => {
-        onClick(currentIndex--);
+        onClick(--currentIndex);
       }}
     >
       <Prev width={20} height={20} color={theme.textColour} />

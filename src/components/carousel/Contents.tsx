@@ -1,6 +1,12 @@
 import React, { useContext, useRef } from 'react';
 import styled, { ThemeContext } from 'styled-components';
 import { ThemeProps, IMovie } from 'interfaces';
+import { Headline } from 'elements/Typography';
+import { useHistory } from 'react-router-dom';
+import Rating from 'components/Rating';
+import ReadMore from 'components/ReadMore';
+import { Button } from 'elements';
+import { ArrowFull } from 'icons';
 
 const ContentsWrapper = styled.div`
   display: flex;
@@ -8,11 +14,37 @@ const ContentsWrapper = styled.div`
 `;
 
 const ContentItem = styled.div`
+  position: relative;
   width: 100%;
+  height: 36.3rem;
+  display: flex;
+
   flex-shrink: 0;
   img {
+    width: auto;
+    height: 36.3rem;
+  }
+
+  .desc {
+    padding: 2rem;
     width: 100%;
-    position: absolute;
+    background-color: #eeefef;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    h1 {
+      font-size: 2.5em;
+      font-weight: 400;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .paragraph {
+      font-size: 1.4rem;
+      line-height: 2rem;
+      text-align: justify;
+      margin-top: 1rem;
+    }
   }
 `;
 
@@ -22,6 +54,13 @@ const Contents: React.FC<{ movies: Array<IMovie>; index: number }> = ({
 }) => {
   const theme: ThemeProps = useContext(ThemeContext);
   const containerRef = useRef<HTMLDivElement>(null);
+  const history = useHistory();
+
+  const handleItemDetails = (id: number) => {
+    history.push({
+      pathname: `/movies/details/${id}`
+    });
+  };
 
   const renderItem = (): Array<React.ReactElement> => {
     let contents: Array<React.ReactElement> = [];
@@ -29,11 +68,38 @@ const Contents: React.FC<{ movies: Array<IMovie>; index: number }> = ({
     contents = movies.map(movie => {
       return (
         <ContentItem key={movie.id}>
-          <img
-            src={`https://image.tmdb.org/t/p/w1280/${movie.backdrop_path}`}
-            alt={movie.title}
-          />
-          <div>{movie.title}</div>
+          <div className='image-container'>
+            <img
+              src={`https://image.tmdb.org/t/p/w1280/${movie.backdrop_path}`}
+              alt={movie.title}
+            />
+          </div>
+          <div className='desc'>
+            <div className='info'>
+              <Headline>{movie.title}</Headline>
+              <Rating vote={movie.vote_average!} />
+              <ReadMore
+                maxLine={2}
+                lineHeight={20}
+                texts={movie.overview!}
+                classNames='paragraph'
+              />
+            </div>
+            <div className='trailer'>
+              <Button style={{ display: 'flex', alignItems: 'center' }}>
+                <ArrowFull color={'white'} width={20} height={20} />
+                <span style={{ marginLeft: '1rem' }}>Trailer</span>
+              </Button>
+
+              <Button
+                style={{ display: 'flex', alignItems: 'center' }}
+                onClick={() => handleItemDetails(movie.id)}
+              >
+                <ArrowFull color={'white'} width={20} height={20} />
+                <span style={{ marginLeft: '1rem' }}>details</span>
+              </Button>
+            </div>
+          </div>
         </ContentItem>
       );
     });
