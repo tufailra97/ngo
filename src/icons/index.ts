@@ -1,6 +1,7 @@
 import Home from './Home';
 import Next from './Next';
 import Prev from './Prev';
+import Info from './Info';
 import Movie from './Movie';
 import Close from './Close';
 import Avatar from './Avatar';
@@ -13,4 +14,20 @@ import ArrowFull from './ArrowFull';
 import LeftArrow from './LeftArrow';
 import RightArrow from './RightArrow';
 
-export { Avatar, Home, Movie, Series, FullStar, EmptyStar, HalfStar, ArrowFull, LeftArrow, RightArrow, Search, Close, Next, Prev };
+export {
+  Avatar,
+  Home,
+  Info,
+  Movie,
+  Series,
+  FullStar,
+  EmptyStar,
+  HalfStar,
+  ArrowFull,
+  LeftArrow,
+  RightArrow,
+  Search,
+  Close,
+  Next,
+  Prev
+};

@@ -3,17 +3,18 @@ import styled, { ThemeContext } from 'styled-components';
 import Controls from './Controls';
 import Contents from './Contents';
 import { IMovie } from 'interfaces';
+import Modal from 'components/Modal';
 
 const Container = styled.div`
   position: relative;
   display: flex;
   width: 93%;
   margin: 0 auto;
-  overflow: hidden;
 `;
 
 const Carousel: React.FC<{ data: Array<IMovie> }> = ({ data }) => {
   const [index, setIndex] = useState(0);
+  const [modelStatus, setModelStatus] = useState(false);
 
   const handleControls = (currentIndex: number): void => {
     setIndex(currentIndex);
@@ -27,13 +28,18 @@ const Carousel: React.FC<{ data: Array<IMovie> }> = ({ data }) => {
     }
   }, [index]);
 
+  const handleModel = (id: number) => {
+    setModelStatus(!modelStatus);
+  };
+
   return (
     <Container>
       <div className='controls'>
         <Controls type='next' onClick={handleControls} currentIndex={index} />
         <Controls type='prev' onClick={handleControls} currentIndex={index} />
       </div>
-      <Contents movies={data} index={index} />
+      <Contents movies={data} index={index} modelStatus={handleModel} />
+      <Modal showModal={modelStatus} trailerURL='' onClose={handleModel} />
     </Container>
   );
 };

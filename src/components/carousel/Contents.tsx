@@ -5,8 +5,8 @@ import { Headline } from 'elements/Typography';
 import { useHistory } from 'react-router-dom';
 import Rating from 'components/Rating';
 import ReadMore from 'components/ReadMore';
+import { ArrowFull, Info } from 'icons';
 import { Button } from 'elements';
-import { ArrowFull } from 'icons';
 
 const ContentsWrapper = styled.div`
   display: flex;
@@ -46,12 +46,24 @@ const ContentItem = styled.div`
       margin-top: 1rem;
     }
   }
+
+  .footer {
+    display: flex;
+    justify-content: flex-start;
+
+    button {
+      &:last-child {
+        margin-left: 3rem;
+      }
+    }
+  }
 `;
 
-const Contents: React.FC<{ movies: Array<IMovie>; index: number }> = ({
-  movies,
-  index
-}) => {
+const Contents: React.FC<{
+  movies: Array<IMovie>;
+  index: number;
+  modelStatus: Function;
+}> = ({ movies, index, modelStatus }) => {
   const theme: ThemeProps = useContext(ThemeContext);
   const containerRef = useRef<HTMLDivElement>(null);
   const history = useHistory();
@@ -60,6 +72,10 @@ const Contents: React.FC<{ movies: Array<IMovie>; index: number }> = ({
     history.push({
       pathname: `/movies/details/${id}`
     });
+  };
+
+  const handleTrailer = (id: number) => {
+    modelStatus(id);
   };
 
   const renderItem = (): Array<React.ReactElement> => {
@@ -85,17 +101,28 @@ const Contents: React.FC<{ movies: Array<IMovie>; index: number }> = ({
                 classNames='paragraph'
               />
             </div>
-            <div className='trailer'>
-              <Button style={{ display: 'flex', alignItems: 'center' }}>
+            <div className='footer'>
+              <Button
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: '1rem'
+                }}
+                onClick={() => handleTrailer(movie.id)}
+              >
                 <ArrowFull color={'white'} width={20} height={20} />
                 <span style={{ marginLeft: '1rem' }}>Trailer</span>
               </Button>
 
               <Button
-                style={{ display: 'flex', alignItems: 'center' }}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: '1rem'
+                }}
                 onClick={() => handleItemDetails(movie.id)}
               >
-                <ArrowFull color={'white'} width={20} height={20} />
+                <Info color={'white'} width={20} height={20} />
                 <span style={{ marginLeft: '1rem' }}>details</span>
               </Button>
             </div>
