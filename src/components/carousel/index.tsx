@@ -1,5 +1,5 @@
-import React, { useContext, useState, useEffect } from 'react';
-import styled, { ThemeContext } from 'styled-components';
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import Controls from './Controls';
 import Contents from './Contents';
 import { IMovie } from 'interfaces';
@@ -12,9 +12,15 @@ const Container = styled.div`
   margin: 0 auto;
 `;
 
+const CarouselItem = styled.div`
+  display: flex;
+  overflow: hidden;
+`;
+
 const Carousel: React.FC<{ data: Array<IMovie> }> = ({ data }) => {
   const [index, setIndex] = useState(0);
-  const [modelStatus, setModelStatus] = useState(false);
+  const [modalStatus, setModalStatus] = useState(false);
+  const [trailerLink, setTrailerLink] = useState('');
 
   const handleControls = (currentIndex: number): void => {
     setIndex(currentIndex);
@@ -28,8 +34,15 @@ const Carousel: React.FC<{ data: Array<IMovie> }> = ({ data }) => {
     }
   }, [index]);
 
-  const handleModel = (id: number) => {
-    setModelStatus(!modelStatus);
+  const handleModal = () => {
+    setModalStatus(!modalStatus);
+  };
+
+  const handleTrailerLink = (link: string) => {
+    console.log('link', link);
+
+    setTrailerLink(link);
+    setModalStatus(true);
   };
 
   return (
@@ -38,8 +51,23 @@ const Carousel: React.FC<{ data: Array<IMovie> }> = ({ data }) => {
         <Controls type='next' onClick={handleControls} currentIndex={index} />
         <Controls type='prev' onClick={handleControls} currentIndex={index} />
       </div>
-      <Contents movies={data} index={index} modelStatus={handleModel} />
-      <Modal showModal={modelStatus} trailerURL='' onClose={handleModel} />
+      <CarouselItem>
+        {data.map(movie => {
+          return (
+            <Contents
+              key={movie.id}
+              movie={movie}
+              index={index}
+              modalStatus={handleTrailerLink}
+            />
+          );
+        })}
+      </CarouselItem>
+      <Modal
+        showModal={modalStatus}
+        trailerURL={trailerLink}
+        onClose={handleModal}
+      />
     </Container>
   );
 };

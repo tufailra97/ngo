@@ -1,16 +1,19 @@
-import React, { useContext, useRef } from 'react';
-import styled, { ThemeContext } from 'styled-components';
-import { ThemeProps, IMovie } from 'interfaces';
+import React, { useRef } from 'react';
+import styled from 'styled-components';
+import { IMovie, TrailerResponse } from 'interfaces';
 import { Headline } from 'elements/Typography';
 import { useHistory } from 'react-router-dom';
 import Rating from 'components/Rating';
 import ReadMore from 'components/ReadMore';
 import { ArrowFull, Info } from 'icons';
 import { Button } from 'elements';
+import axios from 'axios';
 
 const ContentsWrapper = styled.div`
   display: flex;
   transition: transform 0.5s ease;
+  flex-shrink: 0;
+  width: 100%;
 `;
 
 const ContentItem = styled.div`
@@ -52,19 +55,18 @@ const ContentItem = styled.div`
     justify-content: flex-start;
 
     button {
-      &:last-child {
-        margin-left: 3rem;
+      &:first-child {
+        margin-right: 3rem;
       }
     }
   }
 `;
 
 const Contents: React.FC<{
-  movies: Array<IMovie>;
+  movie: IMovie;
   index: number;
-  modelStatus: Function;
-}> = ({ movies, index, modelStatus }) => {
-  const theme: ThemeProps = useContext(ThemeContext);
+  modalStatus: Function;
+}> = ({ movie, index, modalStatus }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const history = useHistory();
 
@@ -74,74 +76,77 @@ const Contents: React.FC<{
     });
   };
 
-  const handleTrailer = (id: number) => {
-    modelStatus(id);
+  const handleTrailer = async () => {
+    modalStatus(await getTrailer());
   };
 
-  const renderItem = (): Array<React.ReactElement> => {
-    let contents: Array<React.ReactElement> = [];
+  const getTrailer = async (): Promise<string> => {
+    let trailerURL: string = '';
+    const request = await axios.get(
+      `${process.env.REACT_APP_TMDB_END_POINT}/movie/${movie.id}/videos?api_key=${process.env.REACT_APP_TMDB_API}`
+    );
 
-    contents = movies.map(movie => {
-      return (
-        <ContentItem key={movie.id}>
-          <div className='image-container'>
-            <img
-              src={`https://image.tmdb.org/t/p/w1280/${movie.backdrop_path}`}
-              alt={movie.title}
-            />
-          </div>
-          <div className='desc'>
-            <div className='info'>
-              <Headline>{movie.title}</Headline>
-              <Rating vote={movie.vote_average!} />
-              <ReadMore
-                maxLine={2}
-                lineHeight={20}
-                texts={movie.overview!}
-                classNames='paragraph'
-              />
-            </div>
-            <div className='footer'>
-              <Button
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: '1rem'
-                }}
-                onClick={() => handleTrailer(movie.id)}
-              >
-                <ArrowFull color={'white'} width={20} height={20} />
-                <span style={{ marginLeft: '1rem' }}>Trailer</span>
-              </Button>
+    const response: TrailerResponse = request.data;
 
-              <Button
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: '1rem'
-                }}
-                onClick={() => handleItemDetails(movie.id)}
-              >
-                <Info color={'white'} width={20} height={20} />
-                <span style={{ marginLeft: '1rem' }}>details</span>
-              </Button>
-            </div>
-          </div>
-        </ContentItem>
-      );
+    response.results.map(t => {
+      if (t.type === 'Teaser' || t.type === 'Trailer') {
+        trailerURL = `https://www.youtube.com/embed/${t.key}?autoplay=1`;
+      }
     });
 
-    return contents;
+    return trailerURL;
   };
+
   return (
-    <div style={{ overflow: 'hidden' }}>
-      <ContentsWrapper
-        style={{ transform: `translateX(-${index * 100}%)` }}
-        ref={containerRef}
-      >
-        {renderItem()}
-      </ContentsWrapper>
-    </div>
+    <ContentsWrapper
+      style={{ transform: `translateX(-${index * 100}%)` }}
+      ref={containerRef}
+    >
+      <ContentItem key={movie.id} className='content-item'>
+        <div className='image-container'>
+          <img
+            src={`https://image.tmdb.org/t/p/w1280/${movie.backdrop_path}`}
+            alt={movie.title}
+          />
+        </div>
+        <div className='desc'>
+          <div className='info'>
+            <Headline>{movie.title}</Headline>
+            <Rating vote={movie.vote_average!} />
+            <ReadMore
+              maxLine={4}
+              lineHeight={20}
+              texts={movie.overview!}
+              classNames='paragraph'
+            />
+          </div>
+          <div className='footer'>
+            <Button
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                padding: '1rem'
+              }}
+              onClick={handleTrailer}
+            >
+              <ArrowFull color={'white'} width={20} height={20} />
+              <span style={{ marginLeft: '1rem' }}>Trailer</span>
+            </Button>
+            <Button
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                padding: '1rem'
+              }}
+              onClick={() => handleItemDetails(movie.id)}
+            >
+              <Info color={'white'} width={20} height={20} />
+              <span style={{ marginLeft: '1rem' }}>details</span>
+            </Button>
+          </div>
+        </div>
+      </ContentItem>
+    </ContentsWrapper>
   );
 };
 
