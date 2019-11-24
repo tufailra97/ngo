@@ -12,6 +12,7 @@ const ReadMoreWrapper = styled.div`
   }
 
   .read-more-controls-btn {
+    display: table;
     span {
       display: table;
       font-size: 0.8rem;

@@ -18,11 +18,18 @@ const CastWrapper = styled.div`
   .cast-img-container {
     display: flex;
 
-    img {
+    .cast-img {
       width: 5rem;
       height: 5rem;
       border-radius: 50%;
       margin: 0 1rem;
+      overflow: hidden;
+      flex-shrink: 0;
+
+      img {
+        width: 5rem;
+        height: auto;
+      }
     }
   }
 `;
@@ -58,7 +65,7 @@ const Cast: React.FC<{ cast: Array<ICast>; callback: Function }> = ({
                 alt={cast.name}
               />
             ) : (
-              <div style={{ margin: '0 1rem' }}>
+              <div>
                 <Avatar
                   width={50}
                   height={50}
