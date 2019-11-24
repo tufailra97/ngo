@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
-import styled from 'styled-components';
-import { IMovie, TrailerResponse } from 'interfaces';
+import styled, { ThemeProps as StyledThemeProps } from 'styled-components';
+import { IMovie, TrailerResponse, ThemeProps } from 'interfaces';
 import { Headline } from 'elements/Typography';
 import { useHistory } from 'react-router-dom';
 import Rating from 'components/Rating';
@@ -31,7 +31,8 @@ const ContentItem = styled.div`
   .desc {
     padding: 2rem;
     width: 100%;
-    background-color: #eeefef;
+    background-color: ${(props: StyledThemeProps<ThemeProps>) =>
+      props.theme.primaryBackgroundColour};
     display: flex;
     flex-direction: column;
     justify-content: space-between;

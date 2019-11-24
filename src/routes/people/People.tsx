@@ -26,6 +26,7 @@ const months = [
 ];
 
 const PeopleWrapper = styled.div`
+  margin-top: 6rem;
   .main-container {
     display: flex;
     align-items: flex-start;
