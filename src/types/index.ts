@@ -14,3 +14,5 @@ export const SERIE_GET_TOP_RATED: string = 'SERIE_GET_TOP_RATED';
 export const SERIE_GET_SERIE_DETAILS: string = 'SERIE_GET_SERIE_DETAILS';
 export const SERIE_GET_RECCOMENDATION: string = 'SERIE_GET_RECCOMENDATION';
 export const SERIE_GET_CREDITS: string = 'SERIE_GET_CREDITS';
+export const HOME_GET_NOW_PLAYING: string = 'HOME_GET_NOW_PLAYING';
+export const HOME_GET_TRAILER: string = 'HOME_GET_TRAILER';

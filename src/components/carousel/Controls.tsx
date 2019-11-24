@@ -1,5 +1,8 @@
 import React, { useContext } from 'react';
-import styled, { ThemeContext } from 'styled-components';
+import styled, {
+  ThemeContext,
+  ThemeProps as StyledThemeProps
+} from 'styled-components';
 import { Next, Prev } from 'icons';
 import { ThemeProps } from 'interfaces';
 
@@ -17,9 +20,18 @@ const ControlsWrapper = styled.div`
   height: 18rem;
   margin-right: 0.5rem;
   cursor: pointer;
-  background-color: orange;
 
-  &:hover {
+  &.next,
+  &.prev {
+    transition: background-color 0.5s ease;
+    /* TODO: find better colours */
+    background-color: ${(props: StyledThemeProps<ThemeProps>) =>
+      props.theme.focus};
+
+    &:hover {
+      background-color: ${(props: StyledThemeProps<ThemeProps>) =>
+        props.theme.secondaryBackgroundColour};
+    }
   }
 `;
 
@@ -29,6 +41,7 @@ const Controls: React.FC<IControls> = ({ type, onClick, currentIndex = 0 }) => {
   if (type === 'next') {
     return (
       <ControlsWrapper
+        className='next'
         style={{ marginBottom: '0.3rem' }}
         onClick={() => {
           onClick(++currentIndex);
@@ -40,6 +53,7 @@ const Controls: React.FC<IControls> = ({ type, onClick, currentIndex = 0 }) => {
   }
   return (
     <ControlsWrapper
+      className='prev'
       onClick={() => {
         onClick(--currentIndex);
       }}
