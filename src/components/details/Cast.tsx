@@ -86,7 +86,13 @@ const Cast: React.FC<{ cast: Array<ICast>; callback: Function }> = ({
         Cast
       </Subline>
       <div className='cast-img-container'>
-        <MinimalCarousel translate={70}>{handleCast()}</MinimalCarousel>
+        {cast.length > 0 ? (
+          <MinimalCarousel translate={70}>{handleCast()}</MinimalCarousel>
+        ) : (
+          <p className='paragraph desc-item read-more'>
+            Cast not available at this moment
+          </p>
+        )}
       </div>
     </CastWrapper>
   );

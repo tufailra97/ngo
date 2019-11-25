@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { ICast, TrailerResponse } from 'interfaces';
+import { ICast, TrailerResponse, ProctionCompanyProps } from 'interfaces';
 import { Subline } from 'elements/Typography';
 import Title from './Title';
 import styled, {
@@ -14,6 +14,7 @@ import PlayButton from 'icons/PlayButton';
 import Modal from 'components/Modal';
 import axios from 'axios';
 import ThemeProps from 'interfaces/ThemeProps';
+import ProductionCompanies from './ProductionCompanies';
 
 // TODO: simplify and improve the component
 
@@ -77,21 +78,6 @@ const DetailsWrapper = styled.div`
       }
     }
 
-    .company-wrapper {
-      display: flex;
-      align-items: center;
-
-      img {
-        margin-right: 2rem;
-        max-width: 6rem;
-        height: auto;
-        transition: transform 1s ease;
-        &:hover {
-          transform: scale(2);
-        }
-      }
-    }
-
     .description {
       p {
         text-align: justify;
@@ -114,12 +100,7 @@ interface IDetails {
   overview: string;
   totalSeason?: number;
   totalEpisodes?: number;
-  productionCompanies: Array<{
-    id: number;
-    logo_path: string;
-    name: string;
-    origin_country: string;
-  }>;
+  productionCompanies: Array<ProctionCompanyProps>;
   genres: Array<{ id: number; name: string }>;
   cast: Array<ICast>;
   callback: Function;
@@ -164,7 +145,6 @@ const Details: React.FC<IDetails> = ({
 
     const response: TrailerResponse = request.data;
 
-    console.log('response', response);
     response.results.map(t => {
       if (t.type === 'Trailer') {
         trailerURL = `https://www.youtube.com/embed/${t.key}?autoplay=1`;
@@ -229,24 +209,7 @@ const Details: React.FC<IDetails> = ({
           {/* cast */}
           <Cast cast={cast} callback={callback} />
           {/* production company */}
-          <div className='production-companies info-container'>
-            <Subline style={{ fontSize: '1.3rem', textTransform: 'uppercase' }}>
-              Production Companies
-            </Subline>
-            <div className='desc-item company-wrapper'>
-              {productionCompanies.map(company => {
-                if (company.logo_path) {
-                  return (
-                    <img
-                      key={company.id}
-                      src={`https://image.tmdb.org/t/p/w780/${company.logo_path}`}
-                      alt={company.name}
-                    />
-                  );
-                }
-              })}
-            </div>
-          </div>
+          <ProductionCompanies companies={productionCompanies} />
         </div>
       </div>
       <Modal
