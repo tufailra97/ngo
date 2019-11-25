@@ -42,11 +42,11 @@ const DetailsWrapper = styled.div`
       transform-origin: center;
       transition: transform 0.5s ease;
       cursor: pointer;
-
       &:hover {
         transform: scale(1.25);
       }
       & > div {
+        box-shadow: 0px 0px 29px 4px rgba(0, 0, 0, 0.71);
         padding: 1.5rem;
         border: 0.5rem solid
           ${(props: StyledThemeProps<ThemeProps>) =>
