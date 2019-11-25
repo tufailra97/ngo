@@ -41,8 +41,8 @@ const DetailsWrapper = styled.div`
       opacity: 0.9;
       transform-origin: center;
       transition: transform 0.5s ease;
-
       cursor: pointer;
+
       &:hover {
         transform: scale(1.25);
       }
