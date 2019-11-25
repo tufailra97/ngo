@@ -21,17 +21,41 @@ const ControlsWrapper = styled.div`
   margin-right: 0.5rem;
   cursor: pointer;
 
-  &.next,
   &.prev {
-    transition: background-color 0.5s ease;
     /* TODO: find better colours */
     background-color: ${(props: StyledThemeProps<ThemeProps>) =>
-      props.theme.focus};
+      props.theme.colour2};
 
     &:hover {
       background-color: ${(props: StyledThemeProps<ThemeProps>) =>
-        props.theme.secondaryBackgroundColour};
+        props.theme.lightTextColour};
+
+      svg {
+        fill: ${(props: StyledThemeProps<ThemeProps>) => props.theme.colour2};
+      }
     }
+  }
+
+  &.next {
+    /* TODO: find better colours */
+    background-color: ${(props: StyledThemeProps<ThemeProps>) =>
+      props.theme.lightTextColour};
+
+    &:hover {
+      background-color: ${(props: StyledThemeProps<ThemeProps>) =>
+        props.theme.colour2};
+
+      svg {
+        fill: ${(props: StyledThemeProps<ThemeProps>) =>
+          props.theme.lightTextColour};
+      }
+    }
+  }
+
+  &.next,
+  &.prev {
+    transition: background-color 0.5s ease;
+    box-shadow: 0px 0px 11px -1px rgba(0, 0, 0, 0.5);
   }
 `;
 
@@ -58,7 +82,7 @@ const Controls: React.FC<IControls> = ({ type, onClick, currentIndex = 0 }) => {
         onClick(--currentIndex);
       }}
     >
-      <Prev width={20} height={20} color={theme.textColour} />
+      <Prev width={20} height={20} color={theme.lightTextColour} />
     </ControlsWrapper>
   );
 };

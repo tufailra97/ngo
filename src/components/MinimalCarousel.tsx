@@ -12,7 +12,7 @@ const MinimalCarouselContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  .MinimalCarousel-control {
+  .minimal-carousel-control {
     width: 2rem;
     cursor: pointer;
   }
@@ -26,10 +26,10 @@ const MinimalCarouselContainer = styled.div`
     transform: scale(1.5);
   }
 
-  .MinimalCarousel-outer-wrapper {
+  .minimal-carousel-outer-wrapper {
     width: 56rem;
     overflow: hidden;
-    .MinimalCarousel-wrapper {
+    .minimal-carousel-wrapper {
       display: flex;
       transition: transform 0.5s ease;
     }
@@ -72,16 +72,16 @@ const MinimalCarousel: React.FC<IMinimalCarousel> = ({
     <MinimalCarouselContainer>
       {showControls && (
         <div
-          className='MinimalCarousel-control MinimalCarousel-prev-arrow'
+          className='minimal-carousel-control minimal-carousel-prev-arrow'
           onClick={handleNext}
         >
           <Prev width={20} height={20} color={theme.textColour} />
         </div>
       )}
 
-      <div className='MinimalCarousel-outer-wrapper' ref={wrapperRef}>
+      <div className='minimal-carousel-outer-wrapper' ref={wrapperRef}>
         <div
-          className='MinimalCarousel-wrapper'
+          className='minimal-carousel-wrapper'
           style={{ transform: `translateX(${index * translate}px)` }}
         >
           {children}
@@ -89,7 +89,7 @@ const MinimalCarousel: React.FC<IMinimalCarousel> = ({
       </div>
       {showControls && (
         <div
-          className='MinimalCarousel-control MinimalCarousel-next-arrow'
+          className='minimal-carousel-control minimal-carousel-next-arrow'
           onClick={handlePrev}
         >
           <Next width={20} height={20} color={theme.textColour} />

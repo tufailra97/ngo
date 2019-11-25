@@ -27,6 +27,7 @@ export {
   ArrowFull,
   LeftArrow,
   RightArrow,
+  PlayButton,
   Search,
   Close,
   Next,

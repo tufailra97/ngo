@@ -1,4 +1,4 @@
-import React, { useEffect, useState, ReactElement } from 'react';
+import React, { useEffect } from 'react';
 import { RouteComponentProps, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { getDetails, getMovieCredits, getSerieCredits } from 'actions/_people';
@@ -6,9 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { IPeopleInitialState } from 'interfaces/IPeopleProps';
 import { Headline, Subline, Paragraph } from 'elements/Typography';
 import ReadMore from 'components/ReadMore';
-import { getSerieDetails } from 'actions/_series';
 import { Card } from 'components';
-import Recommendation from 'components/Recommendations';
 
 const months = [
   'January',
@@ -104,8 +102,8 @@ const People: React.FC<RouteComponentProps> = ({ history }) => {
   const movieCredit = peopleState.movieCredits;
   const serieCredits = peopleState.serieCredits;
 
-  let movies: Array<ReactElement> = [];
-  let series: Array<ReactElement> = [];
+  let movies: Array<React.ReactElement> = [];
+  let series: Array<React.ReactElement> = [];
 
   useEffect(() => {
     dispatchAction(getDetails(parseInt(id!)));

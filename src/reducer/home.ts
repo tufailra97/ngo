@@ -1,4 +1,10 @@
-import { FETCH_FAILED, REQUEST_FETCH } from 'types';
+import {
+  FETCH_FAILED,
+  REQUEST_FETCH,
+  HOME_GET_TRENDING_MOVIES,
+  HOME_GET_TRENDING_SERIES
+} from 'types';
+
 import { HomeInitialProps } from 'interfaces/HomeProps';
 
 const initialState: HomeInitialProps = {
@@ -19,6 +25,17 @@ const reducer = (state = initialState, actions: any): any => {
         ...state,
         fetchFailed: true,
         fetchRequested: false
+      };
+
+    case HOME_GET_TRENDING_MOVIES:
+      return {
+        ...state,
+        trendingMovies: actions.payload
+      };
+    case HOME_GET_TRENDING_SERIES:
+      return {
+        ...state,
+        trendingSeries: actions.payload
       };
     default:
       return state;
