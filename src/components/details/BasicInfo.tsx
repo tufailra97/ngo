@@ -1,16 +1,16 @@
-import React from "react";
-import Rating from "../Rating";
-import styled, { ThemeProps as StyleThemeProps } from "styled-components";
-import { Paragraph } from "elements/Typography";
-import ThemeProps from "interfaces/ThemeProps";
+import React from 'react';
+import Rating from '../Rating';
+import styled, { ThemeProps as StyleThemeProps } from 'styled-components';
+import { Paragraph } from 'elements/Typography';
+import ThemeProps from 'interfaces/ThemeProps';
 
 interface IBasicInfo {
-  type: "movie" | "tv";
+  type: 'movie' | 'tv';
   vote: number;
   releaseDate: string;
   runtime: string;
-  totalSeason?: number
-  totalEpisodes?: number
+  totalSeason?: number;
+  totalEpisodes?: number;
 }
 
 const BasicInfoWrapper = styled.div`
@@ -36,7 +36,7 @@ const BasicInfoWrapper = styled.div`
     p {
       span {
         color: ${(props: StyleThemeProps<ThemeProps>) =>
-    props.theme.secondaryTextColour};
+          props.theme.secondaryTextColour};
         font-size: 1.3rem;
       }
     }
@@ -56,17 +56,24 @@ const BasicInfo: React.FC<IBasicInfo> = ({
   return (
     <BasicInfoWrapper>
       {/* rating */}
-      <div className="rating-wrapper">
-        <Paragraph className="rate">
+      <div className='rating-wrapper'>
+        <Paragraph className='rate'>
           {<Rating vote={vote} />}
-          <span className="vote"> {vote}</span>
+          <span className='vote'> {vote}</span>
         </Paragraph>
       </div>
-      <div className="release-wrapper">
-        <p>
+      <div className='release-wrapper'>
+        <Paragraph>
           <span>{runtime} MIN.</span> /
-          {type === "movie" ? <span>{year}</span> : (<><span> {totalEpisodes} EPISODES</span>/<span> {totalSeason} SEASONS</span></>)}
-        </p>
+          {type === 'movie' ? (
+            <span>{year}</span>
+          ) : (
+            <>
+              <span> {totalEpisodes} EPISODES</span>/
+              <span> {totalSeason} SEASONS</span>
+            </>
+          )}
+        </Paragraph>
       </div>
     </BasicInfoWrapper>
   );

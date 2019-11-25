@@ -194,7 +194,7 @@ const People: React.FC<RouteComponentProps> = ({ history }) => {
             {people.deathday ? (
               <div className='death info'>
                 <Subline>Death</Subline>
-                <p>{handleDate(people.deathday)}</p>
+                <Paragraph>{handleDate(people.deathday)}</Paragraph>
               </div>
             ) : null}
             <div className='biography info'>
