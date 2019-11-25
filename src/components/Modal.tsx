@@ -79,6 +79,7 @@ const Modal: React.FC<{
             <Close color={theme.lightTextColour} height={30} width={30} />
           </div>
           <iframe
+            title={trailerURL}
             src={trailerURL}
             width={940}
             height={540}

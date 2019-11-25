@@ -4,7 +4,7 @@ import { IMovieResponse, IMovie, ISerie } from 'interfaces';
 import { getNowPlaying } from 'actions/_movies';
 import { getTrendingMovies, getTrendingSeries } from 'actions/_home';
 import styled from 'styled-components';
-import { Carousel, Card } from 'components';
+import { Carousel } from 'components';
 import Recommendation from 'components/Recommendations';
 import { Headline, Subline } from 'elements/Typography';
 
@@ -35,8 +35,6 @@ const Home: React.FC = () => {
   const movies: IMovieResponse = globalState.movies.results;
   const trendingMovies: Array<IMovie> = globalState.home.trendingMovies;
   const trendingSeries: Array<ISerie> = globalState.home.trendingSeries;
-
-  console.log('series', trendingSeries);
 
   useEffect(() => {
     window.scrollTo({

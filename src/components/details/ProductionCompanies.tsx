@@ -32,7 +32,7 @@ const ProductionCompanies: React.FC<IProductionCompanies> = ({ companies }) => {
     let hasCompanies = false;
     let _companies: Array<ReactElement> = [];
 
-    companies.map(company => {
+    companies.forEach(company => {
       if (company.logo_path) {
         hasCompanies = true;
         _companies.push(

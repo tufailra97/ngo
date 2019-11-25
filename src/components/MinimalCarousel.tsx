@@ -68,6 +68,7 @@ const MinimalCarousel: React.FC<IMinimalCarousel> = ({
       setControlStatus(false);
     }
   });
+
   return (
     <MinimalCarouselContainer>
       {showControls && (

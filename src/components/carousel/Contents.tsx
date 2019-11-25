@@ -89,7 +89,7 @@ const Contents: React.FC<{
 
     const response: TrailerResponse = request.data;
 
-    response.results.map(t => {
+    response.results.forEach(t => {
       if (t.type === 'Trailer') {
         trailerURL = `https://www.youtube.com/embed/${t.key}?autoplay=1`;
       }
