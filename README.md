@@ -1,5 +1,5 @@
-**NGO - simple movie catalog**    
-
+### NGO - simple movie catalog   
+-------------------------
 TODO:
  - [ ] Make the app responsive
  - [ ] Simplify some of the components
