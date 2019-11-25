@@ -166,7 +166,7 @@ const Details: React.FC<IDetails> = ({
 
     console.log('response', response);
     response.results.map(t => {
-      if (t.type === 'Teaser' || t.type === 'Trailer') {
+      if (t.type === 'Trailer') {
         trailerURL = `https://www.youtube.com/embed/${t.key}?autoplay=1`;
       }
     });
