@@ -1,12 +1,19 @@
-import React from 'react';
-import { ICast } from 'interfaces';
+import React, { useState, useContext } from 'react';
+import { ICast, TrailerResponse } from 'interfaces';
 import { Subline } from 'elements/Typography';
 import Title from './Title';
-import styled from 'styled-components';
+import styled, {
+  ThemeProps as StyledThemeProps,
+  ThemeContext
+} from 'styled-components';
 import Genres from './Genres';
 import BasicInfo from './BasicInfo';
 import Cast from './Cast';
 import ReadMore from 'components/ReadMore';
+import PlayButton from 'icons/PlayButton';
+import Modal from 'components/Modal';
+import axios from 'axios';
+import ThemeProps from 'interfaces/ThemeProps';
 
 // TODO: simplify and improve the component
 
@@ -20,6 +27,33 @@ const DetailsWrapper = styled.div`
     width: 20vw;
     height: auto;
     margin-right: 3rem;
+    position: relative;
+
+    .trailer {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.9;
+      transform-origin: center;
+      transition: transform 0.5s ease;
+
+      cursor: pointer;
+      &:hover {
+        transform: scale(1.25);
+      }
+      & > div {
+        padding: 1.5rem;
+        border: 0.5rem solid
+          ${(props: StyledThemeProps<ThemeProps>) =>
+            props.theme.secondaryTextColour};
+        border-radius: 50%;
+      }
+    }
     img {
       width: 100%;
       height: auto;
@@ -68,6 +102,7 @@ const DetailsWrapper = styled.div`
 `;
 
 interface IDetails {
+  id: number;
   type: 'movie' | 'tv';
   title: string;
   poster: string;
@@ -91,6 +126,7 @@ interface IDetails {
 }
 
 const Details: React.FC<IDetails> = ({
+  id,
   type,
   title,
   poster,
@@ -106,10 +142,51 @@ const Details: React.FC<IDetails> = ({
   totalSeason,
   totalEpisodes
 }) => {
+  const [showModal, setModalStatus] = useState(false);
+  const [traileURL, setTraileURL] = useState('');
+  const theme: ThemeProps = useContext(ThemeContext);
+
+  const handleCloseModal = () => {
+    setModalStatus(false);
+  };
+
+  const handleTrailer = async () => {
+    setModalStatus(true);
+    setTraileURL(await getTrailer());
+  };
+
+  const getTrailer = async (): Promise<string> => {
+    const mediaType = type === 'movie' ? 'movie' : 'tv';
+    let trailerURL: string = '';
+    const request = await axios.get(
+      `${process.env.REACT_APP_TMDB_END_POINT}/${mediaType}/${id}/videos?api_key=${process.env.REACT_APP_TMDB_API}`
+    );
+
+    const response: TrailerResponse = request.data;
+
+    console.log('response', response);
+    response.results.map(t => {
+      if (t.type === 'Teaser' || t.type === 'Trailer') {
+        trailerURL = `https://www.youtube.com/embed/${t.key}?autoplay=1`;
+      }
+    });
+
+    return trailerURL;
+  };
+
   return (
     <DetailsWrapper>
       <div className='image-container'>
         <img src={`https://image.tmdb.org/t/p/w780/${poster}`} alt={title} />
+        <div className='trailer' onClick={handleTrailer}>
+          <div>
+            <PlayButton
+              width={50}
+              height={50}
+              color={theme.secondaryTextColour}
+            />
+          </div>
+        </div>
       </div>
       <div className='details-container'>
         {/* title */}
@@ -172,6 +249,11 @@ const Details: React.FC<IDetails> = ({
           </div>
         </div>
       </div>
+      <Modal
+        showModal={showModal}
+        trailerURL={traileURL}
+        onClose={handleCloseModal}
+      />
     </DetailsWrapper>
   );
 };

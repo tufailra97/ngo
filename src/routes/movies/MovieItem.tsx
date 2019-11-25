@@ -101,6 +101,7 @@ const MovieItem: React.FC<RouteComponentProps> = ({ history }) => {
       {/* movie details */}
       {movie !== undefined && cast !== undefined ? (
         <Details
+          id={movie.id}
           type='movie'
           title={movie.title}
           tagline={movie.tagline}

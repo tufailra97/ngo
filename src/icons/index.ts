@@ -13,6 +13,7 @@ import EmptyStar from './EmptyStar';
 import ArrowFull from './ArrowFull';
 import LeftArrow from './LeftArrow';
 import RightArrow from './RightArrow';
+import PlayButton from './PlayButton';
 
 export {
   Avatar,

@@ -100,6 +100,7 @@ const MovieItem: React.FC<RouteComponentProps> = ({ history }) => {
       {/* movie details */}
       {serie !== undefined && cast !== undefined ? (
         <Details
+          id={serie.id}
           type='tv'
           title={serie.name}
           releaseDate={serie.release_date!}
