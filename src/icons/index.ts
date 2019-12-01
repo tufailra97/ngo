@@ -3,6 +3,9 @@ import Next from './Next';
 import Prev from './Prev';
 import Info from './Info';
 import Movie from './Movie';
+import User from './User';
+import Key from './Key';
+import Email from './Email';
 import Close from './Close';
 import Avatar from './Avatar';
 import Series from './Series';
@@ -21,6 +24,9 @@ export {
   Info,
   Movie,
   Series,
+  User,
+  Email,
+  Key,
   FullStar,
   EmptyStar,
   HalfStar,
