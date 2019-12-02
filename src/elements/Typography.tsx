@@ -16,5 +16,6 @@ export const Underline = styled.h3`
 `;
 
 export const Paragraph = styled.p`
+  font-size: 1.4rem;
   color: ${(props: StyleThemeProps<ThemeProps>) => props.theme.textColour};
 `;

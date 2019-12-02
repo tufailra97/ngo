@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { ThemeProps as StyledThemeProps } from 'styled-components';
 import { ThemeProps } from 'interfaces';
-import { Headline } from 'elements/Typography';
+import { Headline, Paragraph } from 'elements/Typography';
 import { Email, Key, User } from 'icons';
+import axios from 'axios';
+import { RouteComponentProps } from 'react-router';
 
 const RegisterWrapper = styled.div`
   width: 100%;
@@ -40,6 +42,7 @@ const RegisterWrapper = styled.div`
       }
 
       input[type='text'],
+      input[type='email'],
       input[type='password'] {
         border: none;
         outline: none;
@@ -72,16 +75,114 @@ const RegisterWrapper = styled.div`
         }
       }
     }
+
+    .error-container {
+      background-color: rgba();
+      margin-bottom: 1.5rem;
+      .error-item {
+        text-align: center;
+        margin-bottom: 0.5rem;
+      }
+    }
   }
 `;
+// TODO: extract the logic in useReducer
+const Register: React.FC<RouteComponentProps> = ({ history }) => {
+  const [registrationDetails, setRegistrationDetails] = useState<{
+    username: string;
+    email: string;
+    password: string;
+  }>({ email: '', password: '', username: '' });
+  const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
+  const [registrationCompleted, setRegistrationCompleted] = useState<boolean>(
+    false
+  );
+  const [errors, setErrors] = useState<{
+    error: boolean;
+    errorMessages: Array<string>;
+  }>({ errorMessages: [], error: false });
 
-const Register: React.FC = () => {
+  const handleInputChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const { name, value } = event.currentTarget;
+
+    setRegistrationDetails({
+      ...registrationDetails,
+      [name]: value
+    });
+  };
+
+  const validateEmailAddress = (email: string): boolean => {
+    var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return regex.test(email);
+  };
+
+  const validateFormInput = () => {
+    let errorMessages: Array<string> = [];
+    // reset errors array
+    if (registrationDetails.username.length < 3) {
+      errorMessages.push('Username must be at least 3 characters');
+    }
+
+    if (
+      !validateEmailAddress(registrationDetails.email) ||
+      registrationDetails.email.length < 2
+    ) {
+      errorMessages.push('Email must be valid email address');
+    }
+
+    if (registrationDetails.password.length < 8) {
+      errorMessages.push('Password must be at least 8 characters');
+    }
+
+    if (errorMessages.length > 0) {
+      setErrors({ error: true, errorMessages: errorMessages });
+    } else {
+      setErrors({ error: false, errorMessages: [] });
+      handleUserRegistration();
+    }
+  };
+
+  const handleUserRegistration = async () => {
+    const baseURL = 'http://localhost:8080/v1/user/register-user';
+    try {
+      await axios({
+        method: 'POST',
+        baseURL: baseURL,
+        data: registrationDetails
+      });
+
+      setRegistrationCompleted(true);
+
+      setTimeout(() => {
+        history.push('/home');
+      }, 1000);
+    } catch (error) {
+      setErrors({
+        error: true,
+        errorMessages: [error.response.data.message]
+      });
+    }
+  };
+
+  const handleSubmit = (
+    event: React.FormEvent<HTMLFormElement | HTMLInputElement>
+  ) => {
+    event.preventDefault();
+    validateFormInput();
+  };
+
   return (
     <RegisterWrapper>
       <div>
         <Headline>Create Account</Headline>
         <hr />
-        <form>
+        <div className='error-container'>
+          {errors.errorMessages.length > 0 &&
+            errors.errorMessages.map(error => {
+              return <Paragraph className='error-item'>{error}</Paragraph>;
+            })}
+        </div>
+        <form onSubmit={handleSubmit}>
           {/* username */}
           <div>
             <User width={25} height={25} color={'grey'} />
@@ -90,6 +191,8 @@ const Register: React.FC = () => {
               name='username'
               id='username'
               placeholder='Username'
+              autoComplete='username'
+              onChange={handleInputChange}
             />
           </div>
 
@@ -97,10 +200,12 @@ const Register: React.FC = () => {
           <div>
             <Email width={25} height={25} color={'grey'} />
             <input
-              type='text'
+              type='email'
               name='email'
               id='email'
               placeholder='email@email.com'
+              autoComplete='user email'
+              onChange={handleInputChange}
             />
           </div>
 
@@ -112,9 +217,11 @@ const Register: React.FC = () => {
               name='password'
               id='password'
               placeholder='*********'
+              autoComplete='new-password'
+              onChange={handleInputChange}
             />
           </div>
-          <input type='submit' />
+          <input type='submit' onSubmit={handleSubmit} />
         </form>
       </div>
     </RegisterWrapper>
