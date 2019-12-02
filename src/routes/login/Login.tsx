@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import styled, { ThemeProps as StyledThemeProps } from 'styled-components';
-import { ThemeProps } from 'interfaces';
 import { Headline, Paragraph } from 'elements/Typography';
-import { Email, Key, User } from 'icons';
-import axios from 'axios';
 import { RouteComponentProps } from 'react-router';
+import { Email, Key } from 'icons';
+import { ThemeProps } from 'interfaces';
+import axios from 'axios';
 
-const RegisterWrapper = styled.div`
+const LoginWrapper = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
@@ -41,7 +41,6 @@ const RegisterWrapper = styled.div`
         margin: 0 0.5rem;
       }
 
-      input[type='text'],
       input[type='email'],
       input[type='password'] {
         border: none;
@@ -85,9 +84,8 @@ const RegisterWrapper = styled.div`
       }
     }
 
-    .registration-success {
+    .login-success {
       margin-top: 2rem;
-
       p {
         text-align: center;
       }
@@ -95,25 +93,23 @@ const RegisterWrapper = styled.div`
   }
 `;
 // TODO: extract the logic in useReducer
-const Register: React.FC<RouteComponentProps> = ({ history }) => {
-  const [registrationDetails, setRegistrationDetails] = useState<{
-    username: string;
+const Login: React.FC<RouteComponentProps> = ({ history }) => {
+  const [loginDetails, setLoginDetails] = useState<{
     email: string;
     password: string;
-  }>({ email: '', password: '', username: '' });
-
-  const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
+  }>({ email: '', password: '' });
 
   const [errors, setErrors] = useState<{
     error: boolean;
     errorMessages: Array<string>;
   }>({ errorMessages: [], error: false });
 
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
   const handleInputChange = (event: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = event.currentTarget;
-
-    setRegistrationDetails({
-      ...registrationDetails,
+    setLoginDetails({
+      ...loginDetails,
       [name]: value
     });
   };
@@ -125,19 +121,15 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
 
   const validateFormInput = () => {
     let errorMessages: Array<string> = [];
-    // reset errors array
-    if (registrationDetails.username.length < 3) {
-      errorMessages.push('Username must be at least 3 characters');
-    }
 
     if (
-      !validateEmailAddress(registrationDetails.email) ||
-      registrationDetails.email.length < 2
+      !validateEmailAddress(loginDetails.email) ||
+      loginDetails.email.length < 2
     ) {
       errorMessages.push('Email must be valid email address');
     }
 
-    if (registrationDetails.password.length < 8) {
+    if (loginDetails.password.length < 8) {
       errorMessages.push('Password must be at least 8 characters');
     }
 
@@ -145,23 +137,27 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
       setErrors({ error: true, errorMessages: errorMessages });
     } else {
       setErrors({ error: false, errorMessages: [] });
-      handleUserRegistration();
+      handleUserLogin();
     }
   };
 
-  const handleUserRegistration = async () => {
-    const baseURL = `${process.env.REACT_APP_NGO_BACKEND_END_POINT}/user/register-user`;
+  const handleUserLogin = async () => {
+    const baseURL = `${process.env.REACT_APP_NGO_BACKEND_END_POINT}/user/login`;
     try {
       const response = await axios({
         method: 'POST',
         baseURL: baseURL,
-        data: registrationDetails
+        data: loginDetails
       });
 
       if (response.status === 200) {
+        const userDetails = response.data;
+        localStorage.setItem('token', JSON.stringify(userDetails));
         setFormSubmitted(true);
         setTimeout(() => {
-          history.push('/login');
+          history.push({
+            pathname: '/'
+          });
         }, 1000);
       }
     } catch (error) {
@@ -180,9 +176,9 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
   };
 
   return (
-    <RegisterWrapper>
+    <LoginWrapper>
       <div>
-        <Headline>Register</Headline>
+        <Headline>Login</Headline>
         <hr />
         <div className='error-container'>
           {errors.errorMessages.length > 0 &&
@@ -195,19 +191,6 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
             })}
         </div>
         <form onSubmit={handleSubmit}>
-          {/* username */}
-          <div>
-            <User width={25} height={25} color={'grey'} />
-            <input
-              type='text'
-              name='username'
-              id='username'
-              placeholder='Username'
-              autoComplete='username'
-              onChange={handleInputChange}
-            />
-          </div>
-
           {/* email */}
           <div>
             <Email width={25} height={25} color={'grey'} />
@@ -237,17 +220,17 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
         </form>
 
         {formSubmitted && (
-          <div className='registration-success'>
+          <div className='login-success'>
             <Paragraph>
               You have successfully logged in
               <br />
-              Redirecting to login page...
+              Redirecting to home page...
             </Paragraph>
           </div>
         )}
       </div>
-    </RegisterWrapper>
+    </LoginWrapper>
   );
 };
 
-export default Register;
+export default Login;
