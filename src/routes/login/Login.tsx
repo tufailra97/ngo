@@ -3,9 +3,9 @@ import styled, { ThemeProps as StyledThemeProps } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { Headline, Paragraph } from 'elements/Typography';
 import { RouteComponentProps } from 'react-router';
-import { Email, Key } from 'icons';
 import { ThemeProps, AuthState } from 'interfaces';
 import { login as _login } from 'actions/_auth';
+import { Email, Key } from 'icons';
 import axios from 'axios';
 
 const LoginWrapper = styled.div`

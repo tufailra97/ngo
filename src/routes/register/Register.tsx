@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import styled, { ThemeProps as StyledThemeProps } from 'styled-components';
-import { ThemeProps } from 'interfaces';
+import { RouteComponentProps } from 'react-router';
 import { Headline, Paragraph } from 'elements/Typography';
+import { ThemeProps, AuthState } from 'interfaces';
 import { Email, Key, User } from 'icons';
 import axios from 'axios';
-import { RouteComponentProps } from 'react-router';
 
 const RegisterWrapper = styled.div`
   width: 100%;
@@ -109,6 +110,8 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
     errorMessages: Array<string>;
   }>({ errorMessages: [], error: false });
 
+  const authState: AuthState = useSelector((state: any) => state.auth);
+
   const handleInputChange = (event: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = event.currentTarget;
 
@@ -178,6 +181,12 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
     event.preventDefault();
     validateFormInput();
   };
+
+  if (authState.isUserLoggedIn) {
+    history.push({
+      pathname: '/'
+    });
+  }
 
   return (
     <RegisterWrapper>
