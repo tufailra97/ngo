@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled, {
   ThemeProps as StyleThemeProps,
   ThemeContext
 } from 'styled-components';
-import { ThemeProps } from 'interfaces';
+import { useSelector } from 'react-redux';
+import { ThemeProps, AuthState } from 'interfaces';
 import { Home, Movie, Series, Search } from 'icons';
 import Logo from './Logo';
 
@@ -23,11 +24,24 @@ const StyledSidebar = styled.div`
     background-color: ${(props: StyleThemeProps<ThemeProps>) =>
       props.theme.secondaryBackgroundColour};
   }
+
+  .devider {
+    margin-bottom: 1.2rem;
+    span {
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-left: 2rem;
+      font-size: 1.1rem;
+      color: ${(props: StyleThemeProps<ThemeProps>) =>
+        props.theme.secondaryTextColour};
+    }
+  }
 `;
 
 const Nav = styled.nav`
   position: static;
   width: 100%;
+  margin-bottom: 2rem;
   ul {
   }
   li {
@@ -72,11 +86,19 @@ const LinkWrapper = styled(NavLink).attrs({
 
 const Sidebar: React.FC = () => {
   const theme: ThemeProps = useContext(ThemeContext);
+  const authState: AuthState = useSelector((state: any) => state.auth);
+
+  useEffect(() => {
+    console.log('auth', authState);
+  }, [authState]);
 
   return (
     <StyledSidebar>
       <div>
         <Logo />
+        <div className='devider'>
+          <span>Main</span>
+        </div>
         <Nav>
           <ul>
             <li>
@@ -105,6 +127,33 @@ const Sidebar: React.FC = () => {
             </li>
           </ul>
         </Nav>
+        <div className='devider'>
+          <span>Settings</span>
+        </div>
+        <ul>
+          {!authState.isUserLoggedIn ? (
+            <>
+              <LinkWrapper activeClassName={active} to='/login'>
+                <span>Login</span>
+              </LinkWrapper>
+              <LinkWrapper activeClassName={active} to='/register'>
+                <span>Register</span>
+              </LinkWrapper>
+            </>
+          ) : (
+            <>
+              <LinkWrapper activeClassName={active} to='/favourites'>
+                <span>favourites</span>
+              </LinkWrapper>
+              <LinkWrapper activeClassName={active} to='/logout'>
+                <span>Logout</span>
+              </LinkWrapper>
+              <LinkWrapper activeClassName={active} to='/profile'>
+                <span>Profile</span>
+              </LinkWrapper>
+            </>
+          )}
+        </ul>
       </div>
     </StyledSidebar>
   );
