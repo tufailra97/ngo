@@ -6,7 +6,17 @@ import styled, {
 } from 'styled-components';
 import { useSelector } from 'react-redux';
 import { ThemeProps, AuthState } from 'interfaces';
-import { Home, Movie, Series, Search } from 'icons';
+import {
+  Home,
+  Movie,
+  Series,
+  Search,
+  Login,
+  Logout,
+  Register,
+  EmptyStar,
+  Avatar
+} from 'icons';
 import Logo from './Logo';
 
 const StyledSidebar = styled.div`
@@ -134,21 +144,26 @@ const Sidebar: React.FC = () => {
           {!authState.isUserLoggedIn ? (
             <>
               <LinkWrapper activeClassName={active} to='/login'>
+                <Login width={22} height={22} color={theme.textColour} />
                 <span>Login</span>
               </LinkWrapper>
               <LinkWrapper activeClassName={active} to='/register'>
+                <Register width={22} height={22} color={theme.textColour} />
                 <span>Register</span>
               </LinkWrapper>
             </>
           ) : (
             <>
               <LinkWrapper activeClassName={active} to='/favourites'>
+                <EmptyStar width={22} height={22} color={theme.textColour} />
                 <span>favourites</span>
               </LinkWrapper>
               <LinkWrapper activeClassName={active} to='/logout'>
+                <Logout width={22} height={22} color={theme.textColour} />
                 <span>Logout</span>
               </LinkWrapper>
               <LinkWrapper activeClassName={active} to='/profile'>
+                <Avatar width={22} height={22} color={theme.textColour} />
                 <span>Profile</span>
               </LinkWrapper>
             </>
