@@ -14,6 +14,7 @@ import styled from 'styled-components';
 import PageNotFound from './404/404';
 import Register from './register/Register';
 import Login from './login/Login';
+import Logout from './logout/Logout';
 
 const MainContainer = styled.div`
   display: flex;
@@ -71,6 +72,11 @@ const RootRouter: React.FC = () => {
               exact
               path={process.env.PUBLIC_URL + '/login'}
               component={Login}
+            />
+            <Route
+              exact
+              path={process.env.PUBLIC_URL + '/logout'}
+              component={Logout}
             />
             <Route
               path={process.env.PUBLIC_URL + '/search/people/:id'}

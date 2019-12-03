@@ -161,10 +161,9 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
       if (response.status === 200) {
         const userDetails = response.data;
 
-        dispathActions(_login(userDetails.user_id, userDetails.token));
-
         setFormSubmitted(true);
         setTimeout(() => {
+          dispathActions(_login(userDetails.user_id, userDetails.token));
           history.push({
             pathname: '/'
           });
