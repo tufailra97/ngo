@@ -15,6 +15,7 @@ import PageNotFound from './404/404';
 import Register from './register/Register';
 import Login from './login/Login';
 import Logout from './logout/Logout';
+import Favourites from './favourite/Favourites';
 
 const MainContainer = styled.div`
   display: flex;
@@ -62,6 +63,11 @@ const RootRouter: React.FC = () => {
               exact
               path={process.env.PUBLIC_URL + '/search'}
               component={Search}
+            />
+            <Route
+              exact
+              path={process.env.PUBLIC_URL + '/favourites'}
+              component={Favourites}
             />
             <Route
               exact
