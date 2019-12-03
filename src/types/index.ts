@@ -18,3 +18,5 @@ export const HOME_GET_NOW_PLAYING: string = 'HOME_GET_NOW_PLAYING';
 export const HOME_GET_TRAILER: string = 'HOME_GET_TRAILER';
 export const HOME_GET_TRENDING_MOVIES: string = 'HOME_GET_TRENDING_MOVIES';
 export const HOME_GET_TRENDING_SERIES: string = 'HOME_GET_TRENDING_SERIES';
+export const AUTH_LOGIN_USER: string = 'AUTH_LOGIN_USER';
+export const AUTH_LOGOUT_USER: string = 'AUTH_LOGOUT_USER';

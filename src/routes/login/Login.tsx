@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import styled, { ThemeProps as StyledThemeProps } from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
 import { Headline, Paragraph } from 'elements/Typography';
 import { RouteComponentProps } from 'react-router';
 import { Email, Key } from 'icons';
-import { ThemeProps } from 'interfaces';
+import { ThemeProps, AuthState } from 'interfaces';
+import { login as _login } from 'actions/_auth';
 import axios from 'axios';
 
 const LoginWrapper = styled.div`
@@ -94,17 +96,23 @@ const LoginWrapper = styled.div`
 `;
 // TODO: extract the logic in useReducer
 const Login: React.FC<RouteComponentProps> = ({ history }) => {
+  // state for login
   const [loginDetails, setLoginDetails] = useState<{
     email: string;
     password: string;
   }>({ email: '', password: '' });
-
+  // state for errors
   const [errors, setErrors] = useState<{
     error: boolean;
     errorMessages: Array<string>;
   }>({ errorMessages: [], error: false });
 
+  // state to check is form is submitted
   const [formSubmitted, setFormSubmitted] = useState(false);
+  // action dispatcher
+  const dispathActions = useDispatch();
+  // auth state
+  const authState: AuthState = useSelector((state: any) => state.auth);
 
   const handleInputChange = (event: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = event.currentTarget;
@@ -152,7 +160,9 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
 
       if (response.status === 200) {
         const userDetails = response.data;
-        localStorage.setItem('token', JSON.stringify(userDetails));
+
+        dispathActions(_login(userDetails.user_id, userDetails.token));
+
         setFormSubmitted(true);
         setTimeout(() => {
           history.push({
@@ -174,6 +184,12 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
     event.preventDefault();
     validateFormInput();
   };
+
+  if (authState.isUserLoggedIn) {
+    history.push({
+      pathname: '/'
+    });
+  }
 
   return (
     <LoginWrapper>

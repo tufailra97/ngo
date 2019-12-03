@@ -21,7 +21,7 @@ import ICardProps from './ICardProps';
 import ThemeProps from './ThemeProps';
 import IconProps from './IconProps';
 import { ProctionCompanyProps } from './ProctionCompanyProps';
-
+import { AuthState } from './AuthProps';
 export type IMovie = IMovie;
 export type IMovieInistialState = IMovieInistialState;
 export type IMovieDetailsResponse = IMovieDetailsResponse;
@@ -46,3 +46,4 @@ export type HomeInitialProps = HomeInitialProps;
 export type TrailerResponse = TrailerResponse;
 export type Trailer = Trailer;
 export type ProctionCompanyProps = ProctionCompanyProps;
+export type AuthState = AuthState;
