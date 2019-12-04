@@ -11,7 +11,6 @@ const initialState: AuthState = {
 
 // TODO: assign proper type to actions
 const reducer = (state = initialState, actions: any): any => {
-  console.log('type', actions);
   switch (actions.type) {
     case AUTH_LOGIN_USER:
       return {

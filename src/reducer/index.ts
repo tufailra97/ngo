@@ -5,6 +5,7 @@ import series from './series';
 import people from './people';
 import home from './home';
 import auth from './auth';
+import favourites from './favourite';
 
 export default combineReducers({
   movies: movie,
@@ -12,5 +13,6 @@ export default combineReducers({
   series: series,
   people: people,
   home: home,
-  auth: auth
+  auth: auth,
+  favourites: favourites
 });
