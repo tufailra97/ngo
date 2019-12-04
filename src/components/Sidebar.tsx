@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, memo } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled, {
   ThemeProps as StyleThemeProps,
@@ -98,10 +98,6 @@ const Sidebar: React.FC = () => {
   const theme: ThemeProps = useContext(ThemeContext);
   const authState: AuthState = useSelector((state: any) => state.auth);
 
-  useEffect(() => {
-    console.log('auth', authState);
-  }, [authState]);
-
   return (
     <StyledSidebar>
       <div>
@@ -174,4 +170,4 @@ const Sidebar: React.FC = () => {
   );
 };
 
-export default Sidebar;
+export default memo(Sidebar);

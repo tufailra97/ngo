@@ -12,16 +12,18 @@ import {
   ISearchSerie,
   ISearchInitialState
 } from './SearchProps';
-import { HomeInitialProps } from './HomeProps';
-import { Trailer, TrailerResponse } from './TrailerProps';
-import { ICredits, ICast } from './CastProps';
 import { ISeriesInistialState, ISeriesReponse, ISeries } from './SeriesProps';
 import { IPersonDetails, IPeopleCredit } from './IPeopleProps';
+import { ProctionCompanyProps } from './ProctionCompanyProps';
+import { IFavourite, IFavouriteState } from './FavouritesProps';
+import { Trailer, TrailerResponse } from './TrailerProps';
+import { HomeInitialProps } from './HomeProps';
+import { ICredits, ICast } from './CastProps';
+import { AuthState } from './AuthProps';
 import ICardProps from './ICardProps';
 import ThemeProps from './ThemeProps';
 import IconProps from './IconProps';
-import { ProctionCompanyProps } from './ProctionCompanyProps';
-import { AuthState } from './AuthProps';
+
 export type IMovie = IMovie;
 export type IMovieInistialState = IMovieInistialState;
 export type IMovieDetailsResponse = IMovieDetailsResponse;
@@ -47,3 +49,5 @@ export type TrailerResponse = TrailerResponse;
 export type Trailer = Trailer;
 export type ProctionCompanyProps = ProctionCompanyProps;
 export type AuthState = AuthState;
+export type IFavourite = IFavourite;
+export type IFavouriteState = IFavouriteState;
