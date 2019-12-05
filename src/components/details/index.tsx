@@ -1,5 +1,11 @@
-import React, { useState, useContext } from 'react';
-import { ICast, TrailerResponse, ProctionCompanyProps } from 'interfaces';
+import React, { useState, useContext, useRef } from 'react';
+import {
+  ICast,
+  TrailerResponse,
+  ProctionCompanyProps,
+  AuthState
+} from 'interfaces';
+import { useSelector } from 'react-redux';
 import { Subline } from 'elements/Typography';
 import Title from './Title';
 import styled, {
@@ -15,6 +21,7 @@ import Modal from 'components/Modal';
 import axios from 'axios';
 import ThemeProps from 'interfaces/ThemeProps';
 import ProductionCompanies from './ProductionCompanies';
+import { FullStar, EmptyStar } from 'icons';
 
 // TODO: simplify and improve the component
 
@@ -85,6 +92,31 @@ const DetailsWrapper = styled.div`
       }
     }
   }
+
+  .title-fav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    .favourite {
+      display: flex;
+      align-items: center;
+      span {
+        width: 35rem;
+        opacity: 0;
+        font-size: 1.2rem;
+        transition: opacity 0.5s ease;
+        padding: 0.5rem 1rem;
+        background-color: white;
+        border-radius: 0.2rem;
+        text-transform: uppercase;
+        text-align: right;
+      }
+      & > div {
+        cursor: pointer;
+      }
+    }
+  }
 `;
 
 interface IDetails {
@@ -125,7 +157,10 @@ const Details: React.FC<IDetails> = ({
 }) => {
   const [showModal, setModalStatus] = useState(false);
   const [traileURL, setTraileURL] = useState('');
+  const [isFavourite, setFavourite] = useState<boolean | null>(false);
+  const favRef = useRef<HTMLDivElement>(null);
   const theme: ThemeProps = useContext(ThemeContext);
+  const authState: AuthState = useSelector((state: any) => state.auth);
 
   const handleCloseModal = () => {
     setModalStatus(false);
@@ -134,6 +169,44 @@ const Details: React.FC<IDetails> = ({
   const handleTrailer = async () => {
     setModalStatus(true);
     setTraileURL(await getTrailer());
+  };
+
+  const handleAddFavourite = async () => {
+    const baseURL = `${process.env.REACT_APP_NGO_BACKEND_END_POINT}/favourite/add`;
+    if (!isFavourite) {
+      try {
+        const request = await axios({
+          method: 'POST',
+          baseURL,
+          headers: {
+            Authorization: `Bearer ${authState.userDetails.token}`
+          },
+          data: {
+            user_id: authState.userDetails.userID,
+            id,
+            type,
+            title,
+            poster_path: poster
+          }
+        });
+
+        if (request.status === 200) {
+          setFavourite(true);
+        }
+      } catch (error) {
+        setFavourite(true);
+      }
+    }
+  };
+
+  const handleMouseEnter = (event: 'enter' | 'leave') => {
+    if (favRef.current) {
+      if (event === 'enter') {
+        favRef.current.style.opacity = '1';
+      } else if (event === 'leave') {
+        favRef.current.style.opacity = '0';
+      }
+    }
   };
 
   const getTrailer = async (): Promise<string> => {
@@ -169,8 +242,29 @@ const Details: React.FC<IDetails> = ({
         </div>
       </div>
       <div className='details-container'>
-        {/* title */}
-        <Title title={title} tagline={tagline} />
+        <div className='title-fav-container'>
+          {/* title */}
+          <Title title={title} tagline={tagline} />
+          <div onClick={handleAddFavourite} className='favourite'>
+            <span ref={favRef}>
+              {isFavourite === false
+                ? 'Add to Favourite'
+                : `${type} has been added to your favourite list`}
+            </span>
+            <div
+              onMouseEnter={() => {
+                handleMouseEnter('enter');
+              }}
+              onMouseLeave={() => handleMouseEnter('leave')}
+            >
+              {isFavourite ? (
+                <FullStar width={40} height={40} color={theme.textColour} />
+              ) : (
+                <EmptyStar width={40} height={40} color={theme.textColour} />
+              )}
+            </div>
+          </div>
+        </div>
         <div className='info'>
           <BasicInfo
             vote={vote}
