@@ -6,7 +6,7 @@ import { getTrendingMovies, getTrendingSeries } from 'actions/_home';
 import styled from 'styled-components';
 import { Carousel } from 'components';
 import Recommendation from 'components/Recommendations';
-import { Headline, Subline } from 'elements/Typography';
+import { H1, H2, H3 } from 'elements/Typography';
 
 const HomeWrapper = styled.div`
   margin-top: -2rem;
@@ -18,12 +18,12 @@ const HomeWrapper = styled.div`
     text-transform: uppercase;
 
     h1 {
-      font-size: 1.8rem;
+      /* font-size: 1.8rem; */
       font-weight: 600;
     }
 
     h2 {
-      font-size: 1.4rem;
+      /* font-size: 1.4rem; */
       font-weight: 400;
     }
   }
@@ -51,15 +51,15 @@ const Home: React.FC = () => {
     <HomeWrapper>
       {Array.isArray(movies) ? <Carousel data={movies} /> : null}
       <div className='trending'>
-        <Headline>Trending Now</Headline>
-        <Subline>Movies</Subline>
+        <H2>Trending Now</H2>
+        <H3>Movies</H3>
       </div>
       {trendingMovies && trendingMovies.length > 0 ? (
         <Recommendation type='movie' movies={trendingMovies} />
       ) : null}
       <div className='trending'>
-        <Headline>Trending Now</Headline>
-        <Subline>Series</Subline>
+        <H2>Trending Now</H2>
+        <H3>Series</H3>
       </div>
       {trendingSeries && trendingSeries.length > 0 ? (
         <Recommendation type='serie' series={trendingSeries} />

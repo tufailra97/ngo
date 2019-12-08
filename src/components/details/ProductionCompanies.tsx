@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { ProctionCompanyProps } from 'interfaces';
 import styled from 'styled-components';
-import { Subline } from 'elements/Typography';
+import { H2 } from 'elements/Typography';
 
 const ProctionCompanyWrapper = styled.div`
   .company-wrapper {
@@ -59,9 +59,9 @@ const ProductionCompanies: React.FC<IProductionCompanies> = ({ companies }) => {
   };
   return (
     <ProctionCompanyWrapper>
-      <Subline style={{ fontSize: '1.3rem', textTransform: 'uppercase' }}>
+      <H2 style={{ fontSize: '1.3rem', textTransform: 'uppercase' }}>
         Production Companies
-      </Subline>
+      </H2>
       <div className='company-wrapper'>{renderCompanies()}</div>
     </ProctionCompanyWrapper>
   );

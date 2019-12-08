@@ -1,10 +1,10 @@
 import React from 'react';
-import { Headline } from 'elements/Typography';
+import { H1 } from 'elements/Typography';
 
 const PageNotFound: React.FC = () => {
   return (
     <div>
-      <Headline>Page Not Found</Headline>
+      <H1>Page Not Found</H1>
     </div>
   );
 };

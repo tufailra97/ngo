@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import styled, { ThemeProps as StyledThemeProps } from 'styled-components';
 import { IMovie, TrailerResponse, ThemeProps } from 'interfaces';
-import { Headline } from 'elements/Typography';
+import { H1 } from 'elements/Typography';
 import { useHistory } from 'react-router-dom';
 import Rating from 'components/Rating';
 import ReadMore from 'components/ReadMore';
@@ -37,8 +37,6 @@ const ContentItem = styled.div`
     flex-direction: column;
     justify-content: space-between;
     h1 {
-      font-size: 2.5em;
-      font-weight: 400;
       text-transform: uppercase;
       margin-bottom: 1rem;
     }
@@ -112,7 +110,7 @@ const Contents: React.FC<{
         </div>
         <div className='desc'>
           <div className='info'>
-            <Headline>{movie.title}</Headline>
+            <H1>{movie.title}</H1>
             <Rating vote={movie.vote_average!} />
             <ReadMore
               maxLine={4}

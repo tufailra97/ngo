@@ -8,7 +8,7 @@ import {
 } from 'interfaces';
 import styled from 'styled-components';
 import { Card } from 'components';
-import { Subline } from 'elements/Typography';
+import { H2 } from 'elements/Typography';
 import { useHistory } from 'react-router-dom';
 
 const SearchWrapper = styled.div`
@@ -118,21 +118,21 @@ const Search: React.FC = () => {
       {/* movies */}
       {moviesContainer.length > 0 && (
         <div className='section'>
-          <Subline>Movies</Subline>
+          <H2>Movies</H2>
           <div className='results-container'>{moviesContainer}</div>
         </div>
       )}
       {/* series */}
       {seriesContainer.length > 0 && (
         <div className='section'>
-          <Subline>Series</Subline>
+          <H2>Series</H2>
           <div className='results-container'>{seriesContainer}</div>
         </div>
       )}
       {/* persons */}
       {personsContainer.length > 0 && (
         <div className='section'>
-          <Subline>People</Subline>
+          <H2>People</H2>
           <div className='results-container'>{personsContainer}</div>
         </div>
       )}

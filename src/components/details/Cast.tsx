@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import styled, { ThemeContext } from 'styled-components';
-import { Subline } from 'elements/Typography';
+import { H2 } from 'elements/Typography';
 import { ICast } from 'interfaces';
 import { MinimalCarousel } from 'components';
 import { Avatar } from 'icons';
@@ -82,9 +82,7 @@ const Cast: React.FC<{ cast: Array<ICast>; callback: Function }> = ({
   };
   return (
     <CastWrapper>
-      <Subline style={{ fontSize: '1.3rem', textTransform: 'uppercase' }}>
-        Cast
-      </Subline>
+      <H2 style={{ fontSize: '1.3rem', textTransform: 'uppercase' }}>Cast</H2>
       <div className='cast-img-container'>
         {cast.length > 0 ? (
           <MinimalCarousel translate={70}>{handleCast()}</MinimalCarousel>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled, { ThemeProps as StyledThemeProps } from 'styled-components';
 import { RouteComponentProps } from 'react-router';
-import { Headline, Paragraph } from 'elements/Typography';
+import { H1, Paragraph } from 'elements/Typography';
 import { ThemeProps, AuthState } from 'interfaces';
 import { Email, Key, User } from 'icons';
 import axios from 'axios';
@@ -191,7 +191,7 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
   return (
     <RegisterWrapper>
       <div>
-        <Headline>Register</Headline>
+        <H1>Register</H1>
         <hr />
         <div className='error-container'>
           {errors.errorMessages.length > 0 &&

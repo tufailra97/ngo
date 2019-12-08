@@ -7,11 +7,12 @@ import {
   getCredits
 } from 'actions/_movies';
 import { IMovieInistialState } from 'interfaces';
-import { Loader, Card } from 'components';
+import { Loader, Card, Recommendations } from 'components';
 import { RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
 import Details from 'components/details';
-import { Subline } from 'elements/Typography';
+import { H2 } from 'elements/Typography';
+import Recommendation from 'components/Recommendations';
 
 const MovieItemWrapper = styled.div`
   padding: 1rem;
@@ -25,10 +26,6 @@ const MovieItemWrapper = styled.div`
       font-weight: 500;
       text-transform: uppercase;
       margin-bottom: 1rem;
-    }
-    .recommendation {
-      width: 90.5%;
-      display: flex;
     }
   }
 `;
@@ -54,12 +51,6 @@ const MovieItem: React.FC<RouteComponentProps> = ({ history }) => {
     dispatchAction(getCredits(parseInt(id!)));
   }, [id]);
 
-  const handleClickReccomondation = (id: number) => {
-    history.replace({
-      pathname: `/movies/details/${id}`
-    });
-  };
-
   useEffect(() => {
     if (castMember !== null) {
       history.push({
@@ -67,30 +58,6 @@ const MovieItem: React.FC<RouteComponentProps> = ({ history }) => {
       });
     }
   }, [castMember]);
-
-  const handleReccomondation = ():
-    | Array<React.ReactElement>
-    | React.ReactElement => {
-    let reccomondationContent;
-    if (recommendation !== undefined) {
-      reccomondationContent = recommendation.slice(0, 5).map(movie => {
-        return (
-          <Card
-            style={{ margin: '2rem 1rem' }}
-            key={movie.id}
-            id={movie.id}
-            title={movie.title}
-            imageURL={movie.poster_path!}
-            callback={handleClickReccomondation}
-          />
-        );
-      });
-
-      return reccomondationContent;
-    } else {
-      return <Loader />;
-    }
-  };
 
   if (loading) {
     return <Loader />;
@@ -121,8 +88,8 @@ const MovieItem: React.FC<RouteComponentProps> = ({ history }) => {
 
       {/* show recommendation */}
       <div className='recommendation-container'>
-        <Subline>recommendation</Subline>
-        <div className='recommendation'>{handleReccomondation()}</div>
+        <H2>recommendation</H2>
+        <Recommendations type='movie' movies={recommendation} />
       </div>
     </MovieItemWrapper>
   );

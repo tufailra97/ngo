@@ -1,7 +1,7 @@
-import React from "react";
-import styled, { ThemeProps as StyleThemeProps } from "styled-components";
-import { Headline, Subline } from "elements/Typography";
-import ThemeProps from "interfaces/ThemeProps";
+import React from 'react';
+import styled, { ThemeProps as StyleThemeProps } from 'styled-components';
+import { H1, H2 } from 'elements/Typography';
+import ThemeProps from 'interfaces/ThemeProps';
 
 interface ITitle {
   title: string;
@@ -28,28 +28,28 @@ const TitleWrapper = styled.div`
 const Title: React.FC<ITitle> = ({ title, tagline }) => {
   return (
     <TitleWrapper>
-      <Headline
+      <H1
         style={{
           fontWeight: 400,
-          maxWidth: "40rem",
-          fontSize: "3.5rem",
-          textTransform: "uppercase"
+          maxWidth: '40rem',
+          fontSize: '3.5rem',
+          textTransform: 'uppercase'
         }}
       >
         {title}
-      </Headline>
+      </H1>
       {tagline && (
-        <Subline
+        <H2
           style={{
             fontWeight: 600,
-            maxWidth: "40rem",
-            fontSize: "1.5rem",
+            maxWidth: '40rem',
+            fontSize: '1.5rem',
             letterSpacing: 1,
-            textTransform: "uppercase"
+            textTransform: 'uppercase'
           }}
         >
           {tagline}
-        </Subline>
+        </H2>
       )}
     </TitleWrapper>
   );

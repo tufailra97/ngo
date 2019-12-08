@@ -6,7 +6,7 @@ import {
   AuthState
 } from 'interfaces';
 import { useSelector } from 'react-redux';
-import { Subline, Paragraph } from 'elements/Typography';
+import { H2, Paragraph } from 'elements/Typography';
 import Title from './Title';
 import styled, {
   ThemeProps as StyledThemeProps,
@@ -285,7 +285,7 @@ const Details: React.FC<IDetails> = ({
             totalEpisodes={totalEpisodes}
           />
           <div className='genres info-container'>
-            <Subline
+            <H2
               style={{
                 fontSize: '1.3rem',
                 textTransform: 'uppercase',
@@ -293,14 +293,14 @@ const Details: React.FC<IDetails> = ({
               }}
             >
               Genres
-            </Subline>
+            </H2>
             <Genres genres={genres} />
           </div>
           {/* description */}
           <div className='description info-container'>
-            <Subline style={{ fontSize: '1.3rem', textTransform: 'uppercase' }}>
+            <H2 style={{ fontSize: '1.3rem', textTransform: 'uppercase' }}>
               Description
-            </Subline>
+            </H2>
             <div className='description'>
               <ReadMore
                 texts={overview}

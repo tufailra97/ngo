@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { getDetails, getMovieCredits, getSerieCredits } from 'actions/_people';
 import { useSelector, useDispatch } from 'react-redux';
 import { IPeopleInitialState } from 'interfaces/IPeopleProps';
-import { Headline, Subline, Paragraph } from 'elements/Typography';
+import { H1, H2, Paragraph, H3 } from 'elements/Typography';
 import ReadMore from 'components/ReadMore';
 import { Card } from 'components';
 
@@ -49,7 +49,6 @@ const PeopleWrapper = styled.div`
     .name {
       h1 {
         text-transform: uppercase;
-        font-size: 3.5rem;
         font-weight: 400;
         max-width: 40rem;
       }
@@ -58,8 +57,7 @@ const PeopleWrapper = styled.div`
 
     .info {
       margin-bottom: 1.5rem;
-      h2 {
-        font-size: 1.4rem;
+      h3 {
         text-transform: uppercase;
         margin-bottom: 0.5rem;
       }
@@ -79,7 +77,6 @@ const PeopleWrapper = styled.div`
     margin: 4rem 0;
     margin-bottom: 1rem;
     h2 {
-      font-size: 2rem;
       font-weight: 500;
       text-transform: uppercase;
       margin-bottom: 1rem;
@@ -181,22 +178,22 @@ const People: React.FC<RouteComponentProps> = ({ history }) => {
           </div>
           <div className='details-container'>
             <div className='name'>
-              <Headline>{people.name}</Headline>
+              <H1>{people.name}</H1>
             </div>
             {people.birthday ? (
               <div className='birthday info'>
-                <Subline>Born</Subline>
+                <H3>Born</H3>
                 <Paragraph>{handleDate(people.birthday)}</Paragraph>
               </div>
             ) : null}
             {people.deathday ? (
               <div className='death info'>
-                <Subline>Death</Subline>
+                <H3>Death</H3>
                 <Paragraph>{handleDate(people.deathday)}</Paragraph>
               </div>
             ) : null}
             <div className='biography info'>
-              <Subline>Biography</Subline>
+              <H3>Biography</H3>
               {people.biography !== null ? (
                 <ReadMore
                   texts={people.biography}
@@ -214,13 +211,13 @@ const People: React.FC<RouteComponentProps> = ({ history }) => {
         <div>
           {movies.length > 0 ? (
             <div className='recommendation-container'>
-              <Subline>Related Movies</Subline>
+              <H2>Related Movies</H2>
               <div className='recommendation'>{movies}</div>
             </div>
           ) : (
             <>
               <div className='recommendation-container'>
-                <Subline>Related Series</Subline>
+                <H2>Related Series</H2>
                 <div className='recommendation'>{series}</div>
               </div>
             </>

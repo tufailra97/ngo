@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getFavourites } from 'actions/_favourites';
 import { RouteComponentProps } from 'react-router';
 import { AuthState, IFavouriteState, IFavourite } from 'interfaces';
-import { Headline, Subline, Paragraph } from 'elements/Typography';
+import { H1, H2, Paragraph } from 'elements/Typography';
 import { Button } from 'elements';
 import { Recommendations } from 'components';
 
@@ -84,10 +84,10 @@ const Favourite: React.FC<RouteComponentProps> = ({ history }) => {
   if (!auth.isUserLoggedIn) {
     return (
       <ErrorWrapper>
-        <Headline>
+        <H1>
           You must login to view <br />
           the content in this page.
-        </Headline>
+        </H1>
         <Button onClick={() => history.push('/login')}>Login</Button>
       </ErrorWrapper>
     );
@@ -97,7 +97,7 @@ const Favourite: React.FC<RouteComponentProps> = ({ history }) => {
   if (!favourites.items || favourites.items.length < 1) {
     return (
       <FavouriteWrapper>
-        <Headline>Favourite</Headline>
+        <H1>Favourite</H1>
         <div className='no-favourites'>
           <Paragraph>You have no favourites</Paragraph>
         </div>
@@ -109,17 +109,17 @@ const Favourite: React.FC<RouteComponentProps> = ({ history }) => {
 
   return (
     <FavouriteWrapper>
-      <Headline style={{ textTransform: 'uppercase' }}>Favourites</Headline>
+      <H1 style={{ textTransform: 'uppercase' }}>Favourites</H1>
       {data.movies.length > 0 && (
         <div className='movies'>
-          <Subline>Movies</Subline>
+          <H2>Movies</H2>
           <Recommendations type='movie' movies={data.movies} limit={false} />
         </div>
       )}
 
       {data.series.length > 0 && (
         <div className='series'>
-          <Subline>Serires</Subline>
+          <H2>Serires</H2>
           <Recommendations type='serie' series={data.series} limit={false} />
         </div>
       )}

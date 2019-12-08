@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled, { ThemeProps as StyledThemeProps } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
-import { Headline, Paragraph } from 'elements/Typography';
+import { H1, Paragraph } from 'elements/Typography';
 import { logout as _logout } from 'actions/_auth';
 import { Button } from 'elements/Button';
 import { AuthState } from 'interfaces';
@@ -50,7 +50,7 @@ const Logout: React.FC<RouteComponentProps> = ({ history }) => {
 
   return (
     <LogoutWrapper>
-      <Headline>Sure you want to log out?</Headline>
+      <H1>Sure you want to log out?</H1>
       <div className='action-container'>
         <Button onClick={() => history.push({ pathname: '/home' })}>
           Go Home

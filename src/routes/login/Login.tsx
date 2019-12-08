@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled, { ThemeProps as StyledThemeProps } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { Headline, Paragraph } from 'elements/Typography';
+import { H1, Paragraph } from 'elements/Typography';
 import { RouteComponentProps } from 'react-router';
 import { ThemeProps, AuthState } from 'interfaces';
 import { login as _login } from 'actions/_auth';
@@ -193,7 +193,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
   return (
     <LoginWrapper>
       <div>
-        <Headline>Login</Headline>
+        <H1>Login</H1>
         <hr />
         <div className='error-container'>
           {errors.errorMessages.length > 0 &&
