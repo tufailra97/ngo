@@ -3,9 +3,10 @@ import styled, { ThemeProps as StyledThemeProps } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFavourites } from 'actions/_favourites';
 import { RouteComponentProps } from 'react-router';
-import { AuthState, IFavouriteState } from 'interfaces';
+import { AuthState, IFavouriteState, IFavourite } from 'interfaces';
 import { Headline, Subline, Paragraph } from 'elements/Typography';
 import { Button } from 'elements';
+import { Recommendations } from 'components';
 
 const FavouriteWrapper = styled.div`
   width: 107.5rem;
@@ -15,7 +16,7 @@ const FavouriteWrapper = styled.div`
   flex-direction: column;
   h1 {
     text-transform: uppercase;
-    margin: 3rem 0 0;
+    margin: 3rem 0 3rem;
   }
 
   .no-favourites {
@@ -48,6 +49,10 @@ const Favourite: React.FC<RouteComponentProps> = ({ history }) => {
   const state = useSelector((state: any) => state);
   const auth: AuthState = state.auth;
   const favourites: IFavouriteState = state.favourites;
+  let items: { movies: Array<IFavourite>; series: Array<IFavourite> } = {
+    movies: [],
+    series: []
+  };
 
   useEffect(() => {
     if (
@@ -61,6 +66,21 @@ const Favourite: React.FC<RouteComponentProps> = ({ history }) => {
     }
   }, []);
 
+  const hadleFavourites = (): {
+    movies: Array<IFavourite>;
+    series: Array<IFavourite>;
+  } => {
+    if (favourites.items && favourites.items.length > 1) {
+      favourites.items.forEach(item => {
+        item.type === 'movie'
+          ? items.movies.push(item)
+          : items.series.push(item);
+      });
+    }
+
+    return items;
+  };
+
   if (!auth.isUserLoggedIn) {
     return (
       <ErrorWrapper>
@@ -73,21 +93,36 @@ const Favourite: React.FC<RouteComponentProps> = ({ history }) => {
     );
   }
 
+  // change style
   if (!favourites.items || favourites.items.length < 1) {
     return (
       <FavouriteWrapper>
         <Headline>Favourite</Headline>
         <div className='no-favourites'>
-          <Paragraph>You have favourites</Paragraph>
+          <Paragraph>You have no favourites</Paragraph>
         </div>
       </FavouriteWrapper>
     );
   }
 
+  const data = hadleFavourites();
+
   return (
     <FavouriteWrapper>
-      <Headline style={{ textTransform: 'uppercase' }}>Favourite</Headline>
-      <Subline></Subline>
+      <Headline style={{ textTransform: 'uppercase' }}>Favourites</Headline>
+      {data.movies.length > 0 && (
+        <div className='movies'>
+          <Subline>Movies</Subline>
+          <Recommendations type='movie' movies={data.movies} limit={false} />
+        </div>
+      )}
+
+      {data.series.length > 0 && (
+        <div className='series'>
+          <Subline>Serires</Subline>
+          <Recommendations type='serie' series={data.series} limit={false} />
+        </div>
+      )}
     </FavouriteWrapper>
   );
 };
