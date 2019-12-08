@@ -1,54 +1,40 @@
 import React from 'react';
+import { ThemeProps as StyledThemeProps } from 'styled-components';
 import styled from 'styled-components';
-
+import { ThemeProps } from 'interfaces';
 const LoaderWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  z-index: 1;
+  flex-shrink: 0;
 
   div {
-    content: '';
-    width: 1rem;
-    height: 2rem;
-    background-color: red;
-    margin: 0 0.2rem;
-    animation-name: loader-animation;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-    animation-timing-function: ease;
-  }
-  div:nth-child(1) {
-    animation-delay: 0.5s;
-  }
-
-  div:nth-child(2) {
-    animation-delay: 1s;
+    width: 7rem;
+    height: 7rem;
+    overflow: hidden;
+    border-color: transparent;
+    border-top-color: ${(props: StyledThemeProps<ThemeProps>) =>
+      props.theme.textColour};
+    border-left-color: ${(props: StyledThemeProps<ThemeProps>) =>
+      props.theme.textColour};
+    border-style: solid;
+    border-width: 0.5rem;
+    border-radius: 50%;
+    box-sizing: border-box;
+    animation: spin 1.5s linear infinite;
   }
 
-  div:nth-child(3) {
-    animation-delay: 1.5s;
-  }
-
-  @keyframes loader-animation {
-    0% {
-      transform: scaleY(1.2) scaleX(0.9);
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
     }
-    50% {
-      transform: scaleY(1) scaleX(0.9);
-    }
-    100% {
-      transform: scaleY(1.2) scaleX(0.9);
+    to {
+      transform: rotate(360deg);
     }
   }
 `;
 
 const Loader: React.FC = () => {
   return (
-    <LoaderWrapper>
-      <div></div>
-      <div></div>
+    <LoaderWrapper className='loader'>
       <div></div>
     </LoaderWrapper>
   );
