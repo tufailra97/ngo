@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef } from 'react';
+import React, { useState, useContext, useRef, memo } from 'react';
 import {
   ICast,
   TrailerResponse,
@@ -6,7 +6,7 @@ import {
   AuthState
 } from 'interfaces';
 import { useSelector } from 'react-redux';
-import { Subline } from 'elements/Typography';
+import { Subline, Paragraph } from 'elements/Typography';
 import Title from './Title';
 import styled, {
   ThemeProps as StyledThemeProps,
@@ -101,16 +101,22 @@ const DetailsWrapper = styled.div`
     .favourite {
       display: flex;
       align-items: center;
-      span {
-        width: 35rem;
+      position: relative;
+
+      .fav-btn {
+        position: absolute;
+        right: 5rem;
         opacity: 0;
-        font-size: 1.2rem;
+        overflow: hidden;
         transition: opacity 0.5s ease;
-        padding: 0.5rem 1rem;
-        background-color: white;
-        border-radius: 0.2rem;
-        text-transform: uppercase;
-        text-align: right;
+        p {
+          display: block;
+          width: 17rem;
+          padding: 0.5rem 0;
+          border-radius: 0.2rem;
+          border: 0.1rem solid black;
+          text-align: center;
+        }
       }
       & > div {
         cursor: pointer;
@@ -245,25 +251,29 @@ const Details: React.FC<IDetails> = ({
         <div className='title-fav-container'>
           {/* title */}
           <Title title={title} tagline={tagline} />
-          <div onClick={handleAddFavourite} className='favourite'>
-            <span ref={favRef}>
-              {isFavourite === false
-                ? 'Add to Favourite'
-                : `${type} has been added to your favourite list`}
-            </span>
-            <div
-              onMouseEnter={() => {
-                handleMouseEnter('enter');
-              }}
-              onMouseLeave={() => handleMouseEnter('leave')}
-            >
-              {isFavourite ? (
-                <FullStar width={40} height={40} color={theme.textColour} />
-              ) : (
-                <EmptyStar width={40} height={40} color={theme.textColour} />
-              )}
+          {authState.isUserLoggedIn && authState.userDetails.token && (
+            <div onClick={handleAddFavourite} className='favourite'>
+              <div className='fav-btn' ref={favRef}>
+                <Paragraph>
+                  {isFavourite === false
+                    ? 'Add to Favourite'
+                    : `Added to favourite`}
+                </Paragraph>
+              </div>
+              <div
+                onMouseEnter={() => {
+                  handleMouseEnter('enter');
+                }}
+                onMouseLeave={() => handleMouseEnter('leave')}
+              >
+                {isFavourite ? (
+                  <FullStar width={40} height={40} color={theme.textColour} />
+                ) : (
+                  <EmptyStar width={40} height={40} color={theme.textColour} />
+                )}
+              </div>
             </div>
-          </div>
+          )}
         </div>
         <div className='info'>
           <BasicInfo
@@ -315,4 +325,4 @@ const Details: React.FC<IDetails> = ({
   );
 };
 
-export default Details;
+export default memo(Details);
