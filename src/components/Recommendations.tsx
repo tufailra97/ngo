@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ISerie, IMovie, IFavourite } from 'interfaces';
+import { ISerie, IMovie, IFavourite, IPeopleCredit } from 'interfaces';
 import Card from './Card';
 import { useHistory } from 'react-router-dom';
 
@@ -14,8 +14,8 @@ const RecommendationWrapper = styled.div`
 
 interface IRecommendation {
   type: 'serie' | 'movie';
-  series?: Array<ISerie | IFavourite>;
-  movies?: Array<IMovie | IFavourite>;
+  series?: Array<ISerie | IFavourite | IPeopleCredit>;
+  movies?: Array<IMovie | IFavourite | IPeopleCredit>;
   limit?: boolean;
 }
 const Recommendation: React.FC<IRecommendation> = ({
@@ -39,7 +39,7 @@ const Recommendation: React.FC<IRecommendation> = ({
   };
 
   const renderItems = (): Array<React.ReactElement> => {
-    let data: Array<IMovie | ISerie | IFavourite> =
+    let data: Array<IMovie | ISerie | IFavourite | IPeopleCredit> =
       type === 'movie' ? movies! : series!;
 
     if (limit) {

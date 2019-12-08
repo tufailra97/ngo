@@ -28,6 +28,7 @@ export interface IPeopleCreditResponse {
 
 export interface IPeopleCredit {
   id: number;
+  original_title: string;
   character: string;
   poster_path: string;
   vote_average: number;

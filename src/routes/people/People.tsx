@@ -5,7 +5,7 @@ import { getDetails, getMovieCredits, getSerieCredits } from 'actions/_people';
 import { useSelector, useDispatch } from 'react-redux';
 import { IPeopleInitialState } from 'interfaces/IPeopleProps';
 import { H1, H2, Paragraph, H3 } from 'elements/Typography';
-import ReadMore from 'components/ReadMore';
+import { ReadMore, Recommendations } from 'components';
 import { Card } from 'components';
 
 const months = [
@@ -136,36 +136,6 @@ const People: React.FC<RouteComponentProps> = ({ history }) => {
     });
   };
 
-  if (movieCredit && movieCredit.length > 0) {
-    movies = movieCredit.map(movie => {
-      return (
-        <Card
-          style={{ margin: '2rem 1rem' }}
-          key={movie.id}
-          id={movie.id}
-          title={movie.character}
-          imageURL={movie.poster_path!}
-          callback={handleClickMovie}
-        />
-      );
-    });
-  }
-
-  if (serieCredits && serieCredits.length > 0) {
-    series = serieCredits.map(serie => {
-      return (
-        <Card
-          style={{ margin: '2rem 1rem' }}
-          key={serie.id}
-          id={serie.id}
-          title={serie.character}
-          imageURL={serie.poster_path!}
-          callback={handleClickSerie}
-        />
-      );
-    });
-  }
-
   return (
     <PeopleWrapper>
       {people !== undefined ? (
@@ -207,18 +177,18 @@ const People: React.FC<RouteComponentProps> = ({ history }) => {
         </div>
       ) : null}
 
-      {movies.length > 0 || series.length > 0 ? (
+      {movieCredit.length > 0 || movieCredit.length > 0 ? (
         <div>
-          {movies.length > 0 ? (
+          {movieCredit.length > 0 ? (
             <div className='recommendation-container'>
               <H2>Related Movies</H2>
-              <div className='recommendation'>{movies}</div>
+              <Recommendations type='movie' movies={movieCredit} />
             </div>
           ) : (
             <>
               <div className='recommendation-container'>
                 <H2>Related Series</H2>
-                <div className='recommendation'>{series}</div>
+                <Recommendations type='serie' movies={serieCredits} />
               </div>
             </>
           )}

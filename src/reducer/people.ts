@@ -13,7 +13,7 @@ const initialState = {};
 const handleResults = (
   credits: IPeopleCreditResponse
 ): Array<IPeopleCredit> => {
-  return credits.cast.length > 5 ? credits.cast.slice(0, 5) : credits.cast;
+  return credits.cast.length > 6 ? credits.cast.slice(0, 6) : credits.cast;
 };
 
 const reducer = (state = initialState, actions: any) => {

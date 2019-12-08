@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, memo } from 'react';
 import styled, { ThemeProps as StyleThemeProps } from 'styled-components';
 import { Paragraph } from 'elements/Typography';
 import { ThemeProps } from 'interfaces';
@@ -97,4 +97,4 @@ const ReadMore: React.FC<{
   );
 };
 
-export default ReadMore;
+export default memo(ReadMore);
