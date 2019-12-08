@@ -66,7 +66,7 @@ const Recommendation: React.FC<IRecommendation> = ({
     <RecommendationWrapper
       style={{ justifyContent: `${limit ? 'space-evenly' : 'flex-start'}` }}
     >
-      {renderItems()}
+      {movies || series ? renderItems() : null}
     </RecommendationWrapper>
   );
 };

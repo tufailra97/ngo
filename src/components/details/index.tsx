@@ -144,6 +144,7 @@ interface IDetails {
   callback: Function;
 }
 
+//TODO: extract the state using useReducer
 const Details: React.FC<IDetails> = ({
   id,
   type,
@@ -162,6 +163,7 @@ const Details: React.FC<IDetails> = ({
   totalEpisodes
 }) => {
   const [showModal, setModalStatus] = useState(false);
+  const [loading, setLoading] = useState(true); // fake loading
   const [traileURL, setTraileURL] = useState('');
   const [isFavourite, setFavourite] = useState<boolean | null>(false);
   const favRef = useRef<HTMLDivElement>(null);

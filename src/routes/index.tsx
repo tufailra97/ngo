@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router, Switch, Route, Redirect } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
-import { Search as SearchComponent, Loader } from 'components';
+import { Search as SearchComponent } from 'components';
 import { Sidebar } from 'components';
 import Home from './home/Home';
 import Movies from './movies/Movies';

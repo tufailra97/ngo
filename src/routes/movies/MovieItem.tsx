@@ -7,12 +7,11 @@ import {
   getCredits
 } from 'actions/_movies';
 import { IMovieInistialState } from 'interfaces';
-import { Loader, Card, Recommendations } from 'components';
+import { Loader, Recommendations } from 'components';
 import { RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
 import Details from 'components/details';
 import { H2 } from 'elements/Typography';
-import Recommendation from 'components/Recommendations';
 
 const MovieItemWrapper = styled.div`
   padding: 1rem;
@@ -60,7 +59,19 @@ const MovieItem: React.FC<RouteComponentProps> = ({ history }) => {
   }, [castMember]);
 
   if (loading) {
-    return <Loader />;
+    return (
+      <div
+        style={{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+      >
+        <Loader />
+      </div>
+    );
   }
   // TODO: exctract into small components
   return (

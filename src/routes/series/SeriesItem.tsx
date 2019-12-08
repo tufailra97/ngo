@@ -7,7 +7,7 @@ import {
   getRecommendations
 } from 'actions/_series';
 import { ISeriesInistialState } from 'interfaces';
-import { Loader, Card, Recommendations } from 'components';
+import { Loader, Recommendations } from 'components';
 import { RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
 import Details from 'components/details';
@@ -59,7 +59,19 @@ const MovieItem: React.FC<RouteComponentProps> = ({ history }) => {
   }, [castMember]);
 
   if (loading) {
-    return <Loader />;
+    return (
+      <div
+        style={{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+      >
+        <Loader />
+      </div>
+    );
   }
   // TODO: exctract into small components
   return (
