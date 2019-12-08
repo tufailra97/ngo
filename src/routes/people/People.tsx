@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { IPeopleInitialState } from 'interfaces/IPeopleProps';
 import { H1, H2, Paragraph, H3 } from 'elements/Typography';
 import { ReadMore, Recommendations } from 'components';
-import { Card } from 'components';
 
 const months = [
   'January',
@@ -99,9 +98,6 @@ const People: React.FC<RouteComponentProps> = ({ history }) => {
   const movieCredit = peopleState.movieCredits;
   const serieCredits = peopleState.serieCredits;
 
-  let movies: Array<React.ReactElement> = [];
-  let series: Array<React.ReactElement> = [];
-
   useEffect(() => {
     dispatchAction(getDetails(parseInt(id!)));
     dispatchAction(getMovieCredits(parseInt(id!)));
@@ -177,7 +173,7 @@ const People: React.FC<RouteComponentProps> = ({ history }) => {
         </div>
       ) : null}
 
-      {movieCredit.length > 0 || movieCredit.length > 0 ? (
+      {movieCredit || serieCredits ? (
         <div>
           {movieCredit.length > 0 ? (
             <div className='recommendation-container'>
