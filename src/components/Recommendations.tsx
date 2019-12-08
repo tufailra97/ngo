@@ -1,6 +1,6 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { ISerie, IMovie } from 'interfaces';
+import { ISerie, IMovie, IFavourite } from 'interfaces';
 import Card from './Card';
 import { useHistory } from 'react-router-dom';
 
@@ -8,22 +8,21 @@ const RecommendationWrapper = styled.div`
   width: 107.5rem;
   margin: 0 auto;
   margin-bottom: 1rem;
-
   display: flex;
-  justify-content: space-evenly;
-  .card {
-  }
+  flex-wrap: wrap;
 `;
 
 interface IRecommendation {
   type: 'serie' | 'movie';
-  series?: Array<ISerie>;
-  movies?: Array<IMovie>;
+  series?: Array<ISerie | IFavourite>;
+  movies?: Array<IMovie | IFavourite>;
+  limit?: boolean;
 }
 const Recommendation: React.FC<IRecommendation> = ({
   series,
   movies,
-  type
+  type,
+  limit = true
 }) => {
   const history = useHistory();
 
@@ -40,27 +39,36 @@ const Recommendation: React.FC<IRecommendation> = ({
   };
 
   const renderItems = (): Array<React.ReactElement> => {
-    const data: Array<IMovie | ISerie> = type === 'movie' ? movies! : series!;
+    let data: Array<IMovie | ISerie | IFavourite> =
+      type === 'movie' ? movies! : series!;
 
-    const itemToRender: Array<React.ReactElement> = data
-      .slice(0, 6)
-      .map(item => {
-        return (
-          <Card
-            className='card'
-            style={{ width: '15%' }}
-            title={item.original_title}
-            imageURL={item.poster_path!}
-            key={item.id}
-            id={item.id}
-            callback={() => handleCallBack(item.id)}
-          />
-        );
-      });
+    if (limit) {
+      data = data.slice(0, 6);
+    }
+
+    const itemToRender: Array<React.ReactElement> = data.map(item => {
+      return (
+        <Card
+          className='card'
+          style={{ width: '15%' }}
+          title={item.original_title}
+          imageURL={item.poster_path!}
+          key={item.id}
+          id={item.id}
+          callback={() => handleCallBack(item.id)}
+        />
+      );
+    });
     return itemToRender;
   };
 
-  return <RecommendationWrapper>{renderItems()}</RecommendationWrapper>;
+  return (
+    <RecommendationWrapper
+      style={{ justifyContent: `${limit ? 'space-evenly' : 'flex-start'}` }}
+    >
+      {renderItems()}
+    </RecommendationWrapper>
+  );
 };
 
 export default Recommendation;
