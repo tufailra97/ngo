@@ -8,6 +8,7 @@ export const Headline = styled.h1`
 `;
 
 export const Subline = styled.h2`
+  font-size: 1.5rem;
   color: ${(props: StyleThemeProps<ThemeProps>) => props.theme.textColour};
 `;
 
