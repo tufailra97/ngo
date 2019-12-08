@@ -7,6 +7,6 @@ export interface IFavouriteState {
 export interface IFavourite {
   type: 'serie' | 'movie';
   id: number;
-  title: string;
+  original_title: string;
   poster_path: string;
 }
