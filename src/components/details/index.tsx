@@ -180,7 +180,7 @@ const Details: React.FC<IDetails> = ({
   };
 
   const handleAddFavourite = async () => {
-    const baseURL = `${process.env.REACT_APP_NGO_BACKEND_END_POINT}/favourite/add`;
+    const baseURL = `${process.env.REACT_APP_ZEZEN_BACKEND_END_POINT}/favourite/add`;
     if (!isFavourite) {
       try {
         const request = await axios({

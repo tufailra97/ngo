@@ -11,7 +11,7 @@ const StyledLogo = styled.div`
 `;
 
 const Logo: React.FC = () => {
-  return <StyledLogo>NGO</StyledLogo>;
+  return <StyledLogo>ZEZEN</StyledLogo>;
 };
 
 export default Logo;

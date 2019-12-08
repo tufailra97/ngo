@@ -153,7 +153,7 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
   };
 
   const handleUserRegistration = async () => {
-    const baseURL = `${process.env.REACT_APP_NGO_BACKEND_END_POINT}/user/register-user`;
+    const baseURL = `${process.env.REACT_APP_ZEZEN_BACKEND_END_POINT}/user/register-user`;
     try {
       const response = await axios({
         method: 'POST',

@@ -15,7 +15,7 @@ export const getFavourites = (user_id: string, token: string) => async (
   dispatch: Dispatch
 ) => {
   dispatch({ type: FAVOURITE_REQUEST_INIT });
-  const url = `${process.env.REACT_APP_NGO_BACKEND_END_POINT}/favourite/get`;
+  const url = `${process.env.REACT_APP_ZEZEN_BACKEND_END_POINT}/favourite/get`;
 
   try {
     const response = await axios({

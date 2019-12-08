@@ -150,7 +150,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
   };
 
   const handleUserLogin = async () => {
-    const baseURL = `${process.env.REACT_APP_NGO_BACKEND_END_POINT}/user/login`;
+    const baseURL = `${process.env.REACT_APP_ZEZEN_BACKEND_END_POINT}/user/login`;
     try {
       const response = await axios({
         method: 'POST',

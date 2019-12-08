@@ -1,4 +1,4 @@
-### NGO - simple movie catalog   
+### ZEZEN - simple movie catalog   
 -------------------------
 TODO:
  - [ ] Make the app responsive
