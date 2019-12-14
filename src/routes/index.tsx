@@ -1,8 +1,7 @@
 import React from 'react';
 import { Router, Switch, Route, Redirect } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
-import { Search as SearchComponent } from 'components';
-import { Sidebar } from 'components';
+import { Sidebar, Search as SearchComponent } from 'components';
 import Home from './home/Home';
 import Movies from './movies/Movies';
 import MovieItem from './movies/MovieItem';
@@ -15,6 +14,7 @@ import PageNotFound from './404/404';
 import Register from './register/Register';
 import Login from './login/Login';
 import Logout from './logout/Logout';
+import Profile from './profile/Profile';
 import Favourites from './favourite/Favourites';
 
 const MainContainer = styled.div`
@@ -68,6 +68,11 @@ const RootRouter: React.FC = () => {
               exact
               path={process.env.PUBLIC_URL + '/favourites'}
               component={Favourites}
+            />
+            <Route
+              exact
+              path={process.env.PUBLIC_URL + '/profile'}
+              component={Profile}
             />
             <Route
               exact
